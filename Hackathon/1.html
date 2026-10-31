@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-lowest": "#070b19",
+          "surface-container-low": "#0b1124",
+          "surface-container": "#0f172a",
+          "surface-container-high": "#16223d",
+          "surface-container-highest": "#1e2f52",
+          "surface": "#080d1e",
+          "background": "#070b19",
+          "primary": "#38bdf8",
+          "primary-container": "#0284c7",
+          "on-primary": "#031525",
+          "on-primary-container": "#e0f2fe",
+          "secondary": "#818cf8",
+          "secondary-container": "#1e1b4b",
+          "on-secondary": "#ffffff",
+          "on-secondary-container": "#c7d2fe",
+          "on-surface": "#f1f5f9",
+          "on-surface-variant": "#94a3b8",
+          "outline": "#334155",
+          "outline-variant": "#1e293b",
+          "error": "#f87171",
+          "error-container": "rgba(239, 68, 68, 0.15)",
+          "on-error": "#ffffff",
+          "on-error-container": "#fca5a5"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.75rem",
+          "lg": "1rem",
+          "xl": "1.25rem",
+          "full": "9999px"
+        },
+        "fontFamily": {
+          "sans": ["Inter", "sans-serif"]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-[#070B19] font-sans text-slate-200 antialiased selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen relative overflow-x-hidden">
+<!-- Ambient Top Glowing Arch inspired by Neone -->
+<div class="fixed top-0 left-72 right-0 h-[420px] pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-[240px] left-1/2 -translate-x-1/2 w-[850px] h-[450px] rounded-[100%] bg-gradient-to-b from-cyan-400/25 via-blue-600/15 to-transparent blur-[70px]"></div>
+<div class="absolute -top-[160px] left-1/2 -translate-x-1/2 w-[600px] h-[220px] rounded-[100%] border-t-2 border-cyan-400/50 shadow-[0_0_80px_rgba(56,189,248,0.45)]"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent"></div>
+</div>
+<!-- Left Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-[#090E20]/90 backdrop-blur-2xl border-r border-slate-800/80 shadow-[4px_0_30px_rgba(0,0,0,0.5)] z-50 flex flex-col justify-between">
+<div class="flex flex-col flex-1 overflow-y-auto px-4 py-5">
+<div class="flex items-center justify-between px-2 mb-6">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 p-[1px] shadow-[0_0_15px_rgba(56,189,248,0.45)]">
+<div class="w-full h-full bg-[#080d1e] rounded-[11px] flex items-center justify-center text-cyan-400 font-bold text-base">
+            ✦
+          </div>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-base text-white tracking-tight flex items-center gap-1.5">Brightloop</span>
+<span class="text-[11px] text-slate-400 font-medium tracking-wide">SaaS Revenue Suite</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] uppercase tracking-wider font-semibold shadow-[0_0_10px_rgba(56,189,248,0.15)]">Admin</span>
+</div>
+<!-- Quick Search -->
+<div class="px-2 mb-5">
+<button class="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:border-cyan-500/40 hover:text-slate-200 transition-all shadow-inner">
+<div class="flex items-center gap-2 text-xs">
+<span class="material-symbols-outlined text-[17px] text-cyan-400">search</span>
+<span>Quick search...</span>
+</div>
+<kbd class="px-1.5 py-0.5 rounded bg-slate-800/90 text-[10px] text-slate-400 font-mono border border-slate-700/60">⌘K</kbd>
+</button>
+</div>
+<!-- Navigation List -->
+<nav class="flex flex-col gap-1 text-[13px]">
+<div class="px-2 pt-1 pb-1.5">
+<span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Administration</span>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-overview" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-users" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">group</span>
+<span>Users &amp; Access</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-products" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-subscription-plans" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">loyalty</span>
+<span>Subscription Plans</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-quotations" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">request_quote</span>
+<span>Quotations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-invoices-and-billing" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">receipt_long</span>
+<span>Invoices &amp; Billing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-payments" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">payments</span>
+<span>Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-analytics" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">query_stats</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="admin-settings" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">tune</span>
+<span>Settings</span>
+</a>
+<div class="px-2 pt-4 pb-1.5">
+<span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Operations</span>
+</div>
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-white font-medium shadow-[0_0_15px_rgba(56,189,248,0.2)] transition-all" data-path="staff-operations-hub" href="#">
+<span class="material-symbols-outlined text-[19px] text-cyan-400">hub</span>
+<span>Operations Hub</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="staff-customers" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">person_search</span>
+<span>Staff Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="staff-activity" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">history</span>
+<span>Activity Logs</span>
+</a>
+<div class="px-2 pt-4 pb-1.5">
+<span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Customer Portal</span>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all group" data-path="customer-overview" href="#">
+<span class="material-symbols-outlined text-[19px] text-slate-400 group-hover:text-cyan-400 transition-colors">account_box</span>
+<span>Client Portal</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer User Profile -->
+<div class="p-3 mx-3 mb-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-bold text-xs ring-2 ring-cyan-400/40">
+        SJ
+      </div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-semibold text-white truncate">Sarah Jenkins</span>
+<span class="text-[11px] text-slate-400 truncate">sarah@brightloop.io</span>
+</div>
+</div>
+<button class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<div class="pl-72 relative z-10">
+<!-- Top Header Bar -->
+<header class="fixed top-0 left-72 right-0 h-16 bg-[#070b19]/80 backdrop-blur-xl border-b border-slate-800/80 z-40 flex items-center justify-between px-6">
+<div class="flex items-center gap-2 text-slate-400 text-xs">
+<span class="hover:text-slate-200 cursor-pointer transition-colors">Brightloop</span>
+<span class="material-symbols-outlined text-[14px] text-slate-600">chevron_right</span>
+<span class="text-cyan-300 font-medium">Workspace</span>
+</div>
+<div class="flex items-center gap-3.5">
+<div class="hidden md:flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl shadow-inner">
+<span class="material-symbols-outlined text-slate-400 text-[17px]">search</span>
+<input class="bg-transparent border-0 outline-none text-white placeholder:text-slate-500 text-xs w-64 focus:ring-0" placeholder="Search subscriptions, invoices, customers..." type="text"/>
+</div>
+<div class="flex items-center gap-1.5 bg-slate-900/90 border border-cyan-500/20 px-3 py-1 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-cyan-400">badge</span>
+<span class="text-xs text-slate-200 font-medium">Role: Administrator</span>
+</div>
+<button class="relative p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/70 border border-transparent hover:border-slate-700/60 transition-all">
+<span class="material-symbols-outlined text-[19px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+</button>
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 p-[1.5px] cursor-pointer shadow-[0_0_10px_rgba(56,189,248,0.3)]">
+<div class="w-full h-full bg-[#090e20] rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-cyan-300 text-[17px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main View -->
+<main class="w-full pt-16 px-6">
+<div class="flex flex-col w-full pb-14">
+<div class="flex flex-col gap-6 w-full pt-4">
+<!-- Operational Shift Banner -->
+<div class="relative bg-gradient-to-r from-slate-900/90 via-[#0b1329]/95 to-slate-900/90 border border-cyan-500/25 rounded-2xl p-5 shadow-[0_0_35px_rgba(56,189,248,0.08)] backdrop-blur-xl flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-3">
+<span class="relative flex h-3.5 w-3.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyan-400 shadow-[0_0_10px_#38bdf8]"></span>
+</span>
+<div>
+<div class="flex items-center gap-2.5">
+<span class="font-bold text-white text-base tracking-tight">Shift Active • Sarah Jenkins</span>
+<span class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] px-2.5 py-0.5 rounded-full font-medium shadow-[0_0_8px_rgba(56,189,248,0.2)]">Enterprise Ops Tier 2</span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Desk ID: OP-BOS-402 • Active Workstation Sync: Latency 14ms</p>
+</div>
+</div>
+<div class="hidden sm:flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3.5 py-1.5 rounded-xl">
+<span class="material-symbols-outlined text-cyan-400 text-[18px]">schedule</span>
+<span class="text-xs text-slate-300">Shift Handover in <strong class="text-cyan-300 font-semibold">03h 42m</strong> (17:00 EST)</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2.5">
+<button class="flex items-center gap-1.5 bg-cyan-400 text-slate-950 px-4 py-2 rounded-xl text-xs font-semibold shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:bg-cyan-300 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] transition-all" id="btnCreateQuote">
+<span class="material-symbols-outlined text-[17px]">note_add</span>
+<span>Create Quotation</span>
+</button>
+<button class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700/80 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-medium hover:border-cyan-500/40 hover:text-white transition-all" onclick="recordPaymentModal()">
+<span class="material-symbols-outlined text-[17px] text-cyan-400">payments</span>
+<span>Record Manual Payment</span>
+</button>
+<button class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700/80 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-medium hover:border-cyan-500/40 hover:text-white transition-all" onclick="registerCustomerPrompt()">
+<span class="material-symbols-outlined text-[17px] text-cyan-400">person_add</span>
+<span>Register Client</span>
+</button>
+</div>
+</div>
+<!-- Daily Operational KPIs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-[#0b1226]/80 border border-cyan-500/20 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-xl flex flex-col justify-between hover:border-cyan-500/40 transition-all group">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Assigned Accounts</span>
+<div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">corporate_fare</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="text-3xl font-extrabold text-white tracking-tight">64</div>
+<span class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] px-2.5 py-0.5 rounded-full font-semibold">+3 this week</span>
+</div>
+<p class="text-xs text-slate-400 mt-2 flex items-center gap-1.5">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"></span>
+              All portfolios in normal SLA status
+            </p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-[#0b1226]/80 border border-blue-500/20 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-xl flex flex-col justify-between hover:border-blue-500/40 transition-all group">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Awaiting Dispatch</span>
+<div class="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:shadow-[0_0_12px_rgba(96,165,250,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">outbox</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="text-3xl font-extrabold text-white tracking-tight">5 <span class="text-xs text-slate-400 font-normal">quotes</span></div>
+<span class="bg-blue-500/10 border border-blue-500/30 text-blue-300 text-[11px] px-2.5 py-0.5 rounded-full font-semibold">Pending Review</span>
+</div>
+<p class="text-xs text-slate-400 mt-2">
+              Est. Pipeline Value: <strong class="text-white font-semibold">$38,600/yr</strong>
+</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-[#0b1226]/80 border border-red-500/20 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-xl flex flex-col justify-between hover:border-red-500/40 transition-all group">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Unpaid &amp; Due Invoices</span>
+<div class="w-8 h-8 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 group-hover:shadow-[0_0_12px_rgba(248,113,113,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">pending_actions</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="text-3xl font-extrabold text-red-400 tracking-tight">9 <span class="text-xs text-slate-400 font-normal">accounts</span></div>
+<span class="bg-red-500/10 border border-red-500/30 text-red-300 text-[11px] px-2.5 py-0.5 rounded-full font-semibold">$18,450.00</span>
+</div>
+<p class="text-xs text-slate-400 mt-2">
+              Requires telephone or 2nd notice dispatch
+            </p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-[#0b1226]/80 border border-cyan-500/20 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.35)] backdrop-blur-xl flex flex-col justify-between hover:border-cyan-500/40 transition-all group">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Contract Renewals</span>
+<div class="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:shadow-[0_0_12px_rgba(129,140,248,0.3)] transition-all">
+<span class="material-symbols-outlined text-[19px]">autorenew</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="text-3xl font-extrabold text-white tracking-tight">12</div>
+<span class="bg-slate-800/80 border border-slate-700 text-slate-300 text-[11px] px-2.5 py-0.5 rounded-full font-semibold">Next 14 Days</span>
+</div>
+<p class="text-xs text-slate-400 mt-2">
+              $142.8k ARR baseline renewal impact
+            </p>
+</div>
+</div>
+<!-- Main Two-Column Workstation Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<!-- Left Column: Operations Queue & Pipeline (7 cols) -->
+<div class="xl:col-span-7 flex flex-col gap-6">
+<!-- Urgent Action Queue Data Table -->
+<div class="bg-[#0b1226]/80 border border-slate-800/90 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-xl overflow-hidden flex flex-col">
+<div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80">
+<div>
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-red-400 shadow-[0_0_8px_#f87171] animate-pulse"></span>
+<h2 class="font-bold text-base text-white">Urgent Operational Action Queue</h2>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Immediate follow-ups prioritized by customer contract value and billing SLA</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[11px] font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.15)]">4 items pending</span>
+</div>
+</div>
+<!-- Queue Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="bg-slate-900/90 text-slate-400 text-[11px] font-semibold uppercase tracking-wider border-b border-slate-800">
+<th class="py-3 px-4">Client &amp; Reference</th>
+<th class="py-3 px-3">Type &amp; Value</th>
+<th class="py-3 px-3">Queue Condition</th>
+<th class="py-3 px-4 text-right">Quick Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800/80 text-slate-200">
+<!-- Item 1: Nexus -->
+<tr class="hover:bg-slate-800/40 transition-colors" id="row-nexus">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center font-bold text-cyan-300 text-xs">NT</div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-white truncate text-xs">Nexus Technologies</span>
+<span class="text-[11px] text-slate-400">Quote #QT-2024-88</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-bold text-white">$8,400.00<span class="text-[10px] text-slate-400 font-normal">/yr</span></span>
+<span class="text-[11px] text-cyan-400">Enterprise Pro</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"></span>
+                          Ready to Send
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-xl bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.35)] flex items-center gap-1 transition-all" onclick="performAction('Dispatching Email to Nexus Tech...', 'row-nexus')">
+<span class="material-symbols-outlined text-[15px]">send</span>
+<span>Send</span>
+</button>
+<button class="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" onclick="reviewDraft('Nexus Technologies', '#QT-2024-88', 8400)" title="Review Draft">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2: CloudVibe Inc -->
+<tr class="hover:bg-slate-800/40 transition-colors" id="row-cloudvibe">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center font-bold text-red-400 text-xs">CV</div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-white truncate text-xs">CloudVibe Inc</span>
+<span class="text-[11px] text-slate-400">Invoice #INV-9041</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-bold text-red-400">$1,250.00</span>
+<span class="text-[11px] text-slate-400">Monthly Recurring</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-red-500/10 border border-red-500/30 text-red-300">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+                          3d Past Due
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-medium hover:border-red-500/40 hover:text-white flex items-center gap-1 transition-all" onclick="performAction('Sending 2nd Dunning Notice to CloudVibe...', 'row-cloudvibe')">
+<span class="material-symbols-outlined text-[15px] text-red-400">mark_email_unread</span>
+<span>2nd Notice</span>
+</button>
+<button class="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" onclick="logCall('CloudVibe Billing Contact (+1 415-555-0199)')" title="Call Client">
+<span class="material-symbols-outlined text-[17px]">phone</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3: Apex Digital -->
+<tr class="hover:bg-slate-800/40 transition-colors" id="row-apex">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-300 text-xs">AD</div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-white truncate text-xs">Apex Digital</span>
+<span class="text-[11px] text-slate-400">Draft #QT-2024-85</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-bold text-white">$4,200.00<span class="text-[10px] text-slate-400 font-normal">/yr</span></span>
+<span class="text-[11px] text-slate-400">Team Growth</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-800 border border-slate-700 text-slate-300">
+                          Discount Approval (15%)
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-medium hover:border-cyan-500/40 hover:text-white flex items-center gap-1 transition-all" onclick="reviewDraft('Apex Digital', '#QT-2024-85', 4200)">
+<span class="material-symbols-outlined text-[15px] text-cyan-400">edit_note</span>
+<span>Review</span>
+</button>
+<button class="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" onclick="performAction('Apex Discount Signed Off by Staff', 'row-apex')" title="Mark Approved">
+<span class="material-symbols-outlined text-[17px] text-cyan-400">check_circle</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4: Vertex Systems -->
+<tr class="hover:bg-slate-800/40 transition-colors" id="row-vertex">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center font-bold text-indigo-300 text-xs">VS</div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-white truncate text-xs">Vertex Systems</span>
+<span class="text-[11px] text-slate-400">Invoice #INV-9012</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-bold text-white">$5,800.00</span>
+<span class="text-[11px] text-slate-400">Hardware &amp; Seats</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-900 border border-slate-800 text-slate-400">
+                          Pending PO Confirmation
+                        </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-medium hover:border-cyan-500/40 hover:text-white flex items-center gap-1 transition-all" onclick="logCall('Vertex Systems Procurement (+1 212-555-0811)')">
+<span class="material-symbols-outlined text-[15px] text-cyan-400">call</span>
+<span>Call</span>
+</button>
+<button class="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" onclick="performAction('Vertex PO Received and Marked Resolved', 'row-vertex')" title="Resolve">
+<span class="material-symbols-outlined text-[17px] text-cyan-400">done_all</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 bg-slate-900/60 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+<span>Showing top 4 urgent records (auto-refreshed 2m ago)</span>
+<a class="text-cyan-400 font-medium hover:text-cyan-300 hover:underline flex items-center gap-1" href="#">
+<span>View full 19 ticket queue</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Quotation Pipeline & Activity Breakdown -->
+<div class="bg-[#0b1226]/80 border border-slate-800/90 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-bold text-base text-white">Active Quotation Dispatch Pipeline</h3>
+<p class="text-xs text-slate-400">Monthly pipeline velocity across 27 commercial proposals</p>
+</div>
+<span class="text-[11px] font-semibold bg-slate-900 border border-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full">Target SLA: 94.2%</span>
+</div>
+<!-- Pipeline Progress Track -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+<div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+<span class="font-medium">Draft</span>
+<span class="font-semibold text-slate-300">11%</span>
+</div>
+<div class="text-2xl font-bold text-white">3</div>
+<span class="text-[11px] text-slate-400 mt-1">$14,800 total</span>
+<div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-indigo-400 h-full rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+<span class="font-medium">Sent • Review</span>
+<span class="font-semibold text-cyan-400">30%</span>
+</div>
+<div class="text-2xl font-bold text-cyan-300">8</div>
+<span class="text-[11px] text-slate-400 mt-1">$42,300 total</span>
+<div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-cyan-400 h-full rounded-full shadow-[0_0_8px_#38bdf8]" style="width: 58%"></div>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+<span class="font-medium">Accepted</span>
+<span class="font-semibold text-white">52%</span>
+</div>
+<div class="text-2xl font-bold text-white">14</div>
+<span class="text-[11px] text-slate-400 mt-1">$98,400 won</span>
+<div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-blue-500 h-full rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+<div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+<span class="font-medium">Expired</span>
+<span class="font-semibold text-red-400">7%</span>
+</div>
+<div class="text-2xl font-bold text-red-400">2</div>
+<span class="text-[11px] text-slate-400 mt-1">$6,100 drop</span>
+<div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-red-400 h-full rounded-full" style="width: 14%"></div>
+</div>
+</div>
+</div>
+<!-- Inline Visual Bar Ratio -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span>Pipeline Stage Distribution</span>
+<span>Conversion Velocity: 3.4 days avg</span>
+</div>
+<div class="w-full h-2.5 rounded-full overflow-hidden flex bg-slate-800">
+<div class="h-full bg-indigo-400" style="width: 11%;" title="Draft (3)"></div>
+<div class="h-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" style="width: 30%;" title="Sent / Review (8)"></div>
+<div class="h-full bg-blue-500" style="width: 52%;" title="Accepted (14)"></div>
+<div class="h-full bg-red-400" style="width: 7%;" title="Expired (2)"></div>
+</div>
+</div>
+</div>
+<!-- Assigned Operations Context Info -->
+<div class="bg-slate-900/70 border border-slate-800/80 rounded-2xl p-4 flex items-center justify-between text-xs text-slate-300 backdrop-blur-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-cyan-400 text-[22px]">verified_user</span>
+<div>
+<span class="font-semibold text-white">Auto-escalation Policy:</span>
+<span>Past-due accounts exceeding $5,000 threshold are assigned direct telephony priority automatically.</span>
+</div>
+</div>
+<button class="text-cyan-400 hover:text-cyan-300 font-medium hover:underline shrink-0 ml-2" onclick="toastNotice('Policy documentation opened')">Review SLA Guide</button>
+</div>
+</div>
+<!-- Right Column: Quick Quotation Builder & Live Event Stream (5 cols) -->
+<div class="xl:col-span-5 flex flex-col gap-6">
+<!-- Interactive Quick Quotation Builder Card -->
+<div class="bg-[#0b1226]/80 border border-cyan-500/25 rounded-2xl p-5 shadow-[0_0_30px_rgba(56,189,248,0.06)] backdrop-blur-xl flex flex-col">
+<div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shadow-[0_0_10px_rgba(56,189,248,0.2)]">
+<span class="material-symbols-outlined text-[17px]">draw</span>
+</span>
+<div>
+<h3 class="font-bold text-base text-white">Quick Quotation Builder</h3>
+<span class="text-[11px] text-slate-400">Draft &amp; dispatch on the fly</span>
+</div>
+</div>
+<span class="text-[11px] font-semibold bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 px-2.5 py-0.5 rounded-full">Auto-Calc</span>
+</div>
+<form class="flex flex-col gap-4 mt-4" id="quoteBuilderForm" onsubmit="event.preventDefault(); dispatchQuote();">
+<!-- Customer Selector -->
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Target Account</label>
+<div class="relative">
+<select class="w-full h-10 px-3 pr-8 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 appearance-none cursor-pointer" id="quoteClient">
+<option value="Nexus Technologies (NT-102)">Nexus Technologies (NT-102)</option>
+<option value="Apex Digital (AD-884)">Apex Digital (AD-884)</option>
+<option value="Helios Cloud Labs (HC-339)">Helios Cloud Labs (HC-339)</option>
+<option value="Spectra AI Systems (SA-901)">Spectra AI Systems (SA-901)</option>
+<option value="Vanguard Analytics (VA-412)">Vanguard Analytics (VA-412)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-slate-400 text-[18px]">arrow_drop_down</span>
+</div>
+</div>
+<!-- Tier / Plan Selection -->
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Subscription Plan</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="plan" onchange="calculateQuote()" type="radio" value="standard"/>
+<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 peer-checked:border-cyan-400 peer-checked:bg-cyan-500/10 peer-checked:text-cyan-300 text-slate-300 text-center transition-all">
+<div class="text-xs font-bold">Standard</div>
+<div class="text-[10px] text-slate-400 mt-0.5">$49/seat</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="plan" onchange="calculateQuote()" type="radio" value="pro"/>
+<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 peer-checked:border-cyan-400 peer-checked:bg-cyan-500/10 peer-checked:text-cyan-300 text-slate-300 text-center transition-all shadow-[0_0_12px_rgba(56,189,248,0.15)]">
+<div class="text-xs font-bold">Enterprise</div>
+<div class="text-[10px] text-slate-400 mt-0.5">$89/seat</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="plan" onchange="calculateQuote()" type="radio" value="dedicated"/>
+<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 peer-checked:border-cyan-400 peer-checked:bg-cyan-500/10 peer-checked:text-cyan-300 text-slate-300 text-center transition-all">
+<div class="text-xs font-bold">Ultra SLA</div>
+<div class="text-[10px] text-slate-400 mt-0.5">$149/seat</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Seat Slider -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="text-xs font-semibold text-slate-300">Allocated Seats</label>
+<span class="text-xs font-bold text-cyan-300" id="seatCountBadge">12 seats</span>
+</div>
+<input class="w-full accent-cyan-400 cursor-pointer h-1.5 bg-slate-800 rounded-lg appearance-none" id="seatSlider" max="100" min="1" oninput="updateSeats(this.value)" type="range" value="12"/>
+<div class="flex justify-between text-[10px] text-slate-400 mt-1">
+<span>1 seat</span>
+<span>50 seats</span>
+<span>100 seats</span>
+</div>
+</div>
+<!-- Setup Fee & Term -->
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Onboarding Fee ($)</label>
+<input class="w-full h-10 px-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-cyan-500/60" id="setupFeeInput" min="0" oninput="calculateQuote()" step="50" type="number" value="750"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Contract Cycle</label>
+<select class="w-full h-10 px-3 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs outline-none focus:border-cyan-500/60" id="billingCycle" onchange="calculateQuote()">
+<option selected="" value="12">Annual (12 Mo)</option>
+<option value="24">Multi-yr (24 Mo)</option>
+<option value="1">Quarterly Rolling</option>
+</select>
+</div>
+</div>
+<!-- Total Valuation Box -->
+<div class="p-4 rounded-xl bg-gradient-to-br from-slate-900/90 to-[#0c152e] border border-cyan-500/20 flex items-center justify-between shadow-inner">
+<div>
+<span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Estimated Value</span>
+<div class="flex items-baseline gap-1.5 mt-0.5">
+<span class="text-2xl font-black text-white" id="calculatedTotal">$13,566.00</span>
+<span class="text-[11px] text-slate-400 font-medium" id="calculatedCycleTag">/ 1st yr</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-[11px] text-slate-400 block">Discount: 0%</span>
+<span class="text-xs text-cyan-300 font-semibold">SLA: Tier 2 Priority</span>
+</div>
+</div>
+<!-- Action buttons -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 h-10 bg-cyan-400 text-slate-950 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-cyan-300 shadow-[0_0_20px_rgba(56,189,248,0.35)] transition-all" type="submit">
+<span class="material-symbols-outlined text-[17px]">picture_as_pdf</span>
+<span>Generate PDF Quote</span>
+</button>
+<button class="h-10 px-3.5 bg-slate-800/90 border border-slate-700 text-slate-200 rounded-xl text-xs font-medium hover:border-slate-600 hover:text-white transition-all" onclick="saveDraftNotification()" title="Save as internal draft" type="button">
+                    Save Draft
+                  </button>
+</div>
+</form>
+</div>
+<!-- Live Operational Event Stream -->
+<div class="bg-[#0b1226]/80 border border-slate-800/90 rounded-2xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-xl flex flex-col">
+<div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-cyan-400 text-[19px]">rss_feed</span>
+<h3 class="font-bold text-base text-white">Live Operational Stream</h3>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8] animate-ping"></span>
+<span class="text-[11px] text-cyan-300 font-medium">Real-time</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 max-h-[380px] overflow-y-auto pr-1 mt-3" id="activityStream">
+<!-- Event 1 -->
+<div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-start gap-3 hover:border-cyan-500/30 transition-all">
+<div class="w-7 h-7 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-semibold text-white text-xs truncate">Nova Bio Labs</span>
+<span class="text-[10px] text-cyan-400 font-medium shrink-0">Just now</span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Signed Quote <strong class="text-slate-200">#QT-2024-81</strong> via customer portal. Invoice auto-queued.</p>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-start gap-3 hover:border-indigo-500/30 transition-all">
+<div class="w-7 h-7 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">receipt</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-semibold text-white text-xs truncate">TechWave Corp</span>
+<span class="text-[10px] text-slate-500 shrink-0">14m ago</span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Stripe ACH receipt dispatched for <strong class="text-slate-200">$2,500.00</strong> (Recurrent term).</p>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-start gap-3 hover:border-slate-700 transition-all">
+<div class="w-7 h-7 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-semibold text-white text-xs truncate">CloudVibe Inc</span>
+<span class="text-[10px] text-slate-500 shrink-0">31m ago</span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Client opened Invoice #INV-9041 reminder via email client (San Francisco, CA IP).</p>
+</div>
+</div>
+<!-- Event 4 -->
+<div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-start gap-3 hover:border-slate-700 transition-all">
+<div class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-semibold text-white text-xs truncate">Staff: Mark Davies</span>
+<span class="text-[10px] text-slate-500 shrink-0">1h ago</span>
+</div>
+<p class="text-xs text-slate-400 mt-0.5">Applied promo code <code class="bg-cyan-500/10 border border-cyan-500/20 px-1 py-0.5 rounded text-cyan-300 text-[10px]">SUMMER20</code> on Quotation #QT-2024-79.</p>
+</div>
+</div>
+</div>
+<div class="pt-3 mt-1 flex justify-center border-t border-slate-800/80">
+<button class="text-xs text-slate-400 hover:text-cyan-300 flex items-center gap-1 transition-colors" onclick="toastNotice('Stream synchronized with Kafka ingest')">
+<span class="material-symbols-outlined text-[15px]">refresh</span>
+<span>Sync Activity Log</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Toast Container -->
+<div class="fixed bottom-6 right-6 bg-slate-900/95 border border-cyan-500/30 text-white px-4 py-3 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] text-xs flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4 z-50 backdrop-blur-xl" id="toastNotification">
+<span class="material-symbols-outlined text-[18px] text-cyan-400 shadow-[0_0_10px_#38bdf8]">task_alt</span>
+<span id="toastMessage">Action completed successfully</span>
+</div>
+</div>
+<script>
+      // Dynamic Quote Calculations
+      function updateSeats(val) {
+        document.getElementById('seatCountBadge').innerText = val + ' seats';
+        calculateQuote();
+      }
+
+      function calculateQuote() {
+        const seatVal = parseInt(document.getElementById('seatSlider').value, 10);
+        const planRadios = document.getElementsByName('plan');
+        let rate = 89;
+        for (let r of planRadios) {
+          if (r.checked) {
+            if (r.value === 'standard') rate = 49;
+            if (r.value === 'pro') rate = 89;
+            if (r.value === 'dedicated') rate = 149;
+          }
+        }
+
+        const setupFee = parseFloat(document.getElementById('setupFeeInput').value) || 0;
+        const months = parseInt(document.getElementById('billingCycle').value, 10);
+        
+        // (Seats * rate * months) + setup fee
+        const total = (seatVal * rate * months) + setupFee;
+        
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2
+        });
+
+        document.getElementById('calculatedTotal').innerText = formatter.format(total);
+        
+        let cycleLabel = '/ 1st yr';
+        if (months === 24) cycleLabel = '/ 2 yrs';
+        if (months === 1) cycleLabel = '/ quarterly';
+        document.getElementById('calculatedCycleTag').innerText = cycleLabel;
+      }
+
+      function dispatchQuote() {
+        const client = document.getElementById('quoteClient').value;
+        const total = document.getElementById('calculatedTotal').innerText;
+        toastNotice(`PDF Quotation for ${client} (${total}) generated and dispatched.`);
+        
+        // Add to activity stream
+        const stream = document.getElementById('activityStream');
+        const newEvent = document.createElement('div');
+        newEvent.className = "p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/40 flex items-start gap-3 transition-all animate-pulse";
+        newEvent.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-cyan-400 text-slate-950 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_#38bdf8]">
+            <span class="material-symbols-outlined text-[14px]">send</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <span class="font-semibold text-white text-xs truncate">${client.split('(')[0]}</span>
+              <span class="text-[10px] text-cyan-300 font-semibold shrink-0">Now</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">Dispatched official proposal: <strong class="text-white">${total}</strong>.</p>
+          </div>
+        `;
+        stream.prepend(newEvent);
+        setTimeout(() => newEvent.classList.remove('animate-pulse'), 2000);
+      }
+
+      function saveDraftNotification() {
+        toastNotice('Quotation parameters saved as Workstation Draft #D-092');
+      }
+
+      function performAction(msg, rowId) {
+        toastNotice(msg);
+        if (rowId) {
+          const el = document.getElementById(rowId);
+          if (el) {
+            el.classList.add('opacity-30');
+          }
+        }
+      }
+
+      function logCall(target) {
+        toastNotice(`VoIP Gateway connected: Dialing ${target}`);
+      }
+
+      function reviewDraft(client, quoteId, value) {
+        toastNotice(`Draft Review Modal: ${quoteId} (${client} - $${value.toLocaleString()}) loaded.`);
+      }
+
+      function recordPaymentModal() {
+        toastNotice('Manual Payment terminal ready: Select account invoice.');
+      }
+
+      function registerCustomerPrompt() {
+        toastNotice('Registration portal wizard launched.');
+      }
+
+      function toastNotice(msg) {
+        const toast = document.getElementById('toastNotification');
+        const text = document.getElementById('toastMessage');
+        text.innerText = msg;
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 3600);
+      }
+
+      // Quick button listener
+      document.getElementById('btnCreateQuote').addEventListener('click', () => {
+        document.getElementById('quoteClient').focus();
+        toastNotice('Quotation Builder focused for new proposal');
+      });
+
+      // Init calculation
+      calculateQuote();
+    </script>
+</main>
+</div>
+</body></html>

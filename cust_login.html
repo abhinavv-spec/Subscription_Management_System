@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_blank" name="shell-type">
+  <title>Brightloop - Customer Workspace Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#00354a",
+            "on-background": "#dfe1f4",
+            "inverse-surface": "#dfe1f4",
+            "surface-bright": "#353947",
+            "tertiary": "#afcfff",
+            "background": "#0f131f",
+            "on-secondary": "#131e8c",
+            "tertiary-container": "#7bb4ff",
+            "on-secondary-fixed-variant": "#2f3aa3",
+            "secondary-fixed-dim": "#bdc2ff",
+            "surface-container-highest": "#313442",
+            "primary-fixed-dim": "#7bd0ff",
+            "on-error": "#690005",
+            "secondary-fixed": "#e0e0ff",
+            "surface-container": "#1b1f2c",
+            "primary-fixed": "#c4e7ff",
+            "on-tertiary-container": "#00457e",
+            "primary-container": "#38bdf8",
+            "surface-dim": "#0f131f",
+            "surface-container-lowest": "#0a0e1a",
+            "on-tertiary-fixed": "#001c39",
+            "tertiary-fixed": "#d4e3ff",
+            "tertiary-fixed-dim": "#a4c9ff",
+            "on-secondary-container": "#a8afff",
+            "error": "#ffb4ab",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed": "#000767",
+            "outline-variant": "#3e484f",
+            "on-surface": "#dfe1f4",
+            "on-surface-variant": "#bdc8d1",
+            "on-tertiary-fixed-variant": "#004883",
+            "on-primary-fixed": "#001e2c",
+            "on-primary-fixed-variant": "#004c69",
+            "inverse-on-surface": "#2c303e",
+            "primary": "#8ed5ff",
+            "secondary-container": "#2f3aa3",
+            "inverse-primary": "#00668a",
+            "surface-container-high": "#262937",
+            "surface-container-low": "#171b28",
+            "surface": "#0f131f",
+            "on-tertiary": "#00315d",
+            "secondary": "#bdc2ff",
+            "error-container": "#93000a",
+            "on-primary-container": "#004965",
+            "outline": "#87929a",
+            "surface-tint": "#7bd0ff",
+            "surface-variant": "#313442"
+          },
+          borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+          spacing: { "space-xl": "2.5rem", "gutter": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter-mobile": "0.75rem", "margin": "3rem", "space-lg": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem" },
+          fontFamily: {
+            "label-sm": ["Inter"], "body-lg": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"],
+            "body-md": ["Inter"], "display-hero-mobile": ["Inter"], "headline-lg": ["Inter"],
+            "body-sm": ["Inter"], "headline-sm": ["Inter"], "headline-lg-mobile": ["Inter"],
+            "headline-md": ["Inter"], "display-hero": ["Inter"]
+          },
+          fontSize: {
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="min-h-screen bg-surface-container-lowest font-body-md text-body-md text-on-surface flex flex-col justify-between relative selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Background Glow & Horizons -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-96 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[360px] rounded-full bg-primary-container/15 blur-[110px]"></div>
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[180px] rounded-full bg-primary/20 blur-[60px]"></div>
+    <svg class="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-48 opacity-40" fill="none" viewBox="0 0 1400 192" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 12C350 90 1050 90 1400 12" stroke="url(#horizon-gradient)" stroke-width="1.5"></path>
+      <defs>
+        <linearGradient gradientUnits="userSpaceOnUse" id="horizon-gradient" x1="0" x2="1400" y1="0" y2="0">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"></stop>
+          <stop offset="50%" stop-color="#8ed5ff" stop-opacity="0.9"></stop>
+          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Header with Portal Navigation -->
+  <header class="relative z-20 w-full pt-space-lg px-gutter max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-md">
+    <div class="flex items-center gap-space-md">
+      <a href="user.html" class="flex items-center gap-space-sm group">
+        <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.35)] group-hover:scale-105 transition-transform">
+          <span class="material-symbols-outlined text-primary text-[20px]">all_inclusive</span>
+        </div>
+        <span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-semibold">Brightloop</span>
+      </a>
+    </div>
+
+    <!-- Portal Switcher Links -->
+    <div class="flex items-center gap-2">
+      <a href="user.html" class="px-3.5 py-1.5 rounded-full bg-surface-container/60 hover:bg-surface-container text-on-surface-variant hover:text-on-surface text-xs font-semibold transition-all flex items-center gap-1.5 border border-primary/20 hover:border-primary/40">
+        <span class="material-symbols-outlined text-[16px] text-primary">storefront</span>
+        <span>Browse Products</span>
+      </a>
+      <a href="staff_login.html" class="px-3 py-1.5 rounded-full bg-surface-container/40 hover:bg-surface-container text-on-surface-variant hover:text-on-surface text-xs font-medium transition-colors flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-primary">badge</span>
+        <span>Staff Login</span>
+      </a>
+      <a href="admin_login.html" class="px-3 py-1.5 rounded-full bg-surface-container/40 hover:bg-surface-container text-on-surface-variant hover:text-on-surface text-xs font-medium transition-colors flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-primary">shield_person</span>
+        <span>Admin Console</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Login Card Area -->
+  <main class="relative z-10 w-full flex-1 flex flex-col justify-center items-center py-space-xl px-gutter">
+    <div class="flex flex-col w-full relative items-center justify-center">
+
+      <!-- Celestial Arc & Ambient Horizon Dome Light Effect -->
+      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-full max-w-5xl h-72 pointer-events-none overflow-hidden select-none z-0">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[840px] h-[340px] rounded-[100%] bg-primary-container/20 blur-[100px]"></div>
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[540px] h-[160px] rounded-[100%] bg-primary/25 blur-[50px]"></div>
+        <svg class="absolute top-4 left-1/2 -translate-x-1/2 w-[980px] h-48 opacity-75" fill="none" viewBox="0 0 980 190" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 170C250 20 730 20 970 170" stroke="url(#arc-glow-grad)" stroke-linecap="round" stroke-width="2.5"></path>
+          <path d="M10 170C250 20 730 20 970 170" stroke="#c4e7ff" stroke-linecap="round" stroke-opacity="0.8" stroke-width="0.8"></path>
+          <defs>
+            <linearGradient gradientUnits="userSpaceOnUse" id="arc-glow-grad" x1="10" x2="970" y1="100" y2="100">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"></stop>
+              <stop offset="25%" stop-color="#38bdf8" stop-opacity="0.6"></stop>
+              <stop offset="50%" stop-color="#8ed5ff" stop-opacity="1"></stop>
+              <stop offset="75%" stop-color="#38bdf8" stop-opacity="0.6"></stop>
+              <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Cosmic Starfield Particles -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10">
+        <span class="absolute top-12 left-1/4 w-1 h-1 rounded-full bg-primary-fixed shadow-[0_0_8px_#8ed5ff] opacity-80 animate-pulse"></span>
+        <span class="absolute top-28 right-1/4 w-1.5 h-1.5 rounded-full bg-primary-container shadow-[0_0_10px_#38bdf8] opacity-70"></span>
+        <span class="absolute top-48 left-16 w-1 h-1 rounded-full bg-tertiary-container shadow-[0_0_6px_#7bb4ff] opacity-60"></span>
+        <span class="absolute top-40 right-20 w-1 h-1 rounded-full bg-primary-fixed shadow-[0_0_6px_#8ed5ff] opacity-50"></span>
+        <span class="absolute bottom-20 left-1/3 w-1.5 h-1.5 rounded-full bg-primary-container shadow-[0_0_10px_#38bdf8] opacity-40"></span>
+      </div>
+
+      <!-- User's Updated Form Card -->
+      <div class="relative z-10 w-full max-w-lg mx-auto flex flex-col items-center">
+        <div class="w-full rounded-lg bg-surface-container-low/90 backdrop-blur-2xl p-space-xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative overflow-hidden">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-80 shadow-[0_0_12px_#38bdf8]"></div>
+
+          <div class="flex flex-col items-center text-center mb-space-lg">
+            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.3)] mb-space-sm">
+              <span class="material-symbols-outlined text-primary text-[22px]">all_inclusive</span>
+            </div>
+            <div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high/80 mb-space-sm">
+              <span class="material-symbols-outlined text-primary-container text-[14px]">stars</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Customer Workspace</span>
+            </div>
+            <h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Sign in to Brightloop</h1>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-sm">Enter your corporate credentials to access your subscription command center.</p>
+          </div>
+
+          <form class="flex flex-col gap-space-md" id="brightloop-auth-form" onsubmit="event.preventDefault(); simulateSignIn();">
+            <div class="flex flex-col gap-1.5">
+              <label class="font-label-md text-label-md text-on-surface font-medium flex items-center justify-between" for="work-email">
+                <span>Work Email</span>
+              </label>
+              <div class="relative flex items-center">
+                <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">mail</span>
+                <input class="w-full pl-10 pr-space-md py-3 rounded-full bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container focus:shadow-[0_0_15px_rgba(56,189,248,0.35)] transition-all duration-200" id="work-email" name="work-email" placeholder="name@company.com" required="" type="email" value="elena.v@neovault.tech">
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center justify-between">
+                <label class="font-label-md text-label-md text-on-surface font-medium" for="work-password">Password</label>
+                <a class="font-label-sm text-label-sm text-primary hover:text-primary-fixed transition-colors underline-offset-4 hover:underline cursor-pointer" onclick="openModal('modal-forgot')">Forgot password?</a>
+              </div>
+              <div class="relative flex items-center">
+                <span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">lock</span>
+                <input class="w-full pl-10 pr-12 py-3 rounded-full bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container focus:shadow-[0_0_15px_rgba(56,189,248,0.35)] transition-all duration-200" id="work-password" name="work-password" placeholder="Enter your security token" required="" type="password" value="••••••••••••••••">
+                <button aria-label="Toggle password view" class="absolute right-3.5 p-1 text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-pwd-btn" onclick="togglePasswordVisibility()" type="button">
+                  <span class="material-symbols-outlined text-[20px]" id="pwd-icon">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-space-xs cursor-pointer select-none">
+                <input checked="" class="w-4 h-4 rounded bg-surface-container-lowest text-primary-container focus:ring-0 cursor-pointer accent-primary-container" id="remember-session" type="checkbox">
+                <span class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors">Remember this device for 30 days</span>
+              </label>
+              <div class="flex items-center gap-1 text-primary-container" title="Hardware WebAuthn Passkeys Supported">
+                <span class="material-symbols-outlined text-[16px]">fingerprint</span>
+                <span class="font-label-sm text-label-sm">FIDO2</span>
+              </div>
+            </div>
+
+            <button class="w-full mt-space-sm py-3.5 px-space-lg rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md font-semibold flex items-center justify-center gap-space-sm transition-all duration-200 shadow-[0_0_24px_rgba(56,189,248,0.45)] hover:shadow-[0_0_36px_rgba(56,189,248,0.7)] hover:brightness-110 active:scale-[0.98]" id="submit-auth-btn" type="submit">
+              <span>Sign In to Workspace</span>
+              <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </button>
+          </form>
+
+          <div class="mt-space-lg pt-space-md text-center flex flex-col gap-2">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              Don't have an enterprise account? 
+              <a class="text-primary font-label-md text-label-md font-semibold hover:text-primary-fixed underline ml-1 cursor-pointer" onclick="openModal('modal-register')">Create account</a>
+            </p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant/80 mt-1">
+              Or <a href="user.html" class="text-cyan-300 hover:text-cyan-200 underline font-medium">browse products &amp; plans as a guest</a>
+            </p>
+          </div>
+
+          <div class="mt-space-md pt-space-xs flex items-center justify-center gap-space-xs text-on-surface-variant/80">
+            <span class="material-symbols-outlined text-primary text-[14px]">shield_lock</span>
+            <span class="font-label-sm text-label-sm">End-to-End Encrypted Session • TLS 1.3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="modal-register" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+      <div class="rounded-2xl bg-[#0f131f] border border-cyan-500/30 shadow-[0_0_50px_rgba(56,189,248,0.3)] max-w-md w-full p-6 relative">
+        <button onclick="closeModal('modal-register')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">domain_add</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">Create Enterprise Account</h3>
+            <span class="text-xs text-slate-400">Register new customer organization</span>
+          </div>
+        </div>
+
+        <form id="reg-form" onsubmit="event.preventDefault(); handleRegistration();" class="flex flex-col gap-3 text-xs">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Full Name</label>
+            <input type="text" id="reg-name" required placeholder="Elena Rostova" value="Elena Rostova" class="w-full px-3 py-2 rounded-lg bg-[#070b16] border border-cyan-500/20 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Company / Organization</label>
+            <input type="text" id="reg-company" required placeholder="Neovault Technologies Inc." value="Neovault Technologies Inc." class="w-full px-3 py-2 rounded-lg bg-[#070b16] border border-cyan-500/20 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Corporate Work Email</label>
+            <input type="email" id="reg-email" required placeholder="elena.v@neovault.tech" value="elena.v@neovault.tech" class="w-full px-3 py-2 rounded-lg bg-[#070b16] border border-cyan-500/20 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Password</label>
+            <input type="password" id="reg-pass" required placeholder="Create strong password" value="SecureP@ss2026!" class="w-full px-3 py-2 rounded-lg bg-[#070b16] border border-cyan-500/20 text-white focus:outline-none focus:border-cyan-400">
+            <span class="text-[10px] text-cyan-300 block mt-1">Must be &gt;8 chars with uppercase, lowercase, and special character.</span>
+          </div>
+
+          <button type="submit" id="reg-submit-btn" class="mt-2 w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)] hover:brightness-110 flex items-center justify-center gap-1.5">
+            <span>Register &amp; Launch Dashboard</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="modal-forgot" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+      <div class="rounded-2xl bg-[#0f131f] border border-cyan-500/30 shadow-[0_0_50px_rgba(56,189,248,0.3)] max-w-sm w-full p-6 relative">
+        <button onclick="closeModal('modal-forgot')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">lock_reset</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base">Reset Access Key</h3>
+            <span class="text-xs text-slate-400">Receive password reset link</span>
+          </div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); handleForgotReset();" class="flex flex-col gap-3 text-xs">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Corporate Work Email</label>
+            <input type="email" id="forgot-email" required placeholder="name@company.com" value="elena.v@neovault.tech" class="w-full px-3 py-2 rounded-lg bg-[#070b16] border border-cyan-500/20 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+
+          <div id="forgot-success-msg" class="hidden p-2 rounded bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs">
+            Password reset link dispatched to your inbox.
+          </div>
+
+          <button type="submit" id="forgot-submit-btn" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)] hover:brightness-110">
+            Send Reset Instructions
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function togglePasswordVisibility() {
+      const input = document.getElementById('work-password');
+      const icon = document.getElementById('pwd-icon');
+      if (!input || !icon) return;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+
+    // Customer Login & Redirect to user.html (Customer Dashboard)
+    function simulateSignIn() {
+      const emailInput = document.getElementById('work-email');
+      const email = emailInput ? emailInput.value.trim() : 'elena.v@neovault.tech';
+      const btn = document.getElementById('submit-auth-btn');
+      if (!btn) return;
+      
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span><span>Verifying Cryptographic Credentials...</span>';
+      btn.classList.add('opacity-90', 'cursor-not-allowed');
+
+      // Update customer state in localStorage
+      try {
+        let state = JSON.parse(localStorage.getItem('brightloop_customer_catalogue_state') || 'null');
+        let regCustomers = JSON.parse(localStorage.getItem('brightloop_registered_customers') || '[]');
+        let matched = regCustomers.find(c => c.email && c.email.toLowerCase() === email.toLowerCase());
+
+        let custName = matched ? matched.name : (email.toLowerCase().includes('elena') ? "Elena Rostova" : email.split('@')[0]);
+        let custCompany = matched ? matched.company : (email.toLowerCase().includes('neovault') ? "Neovault Technologies Inc." : "Enterprise Customer");
+        let custPlan = matched ? (matched.plan || "Enterprise Tier") : "Enterprise Tier";
+
+        if (!state) {
+          state = {
+            isLoggedIn: true,
+            customer: {
+              name: custName,
+              email: email,
+              company: custCompany,
+              role: "Account Owner",
+              tier: custPlan
+            },
+            subscriptions: [],
+            invoices: [],
+            payments: [],
+            notifications: []
+          };
+        } else {
+          state.isLoggedIn = true;
+          state.customer = state.customer || {};
+          state.customer.email = email;
+          state.customer.name = custName;
+          state.customer.company = custCompany;
+          state.customer.tier = custPlan;
+        }
+        localStorage.setItem('brightloop_customer_catalogue_state', JSON.stringify(state));
+
+        // Audit Log trace for Admin Console
+        let audits = JSON.parse(localStorage.getItem('brightloop_audit_logs') || '[]');
+        audits.unshift({
+          id: "AUD-" + Math.floor(100 + Math.random() * 900),
+          actor: `Customer: ${custName}`,
+          action: `Customer Portal Session Authenticated (${custCompany})`,
+          target: email,
+          time: "Just now",
+          ip: "192.168.1.42",
+          level: "SUCCESS"
+        });
+        localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      } catch (e) {
+        console.error("Storage error:", e);
+      }
+
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Authenticated! Opening Dashboard...</span>';
+        btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+        btn.classList.add('bg-emerald-400', 'text-slate-950');
+
+        setTimeout(() => {
+          window.location.href = 'user.html';
+        }, 700);
+      }, 900);
+    }
+
+    // Customer Registration & Redirect
+    function handleRegistration() {
+      const name = document.getElementById('reg-name').value.trim();
+      const company = document.getElementById('reg-company').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const pass = document.getElementById('reg-pass').value;
+
+      // Validate password rules: >8 chars, uppercase, lowercase, special char
+      const hasUpper = /[A-Z]/.test(pass);
+      const hasLower = /[a-z]/.test(pass);
+      const hasSpecial = /[^A-Za-z0-9]/.test(pass);
+
+      if (pass.length < 8 || !hasUpper || !hasLower || !hasSpecial) {
+        alert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one special character.");
+        return;
+      }
+
+      const btn = document.getElementById('reg-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Creating Account...</span>';
+
+      try {
+        let state = JSON.parse(localStorage.getItem('brightloop_customer_catalogue_state') || 'null');
+        if (!state) {
+          state = {
+            isLoggedIn: true,
+            customer: {
+              name: name || "Customer User",
+              email: email,
+              company: company || "New Organization",
+              role: "Account Owner",
+              tier: "Standard Tier"
+            },
+            subscriptions: [],
+            invoices: [],
+            payments: [],
+            notifications: []
+          };
+        } else {
+          state.isLoggedIn = true;
+          state.customer = state.customer || {};
+          state.customer.name = name;
+          state.customer.company = company;
+          state.customer.email = email;
+        }
+        localStorage.setItem('brightloop_customer_catalogue_state', JSON.stringify(state));
+
+        // Save to brightloop_registered_customers for Admin and Staff recognition
+        let regCustomers = JSON.parse(localStorage.getItem('brightloop_registered_customers') || '[]');
+        if (!regCustomers.some(c => c.email && c.email.toLowerCase() === email.toLowerCase())) {
+          regCustomers.unshift({
+            id: 'CUST-' + Date.now().toString().slice(-5),
+            name: name,
+            company: company,
+            email: email,
+            plan: 'Standard Tier',
+            created: new Date().toLocaleDateString('en-GB')
+          });
+          localStorage.setItem('brightloop_registered_customers', JSON.stringify(regCustomers));
+        }
+
+        // Add Audit Log
+        let audits = JSON.parse(localStorage.getItem('brightloop_audit_logs') || '[]');
+        audits.unshift({
+          id: "AUD-" + Math.floor(100 + Math.random() * 900),
+          actor: `Customer: ${name}`,
+          action: `Registered New Customer Account (${company})`,
+          target: email,
+          time: "Just now",
+          ip: "192.168.1.42",
+          level: "SUCCESS"
+        });
+        localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      } catch (e) {
+        console.error(e);
+      }
+
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span><span>Account Created! Opening Dashboard...</span>';
+        setTimeout(() => {
+          window.location.href = 'user.html';
+        }, 700);
+      }, 900);
+    }
+
+    function handleForgotReset() {
+      const msg = document.getElementById('forgot-success-msg');
+      if (msg) msg.classList.remove('hidden');
+      const btn = document.getElementById('forgot-submit-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Reset Link Sent";
+      }
+      setTimeout(() => {
+        closeModal('modal-forgot');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

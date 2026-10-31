@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Brightloop - Customer Dashboard</title>
+  <meta content="web_dashboard" name="shell-type"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base { 
+      html, body { margin: 0; padding: 0; } 
+      body { overscroll-behavior: none; } 
+      main > :first-child { margin-top: 0 !important; } 
+      main > :last-child { margin-bottom: 0 !important; } 
+    } 
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070b18; }
+    ::-webkit-scrollbar-thumb { background: #1e2942; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+    @media print {
+      body * { visibility: hidden; }
+      #printable-area, #printable-area * { visibility: visible; }
+      #printable-area { position: absolute; left: 0; top: 0; width: 100%; color: #000; background: #fff; }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#0b1020",
+            "tertiary": "#7dd3fc",
+            "outline": "#4b5b75",
+            "error": "#ff6b81",
+            "error-container": "rgba(239, 68, 68, 0.15)",
+            "primary-fixed": "#c4e7ff",
+            "inverse-primary": "#0284c7",
+            "secondary-fixed-dim": "#bdc2ff",
+            "on-secondary-container": "#93c5fd",
+            "on-primary-container": "#ffffff",
+            "surface-container-lowest": "#060913",
+            "inverse-on-surface": "#2c303e",
+            "surface-container": "#0e1428",
+            "surface-dim": "#070b18",
+            "background": "#070b18",
+            "on-primary-fixed": "#001e2c",
+            "on-primary": "#031126",
+            "on-surface": "#f1f5f9",
+            "surface": "#070b18",
+            "on-error-container": "#fca5a5",
+            "on-primary-fixed-variant": "#004c69",
+            "on-background": "#f1f5f9",
+            "secondary-fixed": "#e0e0ff",
+            "tertiary-container": "#38bdf8",
+            "primary": "#38bdf8",
+            "secondary-container": "#1e293b",
+            "tertiary-fixed-dim": "#a4c9ff",
+            "tertiary-fixed": "#d4e3ff",
+            "inverse-surface": "#dfe1f4",
+            "primary-container": "#0284c7",
+            "surface-variant": "#141c33",
+            "on-tertiary-fixed": "#001c39",
+            "on-tertiary": "#00315d",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#38bdf8",
+            "on-surface-variant": "#94a3b8",
+            "on-secondary-fixed": "#000767",
+            "secondary": "#94a3b8",
+            "surface-container-high": "#131b34",
+            "on-tertiary-fixed-variant": "#004883",
+            "on-secondary-fixed-variant": "#2f3aa3",
+            "surface-container-highest": "#1c2542",
+            "surface-bright": "#222d4f",
+            "primary-fixed-dim": "#7bd0ff",
+            "on-tertiary-container": "#00457e",
+            "on-error": "#ffffff",
+            "outline-variant": "#1e2942"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.75rem",
+            "lg": "1rem",
+            "xl": "1.25rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "3rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "body-default": ["Inter", "sans-serif"],
+            "headline-page": ["Inter", "sans-serif"],
+            "metric-kpi": ["Inter", "sans-serif"],
+            "headline-card": ["Inter", "sans-serif"],
+            "headline-section": ["Inter", "sans-serif"],
+            "label-uppercase": ["Inter", "sans-serif"],
+            "label-default": ["Inter", "sans-serif"],
+            "badge-caption": ["Inter", "sans-serif"],
+            "body-subtle": ["Inter", "sans-serif"],
+            "body-medium": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-page": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "body-medium": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "500" }],
+            "label-default": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "label-uppercase": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "metric-kpi": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-caption": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-card": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-section": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-subtle": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-default": ["14px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#070b18] font-body-default text-body-default text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen relative overflow-x-hidden">
+
+  <!-- Ambient Cosmic Glow & Neon Light Arc (Preserved Theme) -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-[320px] left-1/2 -translate-x-1/2 w-[1100px] h-[640px] rounded-[100%] bg-gradient-to-b from-cyan-400/20 via-sky-600/10 to-transparent blur-3xl opacity-80"></div>
+    <div class="absolute -top-[260px] left-1/2 -translate-x-1/2 w-[850px] h-[480px] rounded-[100%] border-t-2 border-cyan-400/50 shadow-[0_0_60px_rgba(56,189,248,0.35)] opacity-90"></div>
+    <div class="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-60 w-[500px] h-[500px] rounded-full bg-sky-950/30 blur-[140px] pointer-events-none"></div>
+  </div>
+
+  <!-- Mobile Menu Backdrop -->
+  <div id="mobile-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+  <!-- FINAL CUSTOMER NAVIGATION SIDEBAR (Strictly 7 Items: Overview, Browse Plans, My Subscriptions, My Invoices, Payment History, Notifications, Logout) -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-[#090d1e]/95 backdrop-blur-2xl border-r border-cyan-500/10 shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-50 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col flex-1 overflow-y-auto px-4 py-6">
+      <!-- Logo & Branding -->
+      <div class="flex items-center justify-between px-2 mb-8">
+        <div class="flex items-center gap-space-sm cursor-pointer" onclick="navigateTo('overview')">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold text-base shadow-[0_0_15px_rgba(56,189,248,0.5)]">B</div>
+          <div class="flex flex-col">
+            <span class="font-headline-card text-headline-card text-white tracking-tight flex items-center gap-1.5">
+              Brightloop <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+            </span>
+            <span class="font-badge-caption text-badge-caption text-slate-400">Customer Portal</span>
+          </div>
+        </div>
+        <span class="px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-badge-caption text-badge-caption uppercase font-semibold">Client</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-1.5">
+        <div class="px-2 pb-1">
+          <span class="font-label-uppercase text-label-uppercase text-slate-400/80 tracking-widest uppercase text-[10px]">Customer Dashboard</span>
+        </div>
+
+        <!-- 1. Overview (Product Catalogue) -->
+        <a id="nav-overview" onclick="navigateTo('overview')" class="nav-item flex items-center gap-space-sm px-3 py-2.5 transition-all bg-gradient-to-r from-cyan-500/20 to-sky-500/10 text-cyan-300 border border-cyan-400/30 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.15)] font-medium cursor-pointer" href="javascript:void(0)">
+          <span class="material-symbols-outlined text-[20px] text-cyan-400">inventory_2</span>
+          <span class="font-body-medium text-body-medium">Overview</span>
+        </a>
+
+        <!-- 2. Browse Plans -->
+        <a id="nav-plans" onclick="navigateTo('plans')" class="nav-item flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <span class="material-symbols-outlined text-[20px]">storefront</span>
+          <span class="font-body-medium text-body-medium">Browse Plans</span>
+        </a>
+
+        <!-- 3. My Subscriptions -->
+        <a id="nav-subscriptions" onclick="navigateTo('subscriptions')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">card_membership</span>
+            <span class="font-body-medium text-body-medium">My Subscriptions</span>
+          </div>
+          <span id="badge-active-subs" class="px-1.5 py-0.2 rounded text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-400/20">1</span>
+        </a>
+
+        <!-- 4. My Invoices -->
+        <a id="nav-invoices" onclick="navigateTo('invoices')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+            <span class="font-body-medium text-body-medium">My Invoices</span>
+          </div>
+          <span id="badge-unpaid-invoices" class="px-1.5 py-0.2 rounded text-[11px] font-semibold bg-rose-500/10 text-rose-300 border border-rose-400/20">1</span>
+        </a>
+
+        <!-- 5. Payment History -->
+        <a id="nav-payments" onclick="navigateTo('payments')" class="nav-item flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <span class="material-symbols-outlined text-[20px]">payments</span>
+          <span class="font-body-medium text-body-medium">Payment History</span>
+        </a>
+
+        <!-- 6. Notifications -->
+        <a id="nav-notifications" onclick="navigateTo('notifications')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+            <span class="font-body-medium text-body-medium">Notifications</span>
+          </div>
+          <span id="badge-notifications-count" class="px-1.5 py-0.2 rounded text-[11px] font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">2</span>
+        </a>
+
+        <!-- 7. Logout -->
+        <div class="pt-6 border-t border-cyan-500/10 mt-4">
+          <a onclick="handleAuthAction()" id="nav-logout" class="flex items-center gap-space-sm px-3 py-2 rounded-lg text-slate-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+            <span id="logout-icon" class="material-symbols-outlined text-[20px]">logout</span>
+            <span id="logout-text" class="font-body-medium text-body-medium">Logout</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Customer Bottom Profile Footer (Display Only) -->
+    <div id="sidebar-user-footer" class="p-4 bg-[#070a16] border-t border-cyan-500/10 flex items-center justify-between">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-bold shadow-[0_0_10px_rgba(56,189,248,0.4)]">
+          <span id="sidebar-avatar-initials" class="text-xs font-semibold text-slate-950">ER</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span id="sidebar-user-name" class="font-label-default text-label-default text-white font-semibold truncate">Elena Rostova</span>
+          <span id="sidebar-user-email" class="font-badge-caption text-badge-caption text-slate-400 truncate">elena@acmestudio.io</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Layout -->
+  <div class="lg:pl-72 relative z-10">
+    <!-- Navbar Header (Quick Search Removed, Spacing Cleanly Adjusted) -->
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-[#070b18]/85 backdrop-blur-xl border-b border-cyan-500/10 z-40 flex items-center justify-between px-gutter">
+      <div class="flex items-center gap-space-sm">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#131b34]">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="flex items-center gap-space-sm text-slate-400">
+          <span class="font-body-subtle text-body-subtle hover:text-white transition-colors cursor-pointer" onclick="navigateTo('overview')">Brightloop</span>
+          <span class="material-symbols-outlined text-[16px] text-slate-500">chevron_right</span>
+          <span id="header-breadcrumb" class="font-body-medium text-body-medium text-white font-semibold">Product Catalogue</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-md">
+        <!-- Customer Role Badge -->
+        <div class="flex items-center gap-space-xs bg-cyan-950/40 border border-cyan-500/20 px-2.5 py-1 rounded-lg">
+          <span class="material-symbols-outlined text-[16px] text-cyan-400">verified_user</span>
+          <span id="header-role-badge" class="font-label-default text-label-default text-cyan-200 font-medium">Customer Portal</span>
+        </div>
+
+        <!-- Notification Bell with Counter -->
+        <button onclick="navigateTo('notifications')" class="relative p-2 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-white transition-colors" title="Notifications">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span id="header-notif-dot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+        </button>
+
+        <!-- User Avatar Indicator -->
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-bold shadow-[0_0_10px_rgba(56,189,248,0.4)]" title="Elena Rostova">
+          <span id="header-avatar-initials" class="text-xs font-semibold text-slate-950">ER</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full pt-16 px-gutter">
+      <div class="flex flex-col w-full pb-16 max-w-7xl mx-auto">
+
+        <!-- ================= 1. OVERVIEW: PRODUCT CATALOGUE ================= -->
+        <section id="view-overview" class="view-panel block">
+          <!-- Page Header -->
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Product Catalogue</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Browse Brightloop subscription products, view technical specifications, and select subscription plans.
+              </p>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <button onclick="navigateTo('subscriptions')" class="flex items-center gap-space-xs px-4 py-2 rounded-lg bg-[#141e42]/90 border border-cyan-500/30 text-slate-200 hover:border-cyan-400/60 hover:bg-[#1a2754] transition-all text-xs font-semibold">
+                <span class="material-symbols-outlined text-[18px] text-cyan-400">card_membership</span>
+                <span>My Subscriptions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Cards Grid (Clean card format, clicking navigates to Dedicated Product Details) -->
+          <div id="overview-product-cards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= DEDICATED PRODUCT DETAILS PAGE ================= -->
+        <section id="view-product-details" class="view-panel hidden">
+          <!-- Back Link -->
+          <div class="pt-6 pb-4">
+            <button onclick="navigateTo('overview')" class="flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 text-xs font-semibold hover:underline">
+              <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+              <span>Back to Product Catalogue</span>
+            </button>
+          </div>
+
+          <!-- Product Details Hero Card -->
+          <div id="product-details-container" class="flex flex-col gap-6">
+            <!-- Rendered dynamically by JS with features, plans, pricing toggle, and offers -->
+          </div>
+        </section>
+
+        <!-- ================= 2. BROWSE PLANS ================= -->
+        <section id="view-plans" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Subscription Plans</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Compare plan pricing and billing frequencies. Switch between monthly and annual billing for 20% savings.
+              </p>
+            </div>
+            <!-- Monthly / Annual Toggle -->
+            <div class="flex items-center gap-3 bg-[#0d142b] border border-cyan-500/20 p-1 rounded-xl">
+              <button id="toggle-freq-monthly" onclick="setBillingFreq('monthly')" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 transition-all">Monthly</button>
+              <button id="toggle-freq-yearly" onclick="setBillingFreq('yearly')" class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-[0_0_12px_rgba(56,189,248,0.4)] transition-all flex items-center gap-1">
+                <span>Annually</span>
+                <span class="px-1.5 py-0.2 text-[9px] bg-slate-950 text-cyan-300 rounded font-bold">SAVE 20%</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Special Quotations Dispatched by Staff Operations -->
+          <div id="quotations-container" class="mb-6 hidden">
+            <!-- Dynamically populated from brightloop_quotations -->
+          </div>
+
+          <!-- All Plans Grid -->
+          <div id="plans-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 3. MY SUBSCRIPTIONS (With Real Data & Clean Empty State) ================= -->
+        <section id="view-subscriptions" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">My Subscriptions</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                View your active subscription agreements, start and renewal dates, and billing details.
+              </p>
+            </div>
+            <button onclick="navigateTo('overview')" class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-semibold shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 transition-all font-label-default text-label-default">
+              <span class="material-symbols-outlined text-[18px]">add_circle</span>
+              <span>Browse Products</span>
+            </button>
+          </div>
+
+          <!-- Subscriptions Container (Real customer records or clean empty-state) -->
+          <div id="subscriptions-container" class="flex flex-col gap-4">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 4. MY INVOICES ================= -->
+        <section id="view-invoices" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">My Invoices</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Access billing invoices, check paid and unpaid status, pay balances, and download statements.
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="px-4 py-2 rounded-xl bg-[#0c1226] border border-cyan-500/20 flex items-center gap-3">
+                <span class="material-symbols-outlined text-rose-400 text-[20px]">pending</span>
+                <div>
+                  <span class="text-[10px] text-slate-400 block uppercase font-semibold">Total Outstanding</span>
+                  <span id="invoices-outstanding-sum" class="text-white font-bold font-mono text-base">₹999.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 mb-6">
+            <button onclick="filterInvoices('all')" class="inv-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 border border-cyan-400/40 text-cyan-300">All Invoices</button>
+            <button onclick="filterInvoices('Unpaid')" class="inv-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-[#0e152c] border border-cyan-500/15 text-slate-400 hover:text-white">Unpaid Invoices</button>
+            <button onclick="filterInvoices('Paid')" class="inv-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-[#0e152c] border border-cyan-500/15 text-slate-400 hover:text-white">Paid Invoices</button>
+          </div>
+
+          <!-- Invoices Cards List (NO TABLES) -->
+          <div id="invoices-cards-list" class="flex flex-col gap-3">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 5. PAYMENT HISTORY ================= -->
+        <section id="view-payments" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Payment History</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                View previous payment transaction records. Recorded payment transactions cannot be modified.
+              </p>
+            </div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Verified Ledger</span>
+            </div>
+          </div>
+
+          <!-- Payment Cards List (NO TABLES) -->
+          <div id="payments-cards-list" class="flex flex-col gap-3">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 6. NOTIFICATIONS ================= -->
+        <section id="view-notifications" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Notifications</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Important updates regarding your subscription status, invoices, and renewal alerts.
+              </p>
+            </div>
+            <button onclick="markAllNotificationsRead()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0e152c] border border-cyan-500/20 text-slate-300 hover:text-white hover:border-cyan-400/50 transition-all text-xs font-medium">
+              <span class="material-symbols-outlined text-[18px] text-cyan-400">done_all</span>
+              <span>Mark All as Read</span>
+            </button>
+          </div>
+
+          <!-- Notification Cards List -->
+          <div id="notifications-cards-list" class="flex flex-col gap-3">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Invoice Details Modal -->
+  <div id="modal-invoice" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-invoice')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <div id="modal-invoice-content"></div>
+    </div>
+  </div>
+
+  <!-- Subscription Details Modal -->
+  <div id="modal-subscription" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-lg w-full p-6 relative">
+      <button onclick="closeModal('modal-subscription')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <div id="modal-subscription-content"></div>
+    </div>
+  </div>
+
+  <!-- Payment Checkout Modal -->
+  <div id="modal-payment" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-md w-full p-6 relative">
+      <button onclick="closeModal('modal-payment')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
+          <span class="material-symbols-outlined text-[22px]">payments</span>
+        </div>
+        <div>
+          <h3 class="font-headline-card text-headline-card text-white font-bold">Process Invoice Payment</h3>
+          <span id="pay-modal-inv-id" class="text-xs text-slate-400 font-mono">Invoice #INV-8955</span>
+        </div>
+      </div>
+      <div class="p-3 rounded-lg bg-[#080d1d] border border-cyan-500/15 mb-4 flex flex-col gap-2 text-sm">
+        <div class="flex justify-between text-slate-300">
+          <span>Amount Due:</span>
+          <span id="pay-modal-amount" class="text-white font-bold font-mono">₹999.00</span>
+        </div>
+        <div class="flex justify-between text-slate-300">
+          <span>Payment Method:</span>
+          <span class="text-cyan-300 font-medium">Visa ending in 4242</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button onclick="closeModal('modal-payment')" class="px-4 py-2 rounded-lg bg-[#0e152c] text-slate-300 text-xs">Cancel</button>
+        <button onclick="executePayment()" class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+          Confirm Payment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan Checkout & Subscription Confirmation Modal -->
+  <div id="modal-plan-checkout" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-lg w-full p-6 relative">
+      <button onclick="closeModal('modal-plan-checkout')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <h3 class="font-headline-card text-headline-card text-white font-bold mb-1">Confirm Subscription</h3>
+      <p class="text-xs text-slate-400 mb-4">Review your selected plan and billing frequency before subscription activation.</p>
+      
+      <div class="bg-[#080d1d] p-4 rounded-xl border border-cyan-500/15 mb-4 flex flex-col gap-2.5 text-xs text-slate-300">
+        <div class="flex justify-between"><span class="text-slate-400">Product:</span><strong id="chk-product-name" class="text-white">Business Management Software</strong></div>
+        <div class="flex justify-between"><span class="text-slate-400">Selected Plan:</span><span id="chk-plan-name" class="text-cyan-300 font-bold">Standard Plan</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Billing Frequency:</span><span id="chk-frequency">Annually (Save 20%)</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Base Price:</span><span id="chk-base-price" class="font-mono">₹799.00 / mo</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Taxes (18% GST):</span><span id="chk-tax" class="font-mono">₹143.82</span></div>
+        <div class="flex justify-between pt-2 border-t border-cyan-500/20 font-bold text-white text-sm">
+          <span>Total Today:</span>
+          <span id="chk-total" class="text-cyan-300 font-mono">₹942.82</span>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('modal-plan-checkout')" class="px-4 py-2 rounded-lg bg-[#0e152c] text-slate-300 text-xs">Cancel</button>
+        <button onclick="confirmSubscriptionActivation()" class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+          Activate Subscription
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-[#090d1e] border border-cyan-500/30 text-white shadow-[0_0_25px_rgba(56,189,248,0.3)]">
+    <span id="toast-icon" class="material-symbols-outlined text-cyan-400 text-[20px]">check_circle</span>
+    <span id="toast-msg" class="text-sm font-medium">Action completed successfully</span>
+  </div>
+
+  <!-- Hidden Printable Area for Clean Official PDF Generation -->
+  <div id="printable-area" class="hidden"></div>
+
+  <!-- ================= CLIENT STATE & LOGIC ================= -->
+  <script>
+    // Comprehensive Product Catalogue Data (Section 1)
+    const DEFAULT_CATALOGUE = [
+      {
+        id: "prod-bms",
+        name: "Business Management Software",
+        category: "Core Business Suite",
+        shortDesc: "All-in-one suite for business operations, CRM, team workflow orchestration, and client billing.",
+        fullDesc: "Business Management Software by Brightloop is an enterprise-grade solution built for modern digital businesses. It seamlessly connects customer acquisition, subscription billing, automated dunning, customer communication, and operations tracking in one unified interface.",
+        icon: "business_center",
+        startingPrice: "₹499 / month",
+        offer: "Special Launch Offer: 20% discount on annual billing",
+        features: [
+          "Complete recurring billing & lifecycle automation",
+          "Multi-currency support with automatic GST calculation",
+          "Client portal with self-service invoices & receipts",
+          "Automated failed payment recovery (smart dunning)",
+          "Role-based access permissions & audit logs"
+        ],
+        plans: [
+          {
+            name: "Basic Plan",
+            monthlyPrice: 499,
+            annualPrice: 399,
+            desc: "Essential features for growing teams.",
+            highlights: ["Up to 100 subscribers", "Standard invoice templates", "Email support"]
+          },
+          {
+            name: "Standard Plan",
+            monthlyPrice: 999,
+            annualPrice: 799,
+            popular: true,
+            desc: "Advanced operations for scaling companies.",
+            highlights: ["Up to 1,000 subscribers", "Automated dunning logic", "Priority 4h support SLA"]
+          },
+          {
+            name: "Premium Plan",
+            monthlyPrice: 1999,
+            annualPrice: 1599,
+            desc: "Enterprise capacity with high-throughput infrastructure.",
+            highlights: ["Unlimited subscribers", "Custom webhook integration", "24/7 dedicated support"]
+          }
+        ]
+      },
+      {
+        id: "prod-pay",
+        name: "Unified Payments Gateway",
+        category: "Payments & Routing",
+        shortDesc: "Smart transaction routing, instant fallback processors, and localized checkout in 130+ currencies.",
+        fullDesc: "Engineered for maximum payment success rates, the Unified Payments Gateway routes incoming subscription charges across top acquisition rails with sub-second failover, recurring tokenization, and localized checkout options.",
+        icon: "payments",
+        startingPrice: "₹599 / month",
+        offer: null, // No offer for this product (Only display offers when actually available)
+        features: [
+          "Smart multi-rail payment routing",
+          "Credit Cards, Debit Cards, UPI & Net Banking",
+          "Zero downtime automated fallback orchestration",
+          "Instant webhook dispatch for payment status updates"
+        ],
+        plans: [
+          {
+            name: "Starter Merchant",
+            monthlyPrice: 599,
+            annualPrice: 479,
+            desc: "For regional payment processing.",
+            highlights: ["Domestic cards + UPI", "Daily payout batches", "Standard fraud detection"]
+          },
+          {
+            name: "Growth Merchant",
+            monthlyPrice: 1299,
+            annualPrice: 1039,
+            popular: true,
+            desc: "Global acquiring with dynamic currency conversion.",
+            highlights: ["130+ international currencies", "Automated chargeback defense", "Sub-second webhook sync"]
+          }
+        ]
+      },
+      {
+        id: "prod-ana",
+        name: "Revenue Analytics & Reporting Suite",
+        category: "Intelligence & Analytics",
+        shortDesc: "Live recurring revenue tracking, cohort retention, churn prediction, and automated accounting reports.",
+        fullDesc: "Gain clarity over subscription financial health with real-time analytics. Monitor Monthly Recurring Revenue (MRR), Annual Recurring Revenue (ARR), customer churn rates, and export tax reports for compliance.",
+        icon: "query_stats",
+        startingPrice: "₹799 / month",
+        offer: "Limited Time Offer: Free 30-day extended trial on Annual commitment",
+        features: [
+          "Live MRR, ARR, and net retention metrics",
+          "Cohort analysis & subscriber churn modeling",
+          "Automated sales tax & GST audit reports",
+          "One-click PDF & CSV export for accounting tools"
+        ],
+        plans: [
+          {
+            name: "Analytics Pro",
+            monthlyPrice: 799,
+            annualPrice: 639,
+            popular: true,
+            desc: "Core metrics for business tracking.",
+            highlights: ["Real-time revenue metrics", "Cohort retention tables", "Monthly email reports"]
+          },
+          {
+            name: "Analytics Enterprise",
+            monthlyPrice: 1499,
+            annualPrice: 1199,
+            desc: "Predictive intelligence with custom SQL export.",
+            highlights: ["Churn forecasting engine", "Automated compliance filing", "Raw data webhook streams"]
+          }
+        ]
+      },
+      {
+        id: "prod-sla",
+        name: "Priority SLA & Dedicated Support",
+        category: "Support & Security",
+        shortDesc: "15-minute response SLA, dedicated solutions engineer, and bespoke support agreements.",
+        fullDesc: "Designed for mission-critical subscription operations that require named engineering support, custom architecture reviews, priority escalation, and contractual financial uptime guarantees.",
+        icon: "support_agent",
+        startingPrice: "₹1,199 / month",
+        offer: null, // No offer
+        features: [
+          "15-minute emergency response SLA",
+          "Dedicated technical specialist (Sarah Chen)",
+          "99.99% Financial Uptime Service Level Agreement",
+          "Quarterly architecture review & optimizations"
+        ],
+        plans: [
+          {
+            name: "Business SLA",
+            monthlyPrice: 1199,
+            annualPrice: 959,
+            desc: "Business hours dedicated queue.",
+            highlights: ["4-hour SLA on standard tickets", "Named specialist access", "Direct chat support"]
+          },
+          {
+            name: "24/7 Dedicated SLA",
+            monthlyPrice: 2499,
+            annualPrice: 1999,
+            popular: true,
+            desc: "24/7/365 critical infrastructure coverage.",
+            highlights: ["15-min critical incident response", "Direct phone & emergency bridge", "99.99% SLA"]
+          }
+        ]
+      }
+    ];
+
+    function getCatalogueData() {
+      const stored = localStorage.getItem('brightloop_products_catalogue');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (e) { console.error(e); }
+      }
+      localStorage.setItem('brightloop_products_catalogue', JSON.stringify(DEFAULT_CATALOGUE));
+      return DEFAULT_CATALOGUE;
+    }
+    let CATALOGUE_DATA = getCatalogueData();
+
+    // Customer App State
+    const INITIAL_CUSTOMER_STATE = {
+      isLoggedIn: true,
+      billingFrequency: 'yearly',
+      customer: {
+        id: "#CUS-99420-US",
+        name: "Elena Rostova",
+        email: "elena@acmestudio.io",
+        company: "Acme Studio Inc."
+      },
+      // Real customer subscriptions (Requirement 2: Do not display dummy or sample records)
+      subscriptions: [
+        {
+          id: "#SUB-2024-001",
+          product: "Business Management Software",
+          plan: "Standard Plan",
+          startDate: "Nov 28, 2023",
+          endDate: "Nov 28, 2025",
+          frequency: "Annually",
+          amount: 799.00,
+          status: "Active",
+          renewalDate: "Nov 28, 2025",
+          billingInfo: "Billed annually via Visa •••• 4242"
+        }
+      ],
+      invoices: [
+        {
+          id: "#INV-8955",
+          date: "Oct 31, 2024",
+          dueDate: "Nov 15, 2024",
+          subscriptionRef: "#SUB-2024-001",
+          product: "Business Management Software - Standard Plan",
+          amount: 999.00,
+          status: "Confirmed", // Unpaid
+          items: [{ desc: "Standard Plan Subscription Cycle", qty: 1, rate: 999.00, total: 999.00 }]
+        },
+        {
+          id: "#INV-8820",
+          date: "Sep 28, 2024",
+          dueDate: "Sep 28, 2024",
+          subscriptionRef: "#SUB-2024-001",
+          product: "Business Management Software - Standard Plan",
+          amount: 999.00,
+          status: "Paid",
+          items: [{ desc: "Standard Plan Monthly Subscription", qty: 1, rate: 999.00, total: 999.00 }]
+        }
+      ],
+      payments: [
+        {
+          ref: "PAY-2024-9982",
+          invoiceId: "#INV-8820",
+          date: "Sep 28, 2024",
+          method: "Visa •••• 4242",
+          amount: 999.00,
+          status: "Completed",
+          authCode: "AUTH_882910"
+        }
+      ],
+      notifications: [
+        {
+          id: 1,
+          unread: true,
+          title: "Invoice #INV-8955 Generated",
+          desc: "Invoice for Business Management Software (₹999.00) is ready. Due by Nov 15, 2024.",
+          time: "1 day ago",
+          target: "invoices"
+        },
+        {
+          id: 2,
+          unread: false,
+          title: "Payment Confirmed for #INV-8820",
+          desc: "Your payment of ₹999.00 via Visa •••• 4242 was processed successfully.",
+          time: "1 month ago",
+          target: "payments"
+        }
+      ]
+    };
+
+    let appState = JSON.parse(localStorage.getItem('brightloop_customer_catalogue_state') || 'null');
+    if (!appState) {
+      appState = INITIAL_CUSTOMER_STATE;
+      saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem('brightloop_customer_catalogue_state', JSON.stringify(appState));
+      updateMetrics();
+    }
+
+    // Navigation (7 main items: Overview, Browse Plans, My Subscriptions, My Invoices, Payment History, Notifications, Logout)
+    let currentTab = 'overview';
+
+    function navigateTo(tabId) {
+      currentTab = tabId;
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('mobile-backdrop');
+      if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        toggleSidebar();
+      }
+
+      // Update sidebar active classes
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(el => {
+        el.className = 'nav-item flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer';
+        const icon = el.querySelector('.material-symbols-outlined');
+        if (icon) icon.className = 'material-symbols-outlined text-[20px]';
+      });
+
+      const activeLink = document.getElementById(`nav-${tabId}`);
+      if (activeLink) {
+        activeLink.className = 'nav-item flex items-center gap-space-sm px-3 py-2.5 transition-all bg-gradient-to-r from-cyan-500/20 to-sky-500/10 text-cyan-300 border border-cyan-400/30 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.15)] font-medium cursor-pointer';
+        const icon = activeLink.querySelector('.material-symbols-outlined');
+        if (icon) icon.className = 'material-symbols-outlined text-[20px] text-cyan-400';
+      }
+
+      // Hide all panels, show target
+      const panels = document.querySelectorAll('.view-panel');
+      panels.forEach(p => p.classList.add('hidden'));
+
+      const targetPanel = document.getElementById(`view-${tabId}`);
+      if (targetPanel) targetPanel.classList.remove('hidden');
+
+      const titles = {
+        'overview': 'Product Catalogue',
+        'product-details': 'Product Details',
+        'plans': 'Browse Plans',
+        'subscriptions': 'My Subscriptions',
+        'invoices': 'My Invoices',
+        'payments': 'Payment History',
+        'notifications': 'Notifications'
+      };
+      document.getElementById('header-breadcrumb').textContent = titles[tabId] || 'Customer Portal';
+
+      if (tabId === 'overview') renderProductCatalogue();
+      if (tabId === 'plans') renderPlans();
+      if (tabId === 'subscriptions') renderSubscriptions();
+      if (tabId === 'invoices') renderInvoices();
+      if (tabId === 'payments') renderPayments();
+      if (tabId === 'notifications') renderNotifications();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('mobile-backdrop');
+      if (sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    function updateMetrics() {
+      const activeSubs = appState.subscriptions.filter(s => s.status === 'Active');
+      const unpaidInvs = appState.invoices.filter(i => i.status === 'Confirmed');
+      const unreadNotifs = appState.notifications.filter(n => n.unread);
+
+      document.getElementById('badge-active-subs').textContent = activeSubs.length;
+      document.getElementById('badge-unpaid-invoices').textContent = unpaidInvs.length;
+      document.getElementById('badge-notifications-count').textContent = unreadNotifs.length;
+
+      const notifDot = document.getElementById('header-notif-dot');
+      if (notifDot) notifDot.style.display = unreadNotifs.length > 0 ? 'block' : 'none';
+
+      const unpaidTotal = unpaidInvs.reduce((sum, inv) => sum + inv.amount, 0);
+      const invOutstanding = document.getElementById('invoices-outstanding-sum');
+      if (invOutstanding) invOutstanding.textContent = `₹${unpaidTotal.toFixed(2)}`;
+    }
+
+    function showToast(msg, icon = 'check_circle') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      document.getElementById('toast-icon').textContent = icon;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('hidden');
+    }
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // 1. OVERVIEW PAGE – PRODUCT CATALOGUE (Requirement 1)
+    // ----------------------------------------------------
+    function renderProductCatalogue() {
+      CATALOGUE_DATA = getCatalogueData();
+      const container = document.getElementById('overview-product-cards');
+      if (!container) return;
+
+      container.innerHTML = CATALOGUE_DATA.map(prod => `
+        <div class="rounded-xl bg-gradient-to-b from-[#18234d]/95 via-[#141e42]/95 to-[#101938]/95 backdrop-blur-xl border border-cyan-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.45)] p-6 flex flex-col justify-between hover:border-cyan-400/70 hover:from-[#1d2b5c]/95 hover:via-[#17234d]/95 hover:to-[#121c3e]/95 transition-all cursor-pointer group" onclick="viewProductDetails('${prod.id}')">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 flex-shrink-0 group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(56,189,248,0.25)]">
+                  <span class="material-symbols-outlined text-[24px]">${prod.icon}</span>
+                </div>
+                <div>
+                  <h3 class="font-headline-card text-headline-card text-white font-bold group-hover:text-cyan-300 transition-colors">${prod.name}</h3>
+                  <span class="text-xs text-cyan-300 font-semibold">${prod.category}</span>
+                </div>
+              </div>
+            </div>
+            
+            <p class="text-body-subtle text-slate-200 text-sm mb-4 line-clamp-2 leading-relaxed">${prod.shortDesc}</p>
+
+            ${prod.offer ? `
+              <div class="mb-4 px-3 py-2 rounded-lg bg-cyan-500/15 border border-cyan-400/40 flex items-center gap-2 shadow-[0_0_12px_rgba(56,189,248,0.15)]">
+                <span class="material-symbols-outlined text-cyan-400 text-[18px]">local_offer</span>
+                <span class="text-cyan-200 text-xs font-semibold">${prod.offer}</span>
+              </div>
+            ` : ''}
+
+            <div class="flex flex-col gap-1.5 mb-4 p-3 rounded-lg bg-[#0e1635]/80 border border-cyan-500/20">
+              <span class="font-label-uppercase text-label-uppercase text-slate-300 text-[10px] block font-semibold">Key Highlights:</span>
+              <ul class="flex flex-col gap-1.5 text-xs text-slate-200">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>${prod.features[0]}</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>${prod.features[1]}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] text-slate-300 block font-medium">Starting at:</span>
+              <span class="text-white font-bold text-lg font-mono">${prod.startingPrice}</span>
+            </div>
+            <button onclick="event.stopPropagation(); viewProductDetails('${prod.id}')" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.35)] hover:brightness-110 flex items-center gap-1.5 transition-all">
+              <span>View Product Details</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Dedicated Product Details Page (Requirement 1)
+    let selectedProductForDetails = null;
+
+    function viewProductDetails(productId) {
+      CATALOGUE_DATA = getCatalogueData();
+      const prod = CATALOGUE_DATA.find(p => p.id === productId);
+      if (!prod) return;
+      selectedProductForDetails = prod;
+
+      const container = document.getElementById('product-details-container');
+      if (!container) return;
+
+      const isYearly = appState.billingFrequency === 'yearly';
+
+      container.innerHTML = `
+        <!-- Hero Header -->
+        <div class="rounded-xl bg-gradient-to-b from-[#18234d]/95 via-[#141e42]/95 to-[#101938]/95 backdrop-blur-xl border border-cyan-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.45)] p-6 relative overflow-hidden">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-[0_0_20px_rgba(56,189,248,0.4)] flex-shrink-0">
+                <span class="material-symbols-outlined text-[32px]">${prod.icon}</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-3">
+                  <h1 class="font-headline-page text-headline-page text-white tracking-tight">${prod.name}</h1>
+                  <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-semibold">${prod.category}</span>
+                </div>
+                <p class="text-slate-200 text-sm mt-2 max-w-3xl leading-relaxed">${prod.fullDesc}</p>
+              </div>
+            </div>
+            
+            <!-- Billing Frequency Selector -->
+            <div class="flex items-center gap-2 bg-[#0e1635] border border-cyan-400/30 p-1 rounded-xl flex-shrink-0 self-start">
+              <button onclick="setBillingFreq('monthly'); viewProductDetails('${prod.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold ${!isYearly ? 'bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-[0_0_12px_rgba(56,189,248,0.4)]' : 'text-slate-400'}">Monthly</button>
+              <button onclick="setBillingFreq('yearly'); viewProductDetails('${prod.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold ${isYearly ? 'bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-[0_0_12px_rgba(56,189,248,0.4)]' : 'text-slate-400'}">Annually (-20%)</button>
+            </div>
+          </div>
+
+          <!-- Special Offer (Only displayed when actually available) -->
+          ${prod.offer ? `
+            <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-cyan-500/25 via-sky-500/15 to-transparent border border-cyan-400/40 flex items-center gap-3 shadow-[0_0_15px_rgba(56,189,248,0.15)]">
+              <div class="w-8 h-8 rounded-lg bg-cyan-400/20 flex items-center justify-center text-cyan-300">
+                <span class="material-symbols-outlined text-[20px]">verified</span>
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-cyan-300 font-bold block">Special Offer Available</span>
+                <span class="text-white text-sm font-semibold">${prod.offer}</span>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Key Features & Functionalities Section -->
+        <div class="rounded-xl bg-gradient-to-b from-[#18234d]/95 via-[#141e42]/95 to-[#101938]/95 backdrop-blur-xl border border-cyan-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.45)] p-6">
+          <h3 class="font-headline-card text-headline-card text-white font-bold mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-cyan-400 text-[20px]">featured_play_list</span>
+            <span>Key Features &amp; Functionalities</span>
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-200">
+            ${prod.features.map(f => `
+              <div class="p-3.5 rounded-lg bg-[#0e1635]/90 border border-cyan-500/25 flex items-center gap-3">
+                <span class="material-symbols-outlined text-cyan-400 text-[18px]">check_circle</span>
+                <span>${f}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Available Subscription Plans Section -->
+        <div class="rounded-xl bg-gradient-to-b from-[#18234d]/95 via-[#141e42]/95 to-[#101938]/95 backdrop-blur-xl border border-cyan-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.45)] p-6">
+          <h3 class="font-headline-card text-headline-card text-white font-bold mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-cyan-400 text-[20px]">loyalty</span>
+            <span>Available Subscription Plans</span>
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-${prod.plans.length} gap-6">
+            ${prod.plans.map(plan => {
+              const price = isYearly ? plan.annualPrice : plan.monthlyPrice;
+              return `
+                <div class="rounded-xl ${plan.popular ? 'bg-gradient-to-b from-[#1f2e64] to-[#152046] border-2 border-cyan-400/70 shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'bg-[#0e1635]/95 border border-cyan-500/30'} p-5 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-headline-card text-white font-bold text-base">${plan.name}</h4>
+                      ${plan.popular ? `<span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-[10px]">RECOMMENDED</span>` : ''}
+                    </div>
+                    <p class="text-xs text-slate-300 mb-4">${plan.desc}</p>
+                    <div class="mb-4">
+                      <div class="flex items-baseline gap-1">
+                        <span class="font-metric-kpi text-white font-bold text-2xl font-mono">₹${price}</span>
+                        <span class="text-slate-400 text-xs">/ month</span>
+                      </div>
+                      <span class="text-[11px] text-cyan-300 font-medium">${isYearly ? `₹${price * 12} billed annually` : 'Billed monthly'}</span>
+                    </div>
+                    <ul class="flex flex-col gap-2 text-xs text-slate-200 mb-6">
+                      ${plan.highlights.map(h => `
+                        <li class="flex items-center gap-2">
+                          <span class="material-symbols-outlined text-cyan-400 text-[16px]">check</span>
+                          <span>${h}</span>
+                        </li>
+                      `).join('')}
+                    </ul>
+                  </div>
+                  <button onclick="promptPlanCheckout('${prod.name}', '${plan.name}', ${price}, '${isYearly ? 'Annually' : 'Monthly'}')" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)] hover:brightness-110 transition-all flex items-center justify-center gap-1.5">
+                    <span>Select Plan &amp; Subscribe</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+
+      navigateTo('product-details');
+    }
+
+    function promptPlanCheckout(prodName, planName, price, freq) {
+      if (!appState.isLoggedIn) {
+        showToast("Please sign in or create an account to proceed with subscription.", "info");
+        setTimeout(() => {
+          window.location.href = 'cust_login.html';
+        }, 1000);
+        return;
+      }
+
+      document.getElementById('chk-product-name').textContent = prodName;
+      document.getElementById('chk-plan-name').textContent = planName;
+      document.getElementById('chk-frequency').textContent = freq;
+      document.getElementById('chk-base-price').textContent = `₹${price.toFixed(2)} / mo`;
+      
+      const tax = price * 0.18;
+      document.getElementById('chk-tax').textContent = `₹${tax.toFixed(2)}`;
+      document.getElementById('chk-total').textContent = `₹${(price + tax).toFixed(2)}`;
+
+      openModal('modal-plan-checkout');
+    }
+
+    function confirmSubscriptionActivation() {
+      const prodName = document.getElementById('chk-product-name').textContent;
+      const planName = document.getElementById('chk-plan-name').textContent;
+      const freq = document.getElementById('chk-frequency').textContent;
+
+      const newSubId = `#SUB-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+      appState.subscriptions.unshift({
+        id: newSubId,
+        product: prodName,
+        plan: planName,
+        startDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        endDate: freq.includes('Annually') ? "1 Year from today" : "1 Month from today",
+        frequency: freq,
+        amount: 799.00,
+        status: "Active",
+        renewalDate: freq.includes('Annually') ? "1 Year from today" : "1 Month from today",
+        billingInfo: `Billed ${freq.toLowerCase()} via saved payment method`
+      });
+
+      // Generate invoice
+      const newInvId = `#INV-${Math.floor(1000 + Math.random() * 9000)}`;
+      appState.invoices.unshift({
+        id: newInvId,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        dueDate: "Today",
+        subscriptionRef: newSubId,
+        product: `${prodName} - ${planName}`,
+        amount: 942.82,
+        status: "Paid",
+        items: [{ desc: `${planName} Subscription Activation (incl. GST)`, qty: 1, rate: 942.82, total: 942.82 }]
+      });
+
+      appState.notifications.unshift({
+        id: Date.now(),
+        unread: true,
+        title: `Subscription Activated: ${newSubId}`,
+        desc: `${planName} for ${prodName} is now active. Receipt generated.`,
+        time: "Just now",
+        target: "subscriptions"
+      });
+
+      closeModal('modal-plan-checkout');
+      saveState();
+
+      // Audit Log for Admin Console
+      try {
+        let audits = JSON.parse(localStorage.getItem('brightloop_audit_logs') || '[]');
+        audits.unshift({
+          id: 'AUD-' + Math.floor(100 + Math.random() * 900),
+          actor: `Customer: ${appState.customer ? appState.customer.name : 'Elena Rostova'}`,
+          action: `Activated Subscription ${newSubId} (${planName})`,
+          target: prodName,
+          time: 'Just now',
+          ip: '192.168.1.42',
+          level: 'SUCCESS'
+        });
+        localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      } catch (e) {
+        console.error(e);
+      }
+
+      showToast(`Subscription ${newSubId} activated successfully!`);
+      navigateTo('subscriptions');
+    }
+
+    // ----------------------------------------------------
+    // 2. BROWSE PLANS (General View Across All Products)
+    // ----------------------------------------------------
+    function renderPlans() {
+      CATALOGUE_DATA = getCatalogueData();
+      const grid = document.getElementById('plans-grid');
+      if (!grid) return;
+      const isYearly = appState.billingFrequency === 'yearly';
+
+      // Render Staff Quotations if any exist
+      const qContainer = document.getElementById('quotations-container');
+      if (qContainer) {
+        try {
+          const quotes = JSON.parse(localStorage.getItem('brightloop_quotations') || '[]');
+          if (quotes && quotes.length > 0) {
+            qContainer.classList.remove('hidden');
+            qContainer.innerHTML = `
+              <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/70 via-[#0e1736] to-sky-950/60 border border-cyan-400/40 shadow-[0_0_30px_rgba(56,189,248,0.2)]">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8] animate-pulse"></span>
+                    <h3 class="text-white font-bold text-sm">Special Commercial Proposal from Staff Operations Desk</h3>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">Contract Quotation</span>
+                </div>
+                ${quotes.map(q => `
+                  <div class="p-4 rounded-xl bg-[#070b18]/80 border border-cyan-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4 mt-2">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="font-mono text-cyan-300 font-bold text-xs">${q.id}</span>
+                        <span class="text-xs text-white font-semibold">${q.client}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${q.status === 'ACCEPTED' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/30'}">
+                          ${q.status}
+                        </span>
+                      </div>
+                      <p class="text-xs text-slate-300 mt-1">Dispatched: ${q.date} · Custom rate tailored by Commercial Operations</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                      <div class="text-right">
+                        <span class="text-[11px] text-slate-400 block">Proposed Total</span>
+                        <span class="font-mono text-white font-bold text-lg">${q.total}</span>
+                      </div>
+                      ${q.status !== 'ACCEPTED' ? `
+                        <button onclick="acceptQuotation('${q.id}', '${q.total}', '${q.client}')" class="px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(52,211,153,0.4)] hover:brightness-110 flex items-center gap-1.5 transition-all">
+                          <span class="material-symbols-outlined text-[16px]">verified</span>
+                          <span>Accept &amp; Subscribe</span>
+                        </button>
+                      ` : `
+                        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-400/30 text-xs font-semibold flex items-center gap-1">
+                          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                          <span>Converted</span>
+                        </span>
+                      `}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+          } else {
+            qContainer.classList.add('hidden');
+          }
+        } catch(e) {
+          console.error(e);
+        }
+      }
+
+      const allPlans = [];
+      CATALOGUE_DATA.forEach(prod => {
+        prod.plans.forEach(pl => {
+          allPlans.push({ ...pl, productName: prod.name });
+        });
+      });
+
+      grid.innerHTML = allPlans.map(plan => {
+        const price = isYearly ? plan.annualPrice : plan.monthlyPrice;
+        return `
+          <div class="rounded-xl bg-gradient-to-b from-[#18234d]/95 via-[#141e42]/95 to-[#101938]/95 backdrop-blur-xl border border-cyan-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.45)] p-6 flex flex-col justify-between hover:border-cyan-400/60 transition-all">
+            <div>
+              <span class="text-xs text-cyan-300 font-semibold block mb-1">${plan.productName}</span>
+              <h3 class="font-headline-card text-headline-card text-white font-bold mb-2">${plan.name}</h3>
+              <p class="text-xs text-slate-300 mb-4">${plan.desc}</p>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-1">
+                  <span class="font-metric-kpi text-white font-bold text-2xl font-mono">₹${price}</span>
+                  <span class="text-slate-400 text-xs">/ month</span>
+                </div>
+                <span class="text-[11px] text-cyan-300 font-medium">${isYearly ? `₹${price * 12} billed annually` : 'Billed monthly'}</span>
+              </div>
+              <ul class="flex flex-col gap-2 text-xs text-slate-200 mb-6">
+                ${plan.highlights.map(h => `
+                  <li class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-cyan-400 text-[16px]">check</span>
+                    <span>${h}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+            <button onclick="promptPlanCheckout('${plan.productName}', '${plan.name}', ${price}, '${isYearly ? 'Annually' : 'Monthly'}')" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)] hover:brightness-110">
+              Select Plan &amp; Subscribe
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function acceptQuotation(quoteId, totalStr, client) {
+      const newSubId = `#SUB-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+      const numTotal = parseFloat(totalStr.replace(/[^0-9.]/g, '')) || 8400;
+
+      appState.subscriptions.unshift({
+        id: newSubId,
+        product: "Enterprise Custom Agreement",
+        plan: `Negotiated Staff Quote (${quoteId})`,
+        startDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        endDate: "1 Year from today",
+        frequency: "Annually",
+        amount: numTotal,
+        status: "Active",
+        renewalDate: "1 Year from today",
+        billingInfo: "Commercial Contract Agreement"
+      });
+
+      const newInvId = `#INV-${Math.floor(1000 + Math.random() * 9000)}`;
+      appState.invoices.unshift({
+        id: newInvId,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        dueDate: "Within 15 days",
+        subscriptionRef: newSubId,
+        product: `Enterprise Custom Agreement - Quote ${quoteId}`,
+        amount: numTotal,
+        status: "Confirmed",
+        items: [{ desc: `Commercial Quotation ${quoteId} Contract Term`, qty: 1, rate: numTotal, total: numTotal }]
+      });
+
+      appState.notifications.unshift({
+        id: "NOTIF-" + Date.now(),
+        unread: true,
+        title: `Quotation Accepted: ${quoteId}`,
+        desc: `Commercial proposal for ${totalStr} accepted. Subscription ${newSubId} activated!`,
+        time: "Just now",
+        target: "subscriptions"
+      });
+
+      // Update quote status in brightloop_quotations
+      try {
+        let quotes = JSON.parse(localStorage.getItem('brightloop_quotations') || '[]');
+        let q = quotes.find(item => item.id === quoteId);
+        if (q) q.status = 'ACCEPTED';
+        localStorage.setItem('brightloop_quotations', JSON.stringify(quotes));
+
+        let audits = JSON.parse(localStorage.getItem('brightloop_audit_logs') || '[]');
+        audits.unshift({
+          id: 'AUD-' + Math.floor(100 + Math.random() * 900),
+          actor: `Customer: ${appState.customer.name}`,
+          action: `Accepted Proposal ${quoteId} (${totalStr})`,
+          target: newSubId,
+          time: 'Just now',
+          ip: '192.168.1.42',
+          level: 'SUCCESS'
+        });
+        localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      } catch (e) {
+        console.error(e);
+      }
+
+      saveState();
+      showToast(`Quotation ${quoteId} accepted! Subscription created.`, "success");
+      navigateTo('subscriptions');
+    }
+
+    function setBillingFreq(freq) {
+      appState.billingFrequency = freq;
+      const btnMonthly = document.getElementById('toggle-freq-monthly');
+      const btnYearly = document.getElementById('toggle-freq-yearly');
+      if (btnMonthly && btnYearly) {
+        if (freq === 'yearly') {
+          btnYearly.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-[0_0_12px_rgba(56,189,248,0.4)] transition-all flex items-center gap-1';
+          btnMonthly.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 transition-all';
+        } else {
+          btnMonthly.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-[0_0_12px_rgba(56,189,248,0.4)] transition-all';
+          btnYearly.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 transition-all flex items-center gap-1';
+        }
+      }
+      if (currentTab === 'plans') renderPlans();
+    }
+
+    // ----------------------------------------------------
+    // 3. MY SUBSCRIPTIONS (Requirement 2: Real Data or Empty State)
+    // ----------------------------------------------------
+    function renderSubscriptions() {
+      const container = document.getElementById('subscriptions-container');
+      if (!container) return;
+
+      const activeSubs = appState.subscriptions.filter(s => s.status === 'Active');
+
+      // Requirement 2: If customer has not purchased or activated any subscription, display empty-state message
+      if (activeSubs.length === 0) {
+        container.innerHTML = `
+          <div class="p-12 rounded-2xl bg-[#0c1226]/80 backdrop-blur-xl border border-cyan-500/20 text-center flex flex-col items-center justify-center">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center text-cyan-400 mb-4">
+              <span class="material-symbols-outlined text-[32px]">card_membership</span>
+            </div>
+            <h3 class="font-headline-card text-white text-lg font-bold">You don’t have any active subscriptions yet.</h3>
+            <p class="text-slate-400 text-sm max-w-md mt-1 mb-6">Explore our product catalogue to discover business management tools and subscribe to a plan tailored to your needs.</p>
+            <button onclick="navigateTo('overview')" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-sm shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110">
+              Browse Products
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Display real subscriptions (no dummy records)
+      container.innerHTML = activeSubs.map(sub => `
+        <div class="rounded-xl bg-[#0c1226]/80 backdrop-blur-xl border border-cyan-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[22px]">card_membership</span>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-cyan-300 font-semibold text-sm">${sub.id}</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">Active</span>
+              </div>
+              <h3 class="text-white font-bold text-base mt-0.5">${sub.plan}</h3>
+              <span class="text-slate-400 text-xs">${sub.product} · ${sub.billingInfo}</span>
+              <span class="text-slate-400 text-xs mt-1">Start: ${sub.startDate} · Next Renewal: <strong class="text-cyan-200">${sub.renewalDate}</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between md:justify-end gap-4 flex-shrink-0">
+            <div class="text-right">
+              <span class="text-xs text-slate-400 block">Subscription Amount</span>
+              <span class="font-mono font-bold text-white text-base">₹${sub.amount.toFixed(2)}/mo</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openSubscriptionDetails('${sub.id}')" class="px-3.5 py-1.5 rounded-lg bg-[#0e152c] border border-cyan-500/20 text-slate-200 hover:text-white text-xs font-semibold">
+                Details
+              </button>
+              <button onclick="cancelSubscription('${sub.id}')" class="px-3 py-1.5 rounded-lg bg-[#0e152c] border border-rose-500/20 text-rose-300 hover:bg-rose-500/15 text-xs font-semibold">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openSubscriptionDetails(id) {
+      const sub = appState.subscriptions.find(s => s.id === id);
+      if (!sub) return;
+      const content = document.getElementById('modal-subscription-content');
+      content.innerHTML = `
+        <h3 class="font-headline-card text-headline-card text-white font-bold mb-1">Subscription Agreement</h3>
+        <span class="font-mono text-cyan-300 text-xs">${sub.id}</span>
+        <div class="flex flex-col gap-2.5 text-xs text-slate-300 mt-4 p-3.5 bg-[#080d1d] rounded-xl border border-cyan-500/15">
+          <div class="flex justify-between"><span>Product:</span><strong class="text-white">${sub.product}</strong></div>
+          <div class="flex justify-between"><span>Plan Tier:</span><span class="text-cyan-300 font-bold">${sub.plan}</span></div>
+          <div class="flex justify-between"><span>Billing Information:</span><span>${sub.billingInfo}</span></div>
+          <div class="flex justify-between"><span>Amount:</span><strong class="text-white font-mono">₹${sub.amount.toFixed(2)} / month</strong></div>
+          <div class="flex justify-between"><span>Start Date:</span><span>${sub.startDate}</span></div>
+          <div class="flex justify-between"><span>Renewal Date:</span><span class="text-cyan-200 font-semibold">${sub.renewalDate}</span></div>
+          <div class="flex justify-between"><span>Status:</span><span class="text-emerald-400 font-bold">${sub.status}</span></div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-cyan-500/15 flex justify-end">
+          <button onclick="closeModal('modal-subscription')" class="px-4 py-2 rounded-lg bg-[#0e152c] text-slate-300 text-xs">Close</button>
+        </div>
+      `;
+      openModal('modal-subscription');
+    }
+
+    function cancelSubscription(id) {
+      const sub = appState.subscriptions.find(s => s.id === id);
+      if (!sub) return;
+      if (confirm(`Are you sure you want to cancel subscription ${id}?`)) {
+        sub.status = 'Closed';
+        saveState();
+        showToast(`Subscription ${id} cancelled.`, 'info');
+        renderSubscriptions();
+      }
+    }
+
+    // ----------------------------------------------------
+    // 4. MY INVOICES (Simple Cards, Identifies Paid/Unpaid/Overdue)
+    // ----------------------------------------------------
+    let invFilter = 'all';
+
+    function filterInvoices(st) {
+      invFilter = st;
+      const pills = document.querySelectorAll('.inv-filter-pill');
+      pills.forEach(p => {
+        if (p.textContent.trim().toLowerCase() === st.toLowerCase() || (st === 'all' && p.textContent.includes('All'))) {
+          p.className = 'inv-filter-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 border border-cyan-400/40 text-cyan-300';
+        } else {
+          p.className = 'inv-filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-[#0e152c] border border-cyan-500/15 text-slate-400 hover:text-white';
+        }
+      });
+      renderInvoices();
+    }
+
+    function renderInvoices() {
+      const container = document.getElementById('invoices-cards-list');
+      if (!container) return;
+
+      const filtered = appState.invoices.filter(inv => {
+        if (invFilter === 'all') return true;
+        if (invFilter === 'Unpaid') return inv.status === 'Confirmed';
+        return inv.status.toLowerCase() === invFilter.toLowerCase();
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="p-8 rounded-xl bg-[#0c1226]/80 text-center text-slate-400">No invoices matching filter.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(inv => {
+        const isPaid = inv.status === 'Paid';
+        return `
+          <div class="p-4 rounded-xl bg-[#0c1226]/80 backdrop-blur-xl border border-cyan-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-lg ${isPaid ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'} flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[20px]">receipt</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-cyan-300 font-semibold text-sm">${inv.id}</span>
+                  <span class="px-2 py-0.5 rounded-full ${isPaid ? 'bg-emerald-500/10 border-emerald-400/30 text-emerald-300' : 'bg-rose-500/10 border-rose-400/30 text-rose-300'} border text-[11px] font-semibold">
+                    ${isPaid ? 'Paid' : 'Unpaid'}
+                  </span>
+                </div>
+                <h4 class="text-white font-medium text-sm mt-0.5">${inv.product}</h4>
+                <span class="text-slate-400 text-xs">Issued: ${inv.date} · Due: <strong>${inv.dueDate}</strong> · Subscription: ${inv.subscriptionRef}</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between md:justify-end gap-4 flex-shrink-0">
+              <div class="text-right">
+                <span class="text-xs text-slate-400 block">Total Amount</span>
+                <span class="font-mono font-bold text-white text-base">₹${inv.amount.toFixed(2)}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="openInvoiceDetails('${inv.id}')" class="px-3 py-1.5 rounded-lg bg-[#0e152c] border border-cyan-500/20 text-slate-200 hover:text-white text-xs font-medium">
+                  Details
+                </button>
+                <button onclick="downloadInvoicePDF('${inv.id}')" class="p-1.5 rounded-lg bg-[#0e152c] border border-cyan-500/20 text-slate-300 hover:text-white" title="Download PDF">
+                  <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                </button>
+                ${!isPaid ? `
+                  <button onclick="promptPayment('${inv.id}', ${inv.amount})" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+                    Pay Now
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openInvoiceDetails(id) {
+      const inv = appState.invoices.find(i => i.id === id);
+      if (!inv) return;
+      const isPaid = inv.status === 'Paid';
+      const content = document.getElementById('modal-invoice-content');
+      content.innerHTML = `
+        <h3 class="font-headline-card text-headline-card text-white font-bold mb-1">Invoice Statement</h3>
+        <span class="font-mono text-cyan-300 text-xs">${inv.id}</span>
+        <div class="flex flex-col gap-2 text-xs text-slate-300 mt-4 p-3.5 bg-[#080d1d] rounded-xl border border-cyan-500/15">
+          <div class="flex justify-between"><span>Subscription Reference:</span><strong class="text-white">${inv.subscriptionRef}</strong></div>
+          <div class="flex justify-between"><span>Product / Plan:</span><span>${inv.product}</span></div>
+          <div class="flex justify-between"><span>Invoice Date:</span><span>${inv.date}</span></div>
+          <div class="flex justify-between"><span>Due Date:</span><strong class="text-white">${inv.dueDate}</strong></div>
+          <div class="flex justify-between"><span>Payment Status:</span><span class="${isPaid ? 'text-emerald-400' : 'text-rose-400'} font-bold">${inv.status}</span></div>
+          <div class="flex justify-between border-t border-cyan-500/20 pt-2 font-bold text-white text-sm">
+            <span>Total Payable:</span><span class="text-cyan-300 font-mono">₹${inv.amount.toFixed(2)}</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-3 border-t border-cyan-500/15 flex items-center justify-between">
+          <button onclick="downloadInvoicePDF('${inv.id}')" class="px-3.5 py-2 rounded-lg bg-[#0e152c] text-cyan-300 text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">file_download</span> Download PDF
+          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="closeModal('modal-invoice')" class="px-4 py-2 rounded-lg bg-[#0e152c] text-slate-300 text-xs">Close</button>
+            ${!isPaid ? `
+              <button onclick="closeModal('modal-invoice'); promptPayment('${inv.id}', ${inv.amount})" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs">Pay Now</button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      openModal('modal-invoice');
+    }
+
+    let pendingPayId = null;
+    function promptPayment(id, amt) {
+      pendingPayId = id;
+      document.getElementById('pay-modal-inv-id').textContent = `Invoice ${id}`;
+      document.getElementById('pay-modal-amount').textContent = `₹${amt.toFixed(2)}`;
+      openModal('modal-payment');
+    }
+
+    function executePayment() {
+      const inv = appState.invoices.find(i => i.id === pendingPayId);
+      if (!inv) return;
+      inv.status = 'Paid';
+
+      const newRef = `PAY-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      appState.payments.unshift({
+        ref: newRef,
+        invoiceId: inv.id,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        method: "Visa •••• 4242",
+        amount: inv.amount,
+        status: "Completed",
+        authCode: `AUTH_${Math.floor(100000 + Math.random() * 900000)}`
+      });
+
+      appState.notifications.unshift({
+        id: Date.now(),
+        unread: true,
+        title: `Payment Received: ${newRef}`,
+        desc: `Payment of ₹${inv.amount.toFixed(2)} processed for Invoice ${inv.id}.`,
+        time: "Just now",
+        target: "payments"
+      });
+
+      closeModal('modal-payment');
+      saveState();
+
+      // Audit Log for Admin Console
+      try {
+        let audits = JSON.parse(localStorage.getItem('brightloop_audit_logs') || '[]');
+        audits.unshift({
+          id: 'AUD-' + Math.floor(100 + Math.random() * 900),
+          actor: `Customer: ${appState.customer ? appState.customer.name : 'Elena Rostova'}`,
+          action: `Settled Invoice ${inv.id} (₹${inv.amount.toFixed(2)}) via Card`,
+          target: newRef,
+          time: 'Just now',
+          ip: '192.168.1.42',
+          level: 'SUCCESS'
+        });
+        localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      } catch (e) {
+        console.error(e);
+      }
+
+      showToast(`Payment of ₹${inv.amount.toFixed(2)} completed successfully.`);
+      renderInvoices();
+      renderPayments();
+    }
+
+    // ----------------------------------------------------
+    // 5. PAYMENT HISTORY (Read-only, No Tables)
+    // ----------------------------------------------------
+    function renderPayments() {
+      const container = document.getElementById('payments-cards-list');
+      if (!container) return;
+
+      container.innerHTML = appState.payments.map(pay => `
+        <div class="p-4 rounded-xl bg-[#0c1226]/80 backdrop-blur-xl border border-cyan-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center flex-shrink-0">
+              <span class="material-symbols-outlined text-[20px]">payments</span>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-cyan-300 font-semibold text-sm">${pay.ref}</span>
+                <span class="px-2 py-0.2 rounded-full bg-emerald-500/10 text-emerald-300 text-[10px] font-semibold">Completed</span>
+              </div>
+              <span class="text-white font-medium text-xs mt-0.5">Paid for ${pay.invoiceId} via ${pay.method}</span>
+              <span class="text-slate-400 text-xs">Payment Date: ${pay.date} · Auth: ${pay.authCode}</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between md:justify-end gap-4 flex-shrink-0">
+            <span class="font-mono font-bold text-white text-base">₹${pay.amount.toFixed(2)}</span>
+            <button onclick="downloadReceiptPDF('${pay.ref}')" class="px-3 py-1.5 rounded-lg bg-[#0e152c] border border-cyan-500/20 text-cyan-300 hover:text-white text-xs font-medium">
+              View Receipt
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ----------------------------------------------------
+    // 6. NOTIFICATIONS
+    // ----------------------------------------------------
+    function renderNotifications() {
+      const container = document.getElementById('notifications-cards-list');
+      if (!container) return;
+
+      container.innerHTML = appState.notifications.map(n => `
+        <div class="p-4 rounded-xl ${n.unread ? 'bg-[#0c142b]/95 border-cyan-400/40 shadow-[0_0_15px_rgba(56,189,248,0.1)]' : 'bg-[#0c1226]/80 border-cyan-500/15'} border flex items-start justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg ${n.unread ? 'bg-cyan-500/20 text-cyan-300' : 'bg-slate-800 text-slate-400'} flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-white font-semibold text-sm">${n.title}</span>
+                ${n.unread ? `<span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>` : ''}
+              </div>
+              <p class="text-slate-300 text-xs mt-0.5">${n.desc}</p>
+              <span class="text-[11px] text-slate-500 mt-1 block">${n.time}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button onclick="navigateTo('${n.target}')" class="px-3 py-1.5 rounded-lg bg-[#0e152c] text-cyan-300 hover:text-white text-xs font-medium border border-cyan-500/20">
+              View
+            </button>
+            ${n.unread ? `
+              <button onclick="toggleNotificationRead(${n.id})" class="p-1.5 text-slate-400 hover:text-white" title="Mark Read">
+                <span class="material-symbols-outlined text-[18px]">check</span>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleNotificationRead(id) {
+      const n = appState.notifications.find(item => item.id === id);
+      if (n) n.unread = false;
+      saveState();
+      renderNotifications();
+    }
+
+    function markAllNotificationsRead() {
+      appState.notifications.forEach(n => n.unread = false);
+      saveState();
+      renderNotifications();
+      showToast('All notifications marked as read.');
+    }
+
+    // ----------------------------------------------------
+    // PDF GENERATION
+    // ----------------------------------------------------
+    function downloadInvoicePDF(id) {
+      const inv = appState.invoices.find(i => i.id === id);
+      if (!inv) return;
+      const printArea = document.getElementById('printable-area');
+      printArea.innerHTML = `
+        <div style="font-family: Arial, sans-serif; padding: 40px; color: #111;">
+          <h1 style="color: #0284c7; margin: 0;">BRIGHTLOOP INVOICE</h1>
+          <p>Invoice: <strong>${inv.id}</strong> · Status: <strong>${inv.status}</strong></p>
+          <hr/>
+          <p><strong>Customer:</strong> ${appState.customer.company} (${appState.customer.name})</p>
+          <p><strong>Subscription:</strong> ${inv.subscriptionRef}</p>
+          <p><strong>Product:</strong> ${inv.product}</p>
+          <p><strong>Due Date:</strong> ${inv.dueDate}</p>
+          <h2 style="color: #0284c7;">Total: ₹${inv.amount.toFixed(2)} INR</h2>
+        </div>
+      `;
+      window.print();
+    }
+
+    function downloadReceiptPDF(ref) {
+      const pay = appState.payments.find(p => p.ref === ref);
+      if (!pay) return;
+      const printArea = document.getElementById('printable-area');
+      printArea.innerHTML = `
+        <div style="font-family: Arial, sans-serif; padding: 40px; color: #111;">
+          <h1 style="color: #16a34a; margin: 0;">PAYMENT RECEIPT</h1>
+          <p>Reference: <strong>${pay.ref}</strong> · Auth: ${pay.authCode}</p>
+          <hr/>
+          <p><strong>Customer:</strong> ${appState.customer.company}</p>
+          <p><strong>For:</strong> Invoice ${pay.invoiceId}</p>
+          <p><strong>Payment Date:</strong> ${pay.date}</p>
+          <p><strong>Method:</strong> ${pay.method}</p>
+          <h2 style="color: #16a34a;">Amount Paid: ₹${pay.amount.toFixed(2)} INR (Verified)</h2>
+        </div>
+      `;
+      window.print();
+    }
+
+    // ----------------------------------------------------
+    // AUTH CONTROLLER (Requirement 7: Logout / Login)
+    // ----------------------------------------------------
+    function syncAuthUI() {
+      const logoutText = document.getElementById('logout-text');
+      const logoutIcon = document.getElementById('logout-icon');
+      const headerRole = document.getElementById('header-role-badge');
+      const userName = document.getElementById('sidebar-user-name');
+      const userEmail = document.getElementById('sidebar-user-email');
+      const avatarInitials = document.getElementById('header-avatar-initials');
+
+      if (appState.isLoggedIn) {
+        if (logoutText) logoutText.textContent = "Logout";
+        if (logoutIcon) logoutIcon.textContent = "logout";
+        if (headerRole) headerRole.textContent = "Customer Portal";
+        if (userName) userName.textContent = appState.customer.name;
+        if (userEmail) userEmail.textContent = appState.customer.email;
+        if (avatarInitials) avatarInitials.textContent = appState.customer.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+      } else {
+        if (logoutText) logoutText.textContent = "Sign In";
+        if (logoutIcon) logoutIcon.textContent = "login";
+        if (headerRole) headerRole.textContent = "Guest Browser";
+        if (userName) userName.textContent = "Guest User";
+        if (userEmail) userEmail.textContent = "Browsing Mode";
+        if (avatarInitials) avatarInitials.textContent = "GU";
+      }
+    }
+
+    function handleAuthAction() {
+      if (appState.isLoggedIn) {
+        appState.isLoggedIn = false;
+        saveState();
+        syncAuthUI();
+        showToast("Logged out. Redirecting to Customer Login...", "info");
+        setTimeout(() => {
+          window.location.href = 'cust_login.html';
+        }, 800);
+      } else {
+        window.location.href = 'cust_login.html';
+      }
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      syncAuthUI();
+      renderProductCatalogue();
+      updateMetrics();
+    });
+  </script>
+</body>
+</html>

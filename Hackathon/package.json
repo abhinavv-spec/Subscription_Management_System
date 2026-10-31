@@ -1,0 +1,13 @@
+{
+  "name": "brightloop-subscriptions",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Brightloop Subscriptions - Staff Operations Platform",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm.cmd run dev",
+    "build": "cd frontend && npm.cmd run build",
+    "test:e2e": "node test_workflow.js"
+  }
+}

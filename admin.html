@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Brightloop - Admin Console & Governance</title>
+  <meta content="web_dashboard" name="shell-type"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base { 
+      html, body { margin: 0; padding: 0; } 
+      body { overscroll-behavior: none; } 
+      main > :first-child { margin-top: 0 !important; } 
+      main > :last-child { margin-bottom: 0 !important; } 
+    } 
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070b18; }
+    ::-webkit-scrollbar-thumb { background: #1e2942; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+    @media print {
+      body * { visibility: hidden; }
+      #printable-area, #printable-area * { visibility: visible; }
+      #printable-area { position: absolute; left: 0; top: 0; width: 100%; color: #000; background: #fff; }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#0b1020",
+            "tertiary": "#7dd3fc",
+            "outline": "#4b5b75",
+            "error": "#ff6b81",
+            "error-container": "rgba(239, 68, 68, 0.15)",
+            "primary-fixed": "#c4e7ff",
+            "inverse-primary": "#0284c7",
+            "secondary-fixed-dim": "#bdc2ff",
+            "on-secondary-container": "#93c5fd",
+            "on-primary-container": "#ffffff",
+            "surface-container-lowest": "#060913",
+            "inverse-on-surface": "#2c303e",
+            "surface-container": "#0e1428",
+            "surface-dim": "#070b18",
+            "background": "#070b18",
+            "on-primary-fixed": "#001e2c",
+            "on-primary": "#031126",
+            "on-surface": "#f1f5f9",
+            "surface": "#070b18",
+            "on-error-container": "#fca5a5",
+            "on-primary-fixed-variant": "#004c69",
+            "on-background": "#f1f5f9",
+            "secondary-fixed": "#e0e0ff",
+            "tertiary-container": "#38bdf8",
+            "primary": "#38bdf8",
+            "secondary-container": "#1e293b",
+            "tertiary-fixed-dim": "#a4c9ff",
+            "tertiary-fixed": "#d4e3ff",
+            "inverse-surface": "#dfe1f4",
+            "primary-container": "#0284c7",
+            "surface-variant": "#141c33",
+            "on-tertiary-fixed": "#001c39",
+            "on-tertiary": "#00315d",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#38bdf8",
+            "on-surface-variant": "#94a3b8",
+            "on-secondary-fixed": "#000767",
+            "secondary": "#94a3b8",
+            "surface-container-high": "#131b34",
+            "on-tertiary-fixed-variant": "#004883",
+            "on-secondary-fixed-variant": "#2f3aa3",
+            "surface-container-highest": "#1c2542",
+            "surface-bright": "#222d4f",
+            "primary-fixed-dim": "#7bd0ff",
+            "on-tertiary-container": "#00457e",
+            "on-error": "#ffffff",
+            "outline-variant": "#1e2942"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.75rem",
+            "lg": "1rem",
+            "xl": "1.25rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "3rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "body-default": ["Inter", "sans-serif"],
+            "headline-page": ["Inter", "sans-serif"],
+            "metric-kpi": ["Inter", "sans-serif"],
+            "headline-card": ["Inter", "sans-serif"],
+            "headline-section": ["Inter", "sans-serif"],
+            "label-uppercase": ["Inter", "sans-serif"],
+            "label-default": ["Inter", "sans-serif"],
+            "badge-caption": ["Inter", "sans-serif"],
+            "body-subtle": ["Inter", "sans-serif"],
+            "body-medium": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-page": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "body-medium": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "500" }],
+            "label-default": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "label-uppercase": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "metric-kpi": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-caption": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-card": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-section": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-subtle": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-default": ["14px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#070b18] font-body-default text-body-default text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen relative overflow-x-hidden">
+
+  <!-- Ambient Cosmic Glow & Neon Light Arc -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-[320px] left-1/2 -translate-x-1/2 w-[1100px] h-[640px] rounded-[100%] bg-gradient-to-b from-cyan-400/20 via-sky-600/10 to-transparent blur-3xl opacity-80"></div>
+    <div class="absolute -top-[260px] left-1/2 -translate-x-1/2 w-[850px] h-[480px] rounded-[100%] border-t-2 border-cyan-400/50 shadow-[0_0_60px_rgba(56,189,248,0.35)] opacity-90"></div>
+    <div class="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-60 w-[500px] h-[500px] rounded-full bg-sky-950/30 blur-[140px] pointer-events-none"></div>
+  </div>
+
+  <!-- Mobile Menu Backdrop -->
+  <div id="mobile-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+  <!-- ADMIN NAVIGATION SIDEBAR -->
+  <aside id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-[#090d1e]/95 backdrop-blur-2xl border-r border-cyan-500/10 shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-50 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <div class="flex flex-col flex-1 overflow-y-auto px-4 py-6">
+      <!-- Logo & Branding -->
+      <div class="flex items-center justify-between px-2 mb-8">
+        <div class="flex items-center gap-space-sm cursor-pointer" onclick="navigateTo('overview')">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold text-base shadow-[0_0_15px_rgba(56,189,248,0.5)]">
+            <span class="material-symbols-outlined text-[20px] text-slate-950 font-bold">shield_person</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline-card text-headline-card text-white tracking-tight flex items-center gap-1.5">
+              Brightloop <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+            </span>
+            <span class="font-badge-caption text-badge-caption text-cyan-400 font-medium">Admin Console</span>
+          </div>
+        </div>
+        <span class="px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-400/30 text-rose-300 font-badge-caption text-badge-caption uppercase font-semibold">Root</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-1.5">
+        <div class="px-2 pb-1">
+          <span class="font-label-uppercase text-label-uppercase text-slate-400/80 tracking-widest uppercase text-[10px]">Administration</span>
+        </div>
+
+        <!-- 1. Console Overview -->
+        <a id="nav-overview" onclick="navigateTo('overview')" class="nav-item flex items-center gap-space-sm px-3 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-sky-500/10 text-cyan-300 border border-cyan-400/30 shadow-[0_0_15px_rgba(56,189,248,0.15)] font-medium cursor-pointer transition-all" href="javascript:void(0)">
+          <span class="material-symbols-outlined text-[20px] text-cyan-400">dashboard</span>
+          <span class="font-body-medium text-body-medium">Console Overview</span>
+        </a>
+
+        <!-- 2. Products & Plans (Added per User Request) -->
+        <a id="nav-products" onclick="navigateTo('products')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+            <span class="font-body-medium text-body-medium">Products &amp; Plans</span>
+          </div>
+          <span id="badge-products-count" class="px-2 py-0.2 rounded text-[11px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">4</span>
+        </a>
+
+        <!-- 3. Staff Management -->
+        <a id="nav-staff" onclick="navigateTo('staff')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">badge</span>
+            <span class="font-body-medium text-body-medium">Staff Management</span>
+          </div>
+          <span id="badge-staff-count" class="px-2 py-0.2 rounded text-[11px] font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">6</span>
+        </a>
+
+        <!-- 4. Customer Accounts -->
+        <a id="nav-customers" onclick="navigateTo('customers')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">groups</span>
+            <span class="font-body-medium text-body-medium">Customer Accounts</span>
+          </div>
+          <span class="px-1.5 py-0.2 rounded text-[11px] font-semibold bg-slate-800 text-slate-300">1,420</span>
+        </a>
+
+        <!-- 5. Audit Logs -->
+        <a id="nav-audit" onclick="navigateTo('audit')" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">history_edu</span>
+            <span class="font-body-medium text-body-medium">Audit Logs</span>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+        </a>
+
+        <!-- 6. Security & Policy -->
+        <a id="nav-security" onclick="navigateTo('security')" class="nav-item flex items-center gap-space-sm px-3 py-2.5 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+          <span class="material-symbols-outlined text-[20px]">security</span>
+          <span class="font-body-medium text-body-medium">Security &amp; Tokens</span>
+        </a>
+
+        <!-- Quick Switch to Portals -->
+        <div class="pt-4 border-t border-cyan-500/10 mt-2">
+          <div class="px-2 pb-1.5">
+            <span class="font-label-uppercase text-label-uppercase text-slate-500 tracking-widest uppercase text-[10px]">Portals Gateway</span>
+          </div>
+          <a href="user.html" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors text-xs">
+            <span class="material-symbols-outlined text-[18px] text-cyan-400">person</span>
+            <span>Customer Portal</span>
+          </a>
+          <a href="staff_login.html" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors text-xs">
+            <span class="material-symbols-outlined text-[18px] text-cyan-400">badge</span>
+            <span>Staff Login Portal</span>
+          </a>
+          <a href="staff.html" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-cyan-300 transition-colors text-xs">
+            <span class="material-symbols-outlined text-[18px] text-cyan-400">hub</span>
+            <span>Staff Operations Hub</span>
+          </a>
+        </div>
+
+        <!-- 7. Logout -->
+        <div class="pt-4 border-t border-cyan-500/10 mt-2">
+          <a onclick="handleAdminLogout()" id="nav-logout" class="flex items-center gap-space-sm px-3 py-2 rounded-lg text-slate-400 hover:bg-rose-500/10 hover:text-rose-300 transition-colors font-body-medium text-body-medium cursor-pointer" href="javascript:void(0)">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span class="font-body-medium text-body-medium">Admin Sign Out</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Admin Bottom Profile Footer -->
+    <div id="sidebar-user-footer" class="p-4 bg-[#070a16] border-t border-cyan-500/10 flex items-center justify-between">
+      <div class="flex items-center gap-space-sm min-w-0">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold shadow-[0_0_10px_rgba(56,189,248,0.4)] shrink-0">
+          <span class="text-xs font-bold text-slate-950">AD</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-label-default text-label-default text-white font-semibold truncate">Admin Operations</span>
+          <span class="font-badge-caption text-badge-caption text-slate-400 truncate">admin.ops@brightloop.io</span>
+        </div>
+      </div>
+      <div class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" title="Root Key Verified"></div>
+    </div>
+  </aside>
+
+  <!-- Main Content Layout -->
+  <div class="lg:pl-72 relative z-10">
+    <!-- Navbar Header -->
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-[#070b18]/85 backdrop-blur-xl border-b border-cyan-500/10 z-40 flex items-center justify-between px-gutter">
+      <div class="flex items-center gap-space-sm">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#131b34]">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div class="flex items-center gap-space-sm text-slate-400">
+          <span class="font-body-subtle text-body-subtle hover:text-white transition-colors cursor-pointer" onclick="navigateTo('overview')">Brightloop Admin</span>
+          <span class="material-symbols-outlined text-[16px] text-slate-500">chevron_right</span>
+          <span id="header-breadcrumb" class="font-body-medium text-body-medium text-white font-semibold">Console Overview</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-md">
+        <!-- Root Security Badge -->
+        <div class="hidden sm:flex items-center gap-space-xs bg-cyan-950/40 border border-cyan-500/20 px-2.5 py-1 rounded-lg">
+          <span class="material-symbols-outlined text-[16px] text-cyan-400">shield</span>
+          <span class="font-label-default text-label-default text-cyan-200 font-medium">Root Access • TLS 1.3</span>
+        </div>
+
+        <!-- Quick Header Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Add Product Quick Button -->
+          <button onclick="openAddProductModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/30 text-cyan-300 text-xs font-semibold hover:border-cyan-400 transition-all">
+            <span class="material-symbols-outlined text-[16px]">add_box</span>
+            <span class="hidden md:inline">Add Product</span>
+          </button>
+
+          <!-- Add Staff Quick Button -->
+          <button onclick="openAddStaffModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 text-xs font-semibold shadow-[0_0_15px_rgba(56,189,248,0.35)] hover:brightness-110 transition-all">
+            <span class="material-symbols-outlined text-[16px]">person_add</span>
+            <span class="hidden md:inline">Add Staff</span>
+          </button>
+        </div>
+
+        <!-- Portal Quick Links -->
+        <div class="hidden sm:flex items-center gap-2">
+          <a href="user.html" target="_blank" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0e162f] hover:bg-[#152044] border border-cyan-500/20 text-cyan-300 text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[15px]">person</span>
+            <span>Customer Portal</span>
+          </a>
+          <a href="staff.html" target="_blank" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0e162f] hover:bg-[#152044] border border-cyan-500/20 text-slate-300 hover:text-white text-xs font-medium transition-colors">
+            <span class="material-symbols-outlined text-[15px]">hub</span>
+            <span>Staff Hub</span>
+          </a>
+        </div>
+
+        <!-- Notification Bell -->
+        <button onclick="navigateTo('audit')" class="relative p-2 rounded-lg text-slate-400 hover:bg-[#131b34] hover:text-white transition-colors" title="Audit Logs">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"></span>
+        </button>
+
+        <!-- Admin Avatar Indicator -->
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold shadow-[0_0_10px_rgba(56,189,248,0.4)]" title="Root Administrator">
+          <span class="text-xs font-bold text-slate-950">AD</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full pt-16 px-gutter">
+      <div class="flex flex-col w-full pb-16 max-w-7xl mx-auto">
+
+        <!-- ================= 1. CONSOLE OVERVIEW ================= -->
+        <section id="view-overview" class="view-panel block">
+          <!-- Page Header -->
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Admin System Console</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Centralized platform governance: track recurring revenue, customer volume, product portfolio, and staff provisioning.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openAddProductModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/30 text-cyan-300 font-semibold transition-all text-xs">
+                <span class="material-symbols-outlined text-[18px]">add_box</span>
+                <span>Add Product</span>
+              </button>
+              <button onclick="openAddStaffModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-semibold shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 transition-all font-label-default text-label-default">
+                <span class="material-symbols-outlined text-[18px]">person_add</span>
+                <span>Provision Staff</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- PRIMARY KPI METRIC CARDS GRID (Requested by user: Total Revenue, Customers, Total Products) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            
+            <!-- KPI 1: TOTAL REVENUE -->
+            <div class="rounded-xl bg-[#0c1226]/85 backdrop-blur-xl border border-cyan-500/20 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-cyan-400/40 transition-all group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Recurring Revenue</span>
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-[18px]">currency_rupee</span>
+                </div>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span id="overview-total-revenue" class="font-metric-kpi text-metric-kpi text-white font-bold tracking-tight">₹14,84,500</span>
+                <span class="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[14px]">trending_up</span> +18.4%
+                </span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2 flex items-center justify-between border-t border-cyan-500/10 pt-2">
+                <span>MRR: ₹1,24,600 / mo</span>
+                <span class="text-cyan-300 font-semibold">98.2% Paid</span>
+              </div>
+            </div>
+
+            <!-- KPI 2: NUMBER OF CUSTOMERS -->
+            <div class="rounded-xl bg-[#0c1226]/85 backdrop-blur-xl border border-cyan-500/20 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-cyan-400/40 transition-all group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Customers</span>
+                <div class="w-8 h-8 rounded-lg bg-sky-500/15 flex items-center justify-center text-sky-400 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-[18px]">groups</span>
+                </div>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span id="overview-total-customers" class="font-metric-kpi text-metric-kpi text-white font-bold tracking-tight">1,420</span>
+                <span class="text-xs font-semibold text-cyan-400">Active</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2 flex items-center justify-between border-t border-cyan-500/10 pt-2">
+                <span>4 Enterprise Orgs</span>
+                <button onclick="navigateTo('customers')" class="text-cyan-400 hover:underline">Inspect &rarr;</button>
+              </div>
+            </div>
+
+            <!-- KPI 3: TOTAL PRODUCTS -->
+            <div class="rounded-xl bg-[#0c1226]/85 backdrop-blur-xl border border-cyan-500/20 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-cyan-400/40 transition-all group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Catalogue Products</span>
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+                </div>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span id="overview-total-products" class="font-metric-kpi text-metric-kpi text-white font-bold tracking-tight">4</span>
+                <span class="text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[14px]">check_circle</span> Live
+                </span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2 flex items-center justify-between border-t border-cyan-500/10 pt-2">
+                <span>Client Synced</span>
+                <button onclick="navigateTo('products')" class="text-cyan-400 hover:underline">Manage &rarr;</button>
+              </div>
+            </div>
+
+            <!-- KPI 4: TOTAL STAFF MEMBERS -->
+            <div class="rounded-xl bg-[#0c1226]/85 backdrop-blur-xl border border-cyan-500/20 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-cyan-400/40 transition-all group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Staff Members</span>
+                <div class="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-[18px]">badge</span>
+                </div>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span id="overview-total-staff" class="font-metric-kpi text-metric-kpi text-white font-bold tracking-tight">6</span>
+                <span class="text-xs font-semibold text-emerald-400">5 Online</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2 flex items-center justify-between border-t border-cyan-500/10 pt-2">
+                <span>0 Suspensions</span>
+                <button onclick="navigateTo('staff')" class="text-cyan-400 hover:underline">Roster &rarr;</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick Action Tiles (4 core actions) -->
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Action 1: Add Product -->
+            <div onclick="openAddProductModal()" class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 hover:border-cyan-400/60 p-5 cursor-pointer transition-all hover:-translate-y-0.5 group">
+              <div class="w-10 h-10 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 mb-3 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">add_box</span>
+              </div>
+              <h4 class="font-body-medium text-body-medium text-white font-semibold mb-1">Add New Product</h4>
+              <p class="text-xs text-slate-400">Publish new software suite or add-on to the customer catalogue.</p>
+            </div>
+
+            <!-- Action 2: Set Plans -->
+            <div onclick="openSetPlanModal()" class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 hover:border-cyan-400/60 p-5 cursor-pointer transition-all hover:-translate-y-0.5 group">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 mb-3 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">tune</span>
+              </div>
+              <h4 class="font-body-medium text-body-medium text-white font-semibold mb-1">Set Subscription Plans</h4>
+              <p class="text-xs text-slate-400">Configure monthly &amp; annual tiers, feature limits, and discounts.</p>
+            </div>
+
+            <!-- Action 3: Add Staff -->
+            <div onclick="openAddStaffModal()" class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 hover:border-cyan-400/60 p-5 cursor-pointer transition-all hover:-translate-y-0.5 group">
+              <div class="w-10 h-10 rounded-lg bg-sky-500/15 flex items-center justify-center text-sky-400 mb-3 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">person_add</span>
+              </div>
+              <h4 class="font-body-medium text-body-medium text-white font-semibold mb-1">Add Staff Member</h4>
+              <p class="text-xs text-slate-400">Provision internal teammates with role-based access control.</p>
+            </div>
+
+            <!-- Action 4: Customer Accounts -->
+            <div onclick="navigateTo('customers')" class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 hover:border-cyan-400/60 p-5 cursor-pointer transition-all hover:-translate-y-0.5 group">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/15 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">domain_verification</span>
+              </div>
+              <h4 class="font-body-medium text-body-medium text-white font-semibold mb-1">Customer Accounts</h4>
+              <p class="text-xs text-slate-400">Inspect client organizations, seats, and billing status.</p>
+            </div>
+          </div>
+
+          <!-- Mid Section: Product Portfolio Snapshot & Staff Breakdown -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Left 2 Cols: Active Products Portfolio Preview -->
+            <div class="lg:col-span-2 rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="font-headline-card text-headline-card text-white flex items-center gap-2">
+                      <span class="material-symbols-outlined text-cyan-400 text-[20px]">category</span>
+                      Active Product Portfolio
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Software products offered on customer self-service portal</p>
+                  </div>
+                  <button onclick="navigateTo('products')" class="text-xs text-cyan-400 hover:underline font-semibold flex items-center gap-1">
+                    <span>View All Products</span>
+                    <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  </button>
+                </div>
+
+                <div id="overview-products-preview" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-cyan-500/10 flex items-center justify-between text-xs">
+                <span class="text-slate-400">Sync status: <strong class="text-emerald-400">Active &amp; Published in user.html</strong></span>
+                <button onclick="openAddProductModal()" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                  <span>Add Another Product</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right 1 Col: Staff Department Distribution -->
+            <div class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 p-6 flex flex-col justify-between">
+              <div>
+                <h3 class="font-headline-card text-headline-card text-white mb-4 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-cyan-400 text-[20px]">account_tree</span>
+                  Staff by Department
+                </h3>
+                <div class="flex flex-col gap-3" id="department-distribution-list">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+              <button onclick="navigateTo('staff')" class="mt-5 w-full py-2 rounded-lg bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/20 text-cyan-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+                <span>View Full Staff Roster</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Administrative Activity -->
+          <div class="rounded-xl bg-[#0c1226]/80 backdrop-blur-xl border border-cyan-500/20 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-headline-card text-headline-card text-white">Recent System Events</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Real-time chronicle of product additions, plan configurations, and staff events.</p>
+              </div>
+              <button onclick="navigateTo('audit')" class="text-xs text-cyan-400 hover:underline font-semibold">View All Logs &rarr;</button>
+            </div>
+            <div id="overview-recent-events" class="flex flex-col gap-3">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= 2. PRODUCTS & SUBSCRIPTION PLANS (NEW CORE MODULE) ================= -->
+        <section id="view-products" class="view-panel hidden">
+          <!-- Page Header -->
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h1 class="font-headline-page text-headline-page text-white tracking-tight">Products &amp; Subscription Plans</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-badge-caption text-badge-caption font-semibold">Catalogue Management</span>
+              </div>
+              <p class="font-body-subtle text-body-subtle text-slate-400">
+                Manage your software product portfolio, create new product offerings, and configure tiered subscription plans with monthly &amp; annual pricing.
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="openSetPlanModal()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/30 text-cyan-300 font-semibold text-xs transition-colors">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+                <span>Set Subscription Plan</span>
+              </button>
+              <button onclick="openAddProductModal()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold shadow-[0_0_20px_rgba(56,189,248,0.45)] hover:brightness-110 active:scale-95 transition-all text-sm">
+                <span class="material-symbols-outlined text-[20px]">add_box</span>
+                <span>Add New Product</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Filter Tabs -->
+          <div class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Search Input -->
+            <div class="relative w-full md:w-80">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+              <input id="product-search-input" oninput="filterProductList()" type="text" placeholder="Search products or plans..." class="w-full pl-10 pr-4 py-2 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0" id="product-category-filters">
+              <button onclick="setProductFilter('All')" class="prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 transition-all" data-cat="All">All (<span id="count-prod-all">4</span>)</button>
+              <button onclick="setProductFilter('Core Business Suite')" class="prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-cat="Core Business Suite">Core Suite</button>
+              <button onclick="setProductFilter('Payments & Routing')" class="prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-cat="Payments & Routing">Payments</button>
+              <button onclick="setProductFilter('Intelligence & Analytics')" class="prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-cat="Intelligence & Analytics">Analytics</button>
+              <button onclick="setProductFilter('Support & Security')" class="prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-cat="Support & Security">Support/SLA</button>
+            </div>
+          </div>
+
+          <!-- Product Cards Grid -->
+          <div class="mb-10">
+            <h2 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-cyan-400 text-[18px]">category</span>
+              Products in Catalogue (<span id="products-grid-count">4</span>)
+            </h2>
+            <div id="admin-products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Subscription Plans Matrix -->
+          <div class="pt-6 border-t border-cyan-500/15">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                  <span class="material-symbols-outlined text-cyan-400 text-[18px]">tune</span>
+                  Active Subscription Plans by Product
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5">Configured billing tiers available to subscribers during checkout</p>
+              </div>
+              <button onclick="openSetPlanModal()" class="text-xs text-cyan-400 hover:underline font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+                <span>Configure New Plan</span>
+              </button>
+            </div>
+            
+            <div id="admin-all-plans-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= 3. STAFF MANAGEMENT ================= -->
+        <section id="view-staff" class="view-panel hidden">
+          <!-- Page Header -->
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h1 class="font-headline-page text-headline-page text-white tracking-tight">Staff Management</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-badge-caption text-badge-caption font-semibold">RBAC Controller</span>
+              </div>
+              <p class="font-body-subtle text-body-subtle text-slate-400">
+                Provision new internal staff accounts, assign corporate departments, regulate access permission tiers, and monitor status.
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="openAddStaffModal()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold shadow-[0_0_20px_rgba(56,189,248,0.45)] hover:brightness-110 active:scale-95 transition-all text-sm">
+                <span class="material-symbols-outlined text-[20px]">person_add</span>
+                <span>Add Staff Member</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Staff Filter and Search Controls -->
+          <div class="rounded-xl bg-[#0c1226]/90 border border-cyan-500/20 p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Search Input -->
+            <div class="relative w-full md:w-80">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+              <input id="staff-search-input" oninput="filterStaffList()" type="text" placeholder="Search by name, email, or role..." class="w-full pl-10 pr-4 py-2 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+            </div>
+
+            <!-- Department Filter Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0" id="staff-dept-filters">
+              <button onclick="setStaffFilter('All')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 transition-all" data-dept="All">All (<span id="count-dept-all">6</span>)</button>
+              <button onclick="setStaffFilter('Operations')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-dept="Operations">Operations</button>
+              <button onclick="setStaffFilter('Customer Support')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-dept="Customer Support">Support</button>
+              <button onclick="setStaffFilter('Billing & Finance')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-dept="Billing & Finance">Billing</button>
+              <button onclick="setStaffFilter('Platform Engineering')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-dept="Platform Engineering">Engineering</button>
+              <button onclick="setStaffFilter('Security & Compliance')" class="staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all" data-dept="Security & Compliance">Security</button>
+            </div>
+          </div>
+
+          <!-- Staff Cards Grid (Clean card format, NO tables) -->
+          <div id="staff-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="staff-empty-state" class="hidden rounded-2xl bg-[#0c1226]/60 border border-cyan-500/20 p-12 text-center flex-col items-center justify-center">
+            <div class="w-14 h-14 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-4">
+              <span class="material-symbols-outlined text-[28px]">search_off</span>
+            </div>
+            <h3 class="font-headline-card text-headline-card text-white mb-1">No Staff Members Found</h3>
+            <p class="text-xs text-slate-400 max-w-sm mb-4">No staff member matches the selected department filter or search query.</p>
+            <button onclick="resetStaffFilters()" class="px-4 py-2 rounded-lg bg-[#141e42] text-cyan-300 hover:bg-[#1b2756] text-xs font-semibold">
+              Reset Filters
+            </button>
+          </div>
+        </section>
+
+        <!-- ================= 4. CUSTOMER ACCOUNTS ================= -->
+        <section id="view-customers" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Customer Organizations</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Oversee enrolled customer accounts, primary organizational contacts, subscription status, and billing standing.
+              </p>
+            </div>
+            <a href="user.html" target="_blank" class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/20 text-cyan-300 text-xs font-semibold transition-colors">
+              <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+              <span>Open Customer Experience Portal</span>
+            </a>
+          </div>
+
+          <!-- Customer Cards Grid -->
+          <div id="customer-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 5. AUDIT LOGS ================= -->
+        <section id="view-audit" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">System Audit Ledger</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Immutable, cryptographic trace of product modifications, plan updates, staff actions, and tenant security events.
+              </p>
+            </div>
+            <button onclick="clearAuditLogs()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-400/20 text-rose-300 text-xs font-semibold transition-colors">
+              <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+              <span>Purge Local Audit Cache</span>
+            </button>
+          </div>
+
+          <!-- Audit Event Card Ledger -->
+          <div id="audit-log-container" class="flex flex-col gap-3">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+        <!-- ================= 6. SECURITY & POLICY ================= -->
+        <section id="view-security" class="view-panel hidden">
+          <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-headline-page text-headline-page text-white tracking-tight">Security &amp; Root Governance</h1>
+              <p class="font-body-subtle text-body-subtle text-slate-400 mt-1">
+                Configure root access tokens, cryptographic verification protocols, and staff authentication requirements.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Policy 1 -->
+            <div class="rounded-xl bg-[#0c1226]/80 border border-cyan-500/20 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                    <span class="material-symbols-outlined text-[22px]">key</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-card text-headline-card text-white">Root Master Key</h3>
+                    <p class="text-xs text-slate-400">Cryptographic authority credentials</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/20 text-xs font-semibold">Active</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                Admin operations are protected by 256-bit elliptic-curve root key signing. All administrative sessions are terminated automatically after 60 minutes of inactivity.
+              </p>
+              <div class="p-3 rounded-lg bg-[#070b18] border border-cyan-500/15 font-mono text-xs text-slate-400 flex items-center justify-between">
+                <span>admin.ops@brightloop.io</span>
+                <span class="text-cyan-400">SHA-256 Validated</span>
+              </div>
+            </div>
+
+            <!-- Policy 2 -->
+            <div class="rounded-xl bg-[#0c1226]/80 border border-cyan-500/20 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                    <span class="material-symbols-outlined text-[22px]">lock_reset</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-card text-headline-card text-white">Staff 2FA &amp; Passkeys</h3>
+                    <p class="text-xs text-slate-400">Mandatory dual-factor policy</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-400/20 text-xs font-semibold">Enforced</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                All staff accounts provisioned under <code class="text-cyan-300">@brightloop.io</code> must configure hardware token or authenticator app authentication upon first login.
+              </p>
+              <div class="p-3 rounded-lg bg-[#070b18] border border-cyan-500/15 font-mono text-xs text-slate-400 flex items-center justify-between">
+                <span>FIDO2 / WebAuthn</span>
+                <span class="text-emerald-400">Global Enforce</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= MODAL 1: ADD NEW PRODUCT ================= -->
+  <div id="modal-add-product" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_60px_rgba(0,0,0,0.85)] max-w-xl w-full p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-add-product')" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+          <span class="material-symbols-outlined text-[24px] font-bold">add_box</span>
+        </div>
+        <div>
+          <h3 class="font-headline-card text-headline-card text-white font-bold">Add New Product</h3>
+          <p class="text-xs text-slate-400">Create a new subscription product and publish to customer portal.</p>
+        </div>
+      </div>
+
+      <!-- Add Product Form -->
+      <form id="add-product-form" onsubmit="event.preventDefault(); handleCreateProduct();" class="flex flex-col gap-4">
+        
+        <!-- Product Name & Category -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="prod-input-name">Product Name *</label>
+            <input required id="prod-input-name" type="text" placeholder="e.g. Cloud Data Pipeline" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="prod-input-category">Category</label>
+            <select id="prod-input-category" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="Core Business Suite">Core Business Suite</option>
+              <option value="Payments & Routing">Payments &amp; Routing</option>
+              <option value="Intelligence & Analytics">Intelligence &amp; Analytics</option>
+              <option value="Support & Security">Support &amp; Security</option>
+              <option value="Developer Infrastructure">Developer Infrastructure</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Starting Price & Icon -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="prod-input-price">Starting Price Display *</label>
+            <input required id="prod-input-price" type="text" placeholder="e.g. ₹799 / month" value="₹799 / month" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="prod-input-icon">Icon Symbol</label>
+            <select id="prod-input-icon" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="database">Database (database)</option>
+              <option value="cloud">Cloud (cloud)</option>
+              <option value="hub">API Hub (hub)</option>
+              <option value="terminal">Terminal / CLI (terminal)</option>
+              <option value="rocket_launch">Rocket (rocket_launch)</option>
+              <option value="inventory_2" selected>Software Suite (inventory_2)</option>
+              <option value="security">Security Shield (security)</option>
+              <option value="payments">Payments (payments)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Short Description -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="prod-input-short">Short Description (Catalogue Card Summary) *</label>
+          <input required id="prod-input-short" type="text" placeholder="e.g. Real-time data processing, ETL pipelines, and high-throughput streaming." class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+        </div>
+
+        <!-- Full Description -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="prod-input-full">Detailed Description</label>
+          <textarea id="prod-input-full" rows="2" placeholder="Full product specifications shown on the dedicated product details page..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+        </div>
+
+        <!-- Optional Offer Tag -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="prod-input-offer">Promotional Offer Tag (Optional)</label>
+          <input id="prod-input-offer" type="text" placeholder="e.g. Launch Discount: 20% off annual commitment (or leave empty)" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+        </div>
+
+        <!-- Key Features (One per line) -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="prod-input-features">Key Feature Bullet Points (One per line)</label>
+          <textarea id="prod-input-features" rows="3" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors" placeholder="Sub-second streaming pipeline&#10;Multi-cloud storage replication&#10;Automatic GST compliance export"></textarea>
+        </div>
+
+        <!-- Initial Subscription Plan Setup -->
+        <div class="p-3.5 rounded-xl bg-[#070b18] border border-cyan-500/20 flex flex-col gap-3">
+          <span class="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">tune</span>
+            Initial Subscription Plan Setup
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Plan Name</label>
+              <input id="prod-plan-name" type="text" value="Standard Plan" class="w-full px-3 py-1.5 rounded bg-[#0c1226] border border-cyan-500/15 text-white text-xs"/>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Monthly Price (₹)</label>
+              <input id="prod-plan-monthly" type="number" value="799" class="w-full px-3 py-1.5 rounded bg-[#0c1226] border border-cyan-500/15 text-white text-xs"/>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Annual Price (₹/mo)</label>
+              <input id="prod-plan-annual" type="number" value="639" class="w-full px-3 py-1.5 rounded bg-[#0c1226] border border-cyan-500/15 text-white text-xs"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-cyan-500/15">
+          <button type="button" onclick="closeModal('modal-add-product')" class="px-4 py-2.5 rounded-lg bg-[#0e152c] text-slate-300 text-xs font-semibold">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 active:scale-95 transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">publish</span>
+            <span>Publish Product to Catalogue</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: SET SUBSCRIPTION PLAN ================= -->
+  <div id="modal-set-plan" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_60px_rgba(0,0,0,0.85)] max-w-lg w-full p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-set-plan')" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+          <span class="material-symbols-outlined text-[24px] font-bold">tune</span>
+        </div>
+        <div>
+          <h3 class="font-headline-card text-headline-card text-white font-bold">Set Subscription Plan</h3>
+          <p class="text-xs text-slate-400">Configure or add a billing tier for a product.</p>
+        </div>
+      </div>
+
+      <!-- Set Plan Form -->
+      <form id="set-plan-form" onsubmit="event.preventDefault(); handleSetSubscriptionPlan();" class="flex flex-col gap-4">
+        
+        <!-- Target Product Selector -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="plan-input-prod">Select Target Product *</label>
+          <select id="plan-input-prod" required class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <!-- Plan Name -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="plan-input-name">Plan Tier Name *</label>
+          <input required id="plan-input-name" type="text" placeholder="e.g. Enterprise Elite or Pro Tier" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+        </div>
+
+        <!-- Pricing Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="plan-input-monthly">Monthly Price (₹) *</label>
+            <input required id="plan-input-monthly" type="number" min="0" placeholder="e.g. 999" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="plan-input-annual">Annual Discounted Price (₹ / mo) *</label>
+            <input required id="plan-input-annual" type="number" min="0" placeholder="e.g. 799" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+        </div>
+
+        <!-- Plan Description -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="plan-input-desc">Short Plan Description</label>
+          <input id="plan-input-desc" type="text" placeholder="e.g. Advanced features for scaling operations" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+        </div>
+
+        <!-- Feature Highlights -->
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-slate-300" for="plan-input-highlights">Feature Inclusions (One per line)</label>
+          <textarea id="plan-input-highlights" rows="3" placeholder="Up to 5,000 active subscribers&#10;Priority 2h support SLA&#10;Custom API webhooks" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+        </div>
+
+        <!-- Popular Badge & Quota -->
+        <div class="p-3.5 rounded-xl bg-[#070b18] border border-cyan-500/15 flex items-center justify-between">
+          <div>
+            <div class="text-xs font-semibold text-white">Popular / Recommended Tag</div>
+            <div class="text-[11px] text-slate-400">Highlight this plan on customer portal</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input id="plan-input-popular" type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
+          </label>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-cyan-500/15">
+          <button type="button" onclick="closeModal('modal-set-plan')" class="px-4 py-2.5 rounded-lg bg-[#0e152c] text-slate-300 text-xs font-semibold">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 active:scale-95 transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">save</span>
+            <span>Save &amp; Activate Plan</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: ADD STAFF MEMBER ================= -->
+  <div id="modal-add-staff" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_60px_rgba(0,0,0,0.85)] max-w-xl w-full p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-add-staff')" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+          <span class="material-symbols-outlined text-[24px] font-bold">person_add</span>
+        </div>
+        <div>
+          <h3 class="font-headline-card text-headline-card text-white font-bold">Provision New Staff Member</h3>
+          <p class="text-xs text-slate-400">Add an internal teammate and grant role-based access.</p>
+        </div>
+      </div>
+
+      <form id="add-staff-form" onsubmit="event.preventDefault(); handleCreateStaff();" class="flex flex-col gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-name">Full Name *</label>
+            <input required id="staff-input-name" type="text" placeholder="e.g. Jordan Miller" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-email">Corporate Email *</label>
+            <input required id="staff-input-email" type="email" placeholder="jordan.m@brightloop.io" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-dept">Department</label>
+            <select id="staff-input-dept" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="Operations">Operations</option>
+              <option value="Customer Support">Customer Support</option>
+              <option value="Billing & Finance">Billing &amp; Finance</option>
+              <option value="Platform Engineering">Platform Engineering</option>
+              <option value="Security & Compliance">Security &amp; Compliance</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-role">Job Designation</label>
+            <input required id="staff-input-role" type="text" placeholder="e.g. Support Specialist" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white placeholder:text-slate-600 text-xs focus:outline-none focus:border-cyan-400 transition-colors"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-perm">Access Permission Tier</label>
+            <select id="staff-input-perm" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="Tier 1 - Read & Reply Only">Tier 1 - Read &amp; Reply Only</option>
+              <option value="Tier 2 - Support & Billing Specialist" selected>Tier 2 - Support &amp; Billing Specialist</option>
+              <option value="Tier 3 - Operations Manager">Tier 3 - Operations Manager</option>
+              <option value="Tier 4 - Administrative Controller">Tier 4 - Administrative Controller</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-shift">Operational Shift / Region</label>
+            <select id="staff-input-shift" class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+              <option value="APAC / IST (General)">APAC / IST (General)</option>
+              <option value="EMEA / London (GMT)">EMEA / London (GMT)</option>
+              <option value="US / Eastern (EST)">US / Eastern (EST)</option>
+              <option value="US / Pacific (PST)">US / Pacific (PST)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5 pt-1">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-slate-300" for="staff-input-key">Temporary Access Key</label>
+            <button type="button" onclick="generateRandomKey()" class="text-cyan-400 hover:text-cyan-300 text-[11px] font-semibold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">refresh</span>
+              <span>Regenerate Key</span>
+            </button>
+          </div>
+          <div class="relative flex items-center">
+            <input id="staff-input-key" type="text" readonly class="w-full px-3.5 py-2.5 rounded-lg bg-[#070b18] border border-cyan-500/20 text-cyan-300 font-mono text-xs focus:outline-none"/>
+            <button type="button" onclick="copyTemporaryKey()" class="absolute right-2 px-2.5 py-1 rounded bg-[#131b34] hover:bg-[#1a2548] text-slate-300 text-[11px] font-semibold flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[14px]">content_copy</span>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-cyan-500/15">
+          <button type="button" onclick="closeModal('modal-add-staff')" class="px-4 py-2.5 rounded-lg bg-[#0e152c] text-slate-300 text-xs font-semibold">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 active:scale-95 transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+            <span>Confirm &amp; Provision Staff</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: STAFF DETAILS ================= -->
+  <div id="modal-staff-details" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="rounded-2xl bg-[#0c1226] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.85)] max-w-lg w-full p-6 relative">
+      <button onclick="closeModal('modal-staff-details')" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+
+      <div class="flex items-center gap-4 mb-5">
+        <div id="modal-dt-avatar" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-bold text-xl shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+          AC
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="modal-dt-name" class="font-headline-card text-headline-card text-white font-bold">Alex Chen</h3>
+            <span id="modal-dt-status-pill" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">Active</span>
+          </div>
+          <p id="modal-dt-role" class="text-xs text-cyan-300 font-medium">Operations Lead</p>
+          <p id="modal-dt-email" class="text-xs text-slate-400 font-mono">alex.chen@brightloop.io</p>
+        </div>
+      </div>
+
+      <div class="bg-[#070b18] rounded-xl border border-cyan-500/15 p-4 flex flex-col gap-2.5 text-xs mb-5">
+        <div class="flex justify-between items-center"><span class="text-slate-400">Employee ID:</span><span id="modal-dt-id" class="font-mono text-cyan-300">STF-101</span></div>
+        <div class="flex justify-between items-center"><span class="text-slate-400">Department:</span><span id="modal-dt-dept" class="text-white font-semibold">Operations</span></div>
+        <div class="flex justify-between items-center"><span class="text-slate-400">Access Permission:</span><span id="modal-dt-perm" class="text-white">Tier 3 - Operations Manager</span></div>
+        <div class="flex justify-between items-center"><span class="text-slate-400">Shift / Region:</span><span id="modal-dt-shift" class="text-white">APAC / IST</span></div>
+        <div class="flex justify-between items-center"><span class="text-slate-400">Joined On:</span><span id="modal-dt-joined" class="text-white">12 Jan 2025</span></div>
+        <div class="flex justify-between items-center"><span class="text-slate-400">Last Activity:</span><span id="modal-dt-lastactive" class="text-emerald-400">Active 5 mins ago</span></div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-cyan-500/15">
+        <button id="modal-dt-btn-toggle" onclick="toggleCurrentStaffStatus()" class="px-4 py-2 rounded-lg bg-[#141e42] hover:bg-[#1a2754] text-xs font-semibold text-cyan-300 transition-colors">
+          Suspend Account
+        </button>
+        <div class="flex items-center gap-2">
+          <button id="modal-dt-btn-delete" onclick="deleteCurrentStaff()" class="px-4 py-2 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/30 text-rose-300 text-xs font-semibold transition-colors">
+            Remove Staff
+          </button>
+          <button onclick="closeModal('modal-staff-details')" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-[#090d1e] border border-cyan-500/30 text-white shadow-[0_0_25px_rgba(56,189,248,0.3)]">
+    <span id="toast-icon" class="material-symbols-outlined text-cyan-400 text-[20px]">check_circle</span>
+    <span id="toast-msg" class="text-sm font-medium">Action completed successfully</span>
+  </div>
+
+  <!-- Hidden Printable Area -->
+  <div id="printable-area" class="hidden"></div>
+
+  <!-- ================= JAVASCRIPT STATE & LOGIC ================= -->
+  <script>
+    // Default Products (Synced with user.html)
+    const DEFAULT_PRODUCTS = [
+      {
+        id: "prod-bms",
+        name: "Business Management Software",
+        category: "Core Business Suite",
+        shortDesc: "All-in-one suite for business operations, CRM, team workflow orchestration, and client billing.",
+        fullDesc: "Business Management Software by Brightloop is an enterprise-grade solution built for modern digital businesses. It seamlessly connects customer acquisition, subscription billing, automated dunning, customer communication, and operations tracking in one unified interface.",
+        icon: "business_center",
+        startingPrice: "₹499 / month",
+        offer: "Special Launch Offer: 20% discount on annual billing",
+        features: [
+          "Complete recurring billing & lifecycle automation",
+          "Multi-currency support with automatic GST calculation",
+          "Client portal with self-service invoices & receipts",
+          "Automated failed payment recovery (smart dunning)"
+        ],
+        plans: [
+          {
+            name: "Basic Plan",
+            monthlyPrice: 499,
+            annualPrice: 399,
+            desc: "Essential features for growing teams.",
+            highlights: ["Up to 100 subscribers", "Standard invoice templates", "Email support"]
+          },
+          {
+            name: "Standard Plan",
+            monthlyPrice: 999,
+            annualPrice: 799,
+            popular: true,
+            desc: "Advanced operations for scaling companies.",
+            highlights: ["Up to 1,000 subscribers", "Automated dunning logic", "Priority 4h support SLA"]
+          },
+          {
+            name: "Premium Plan",
+            monthlyPrice: 1999,
+            annualPrice: 1599,
+            desc: "Enterprise capacity with high-throughput infrastructure.",
+            highlights: ["Unlimited subscribers", "Custom webhook integration", "24/7 dedicated support"]
+          }
+        ]
+      },
+      {
+        id: "prod-pay",
+        name: "Unified Payments Gateway",
+        category: "Payments & Routing",
+        shortDesc: "Smart transaction routing, instant fallback processors, and localized checkout in 130+ currencies.",
+        fullDesc: "Engineered for maximum payment success rates, the Unified Payments Gateway routes incoming subscription charges across top acquisition rails with sub-second failover, recurring tokenization, and localized checkout options.",
+        icon: "payments",
+        startingPrice: "₹599 / month",
+        offer: null,
+        features: [
+          "Smart multi-rail payment routing",
+          "Credit Cards, Debit Cards, UPI & Net Banking",
+          "Zero downtime automated fallback orchestration"
+        ],
+        plans: [
+          {
+            name: "Starter Merchant",
+            monthlyPrice: 599,
+            annualPrice: 479,
+            desc: "For regional payment processing.",
+            highlights: ["Domestic cards + UPI", "Daily payout batches", "Standard fraud detection"]
+          },
+          {
+            name: "Growth Merchant",
+            monthlyPrice: 1299,
+            annualPrice: 1039,
+            popular: true,
+            desc: "Global acquiring with dynamic currency conversion.",
+            highlights: ["130+ international currencies", "Automated chargeback defense", "Sub-second webhook sync"]
+          }
+        ]
+      },
+      {
+        id: "prod-ana",
+        name: "Revenue Analytics & Reporting Suite",
+        category: "Intelligence & Analytics",
+        shortDesc: "Live recurring revenue tracking, cohort retention, churn prediction, and automated accounting reports.",
+        fullDesc: "Gain clarity over subscription financial health with real-time analytics. Monitor Monthly Recurring Revenue (MRR), Annual Recurring Revenue (ARR), customer churn rates, and export tax reports for compliance.",
+        icon: "query_stats",
+        startingPrice: "₹799 / month",
+        offer: "Limited Time: Free 30-day extended trial on Annual commitment",
+        features: [
+          "Live MRR, ARR, and net retention metrics",
+          "Cohort analysis & subscriber churn modeling",
+          "Automated sales tax & GST audit reports"
+        ],
+        plans: [
+          {
+            name: "Analytics Pro",
+            monthlyPrice: 799,
+            annualPrice: 639,
+            popular: true,
+            desc: "Core metrics for business tracking.",
+            highlights: ["Real-time revenue metrics", "Cohort retention tables", "Monthly email reports"]
+          },
+          {
+            name: "Analytics Enterprise",
+            monthlyPrice: 1499,
+            annualPrice: 1199,
+            desc: "Predictive intelligence with custom SQL export.",
+            highlights: ["Churn forecasting engine", "Automated compliance filing", "Raw data webhook streams"]
+          }
+        ]
+      },
+      {
+        id: "prod-sla",
+        name: "Priority SLA & Dedicated Support",
+        category: "Support & Security",
+        shortDesc: "15-minute response SLA, dedicated solutions engineer, and bespoke support agreements.",
+        fullDesc: "Designed for mission-critical subscription operations that require named engineering support, custom architecture reviews, priority escalation, and contractual financial uptime guarantees.",
+        icon: "support_agent",
+        startingPrice: "₹1,199 / month",
+        offer: null,
+        features: [
+          "15-minute emergency response SLA",
+          "Dedicated technical specialist (Sarah Chen)",
+          "99.99% Financial Uptime Service Level Agreement"
+        ],
+        plans: [
+          {
+            name: "Business SLA",
+            monthlyPrice: 1199,
+            annualPrice: 959,
+            desc: "Business hours dedicated queue.",
+            highlights: ["4-hour SLA on standard tickets", "Named specialist access", "Direct chat support"]
+          },
+          {
+            name: "24/7 Dedicated SLA",
+            monthlyPrice: 2499,
+            annualPrice: 1999,
+            popular: true,
+            desc: "24/7/365 critical infrastructure coverage.",
+            highlights: ["15-min critical incident response", "Direct phone & emergency bridge", "99.99% SLA"]
+          }
+        ]
+      }
+    ];
+
+    // Initial Staff Members
+    const INITIAL_STAFF = [
+      {
+        id: "STF-101",
+        name: "Alex Chen",
+        email: "alex.chen@brightloop.io",
+        role: "Operations Lead",
+        department: "Operations",
+        permission: "Tier 3 - Operations Manager",
+        status: "Active",
+        shift: "APAC / IST (General)",
+        joined: "12 Jan 2025",
+        lastActive: "Active 5 mins ago",
+        initials: "AC"
+      },
+      {
+        id: "STF-102",
+        name: "Sarah Jenkins",
+        email: "sarah.j@brightloop.io",
+        role: "Customer Success Lead",
+        department: "Customer Support",
+        permission: "Tier 2 - Support & Billing Specialist",
+        status: "Active",
+        shift: "EMEA / London (GMT)",
+        joined: "03 Feb 2025",
+        lastActive: "Active 28 mins ago",
+        initials: "SJ"
+      },
+      {
+        id: "STF-103",
+        name: "Marcus Vance",
+        email: "marcus.v@brightloop.io",
+        role: "Billing & Tax Specialist",
+        department: "Billing & Finance",
+        permission: "Tier 2 - Support & Billing Specialist",
+        status: "Active",
+        shift: "US / Eastern (EST)",
+        joined: "19 Nov 2024",
+        lastActive: "Active today at 11:20 AM",
+        initials: "MV"
+      },
+      {
+        id: "STF-104",
+        name: "Priyanshu Sharma",
+        email: "priyanshu.s@brightloop.io",
+        role: "Platform Reliability Engineer",
+        department: "Platform Engineering",
+        permission: "Tier 3 - Operations Manager",
+        status: "Active",
+        shift: "APAC / IST (General)",
+        joined: "15 Aug 2024",
+        lastActive: "Active today at 08:45 AM",
+        initials: "PS"
+      },
+      {
+        id: "STF-105",
+        name: "Devon Lane",
+        email: "devon.lane@brightloop.io",
+        role: "Tier 1 Support Agent",
+        department: "Customer Support",
+        permission: "Tier 1 - Read & Reply Only",
+        status: "Active",
+        shift: "US / Pacific (PST)",
+        joined: "01 May 2025",
+        lastActive: "Active 1 hour ago",
+        initials: "DL"
+      },
+      {
+        id: "STF-106",
+        name: "Kavita Rao",
+        email: "kavita.r@brightloop.io",
+        role: "Compliance & Security Auditor",
+        department: "Security & Compliance",
+        permission: "Tier 4 - Administrative Controller",
+        status: "Suspended",
+        shift: "APAC / IST (General)",
+        joined: "10 Oct 2024",
+        lastActive: "Suspended 3 days ago",
+        initials: "KR"
+      }
+    ];
+
+    // Customer Organizations
+    const CUSTOMER_ORGS = [
+      {
+        id: "ORG-001",
+        name: "Neovault Technologies Inc.",
+        contact: "Elena Rostova (CTO)",
+        email: "elena@neovault.tech",
+        plan: "Enterprise Custom Plan",
+        amount: "₹1,999 / mo",
+        cycle: "Annually",
+        subscribers: "1,240 seats",
+        status: "Active",
+        health: "100% On-time"
+      },
+      {
+        id: "ORG-002",
+        name: "Acme Studio Inc.",
+        contact: "Julian Alvarez (VP Ops)",
+        email: "julian@acmestudio.io",
+        plan: "Standard Plan",
+        amount: "₹799 / mo",
+        cycle: "Annually",
+        subscribers: "150 seats",
+        status: "Active",
+        health: "100% On-time"
+      },
+      {
+        id: "ORG-003",
+        name: "Horizon Cloud Labs",
+        contact: "Sophia Lindqvist (Founder)",
+        email: "sophia@horizonlabs.dev",
+        plan: "Standard Plan",
+        amount: "₹999 / mo",
+        cycle: "Monthly",
+        subscribers: "80 seats",
+        status: "Active",
+        health: "Invoice Due in 3 days"
+      },
+      {
+        id: "ORG-004",
+        name: "Zenith Retail Solutions",
+        contact: "Rahul Verma (Director)",
+        email: "rahul@zenithretail.in",
+        plan: "Basic Plan",
+        amount: "₹499 / mo",
+        cycle: "Monthly",
+        subscribers: "25 seats",
+        status: "Suspended",
+        health: "Payment Failure"
+      }
+    ];
+
+    // Initial Audit logs
+    const INITIAL_AUDITS = [
+      {
+        id: "AUD-902",
+        actor: "Admin Operations",
+        action: "Published product portfolio & pricing metrics to client portal",
+        target: "Products & Plans",
+        time: "Just now",
+        ip: "10.240.12.8",
+        level: "SUCCESS"
+      },
+      {
+        id: "AUD-901",
+        actor: "Admin Operations",
+        action: "Root session authenticated with TLS 1.3 key",
+        target: "Root Console",
+        time: "10 mins ago",
+        ip: "10.240.12.8",
+        level: "SECURITY"
+      },
+      {
+        id: "AUD-900",
+        actor: "Alex Chen",
+        action: "Approved invoice reconciliation for Acme Studio Inc.",
+        target: "Billing / INV-2025-002",
+        time: "42 mins ago",
+        ip: "10.240.14.22",
+        level: "INFO"
+      },
+      {
+        id: "AUD-899",
+        actor: "Admin Operations",
+        action: "Provisioned new staff account for Devon Lane",
+        target: "Customer Support",
+        time: "2 hours ago",
+        ip: "10.240.12.8",
+        level: "NOTICE"
+      }
+    ];
+
+    // Local Storage helpers
+    function getStoredProducts() {
+      const stored = localStorage.getItem('brightloop_products_catalogue');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (e) { console.error(e); }
+      }
+      localStorage.setItem('brightloop_products_catalogue', JSON.stringify(DEFAULT_PRODUCTS));
+      return DEFAULT_PRODUCTS;
+    }
+
+    function saveStoredProducts(prods) {
+      localStorage.setItem('brightloop_products_catalogue', JSON.stringify(prods));
+    }
+
+    function getStoredStaff() {
+      const stored = localStorage.getItem('brightloop_staff_records');
+      if (stored) {
+        try { return JSON.parse(stored); } catch (e) { console.error(e); }
+      }
+      localStorage.setItem('brightloop_staff_records', JSON.stringify(INITIAL_STAFF));
+      return INITIAL_STAFF;
+    }
+
+    function saveStoredStaff(staff) {
+      localStorage.setItem('brightloop_staff_records', JSON.stringify(staff));
+    }
+
+    function getStoredAudits() {
+      const stored = localStorage.getItem('brightloop_audit_logs');
+      if (stored) {
+        try { return JSON.parse(stored); } catch (e) { console.error(e); }
+      }
+      localStorage.setItem('brightloop_audit_logs', JSON.stringify(INITIAL_AUDITS));
+      return INITIAL_AUDITS;
+    }
+
+    function addAuditEntry(action, target, level = "INFO") {
+      const audits = getStoredAudits();
+      const newEntry = {
+        id: "AUD-" + Math.floor(100 + Math.random() * 900),
+        actor: "Admin Operations",
+        action: action,
+        target: target,
+        time: "Just now",
+        ip: "10.240.12.8",
+        level: level
+      };
+      audits.unshift(newEntry);
+      localStorage.setItem('brightloop_audit_logs', JSON.stringify(audits));
+      renderAuditLogs();
+      renderOverviewEvents();
+    }
+
+    // Active State
+    let currentDeptFilter = "All";
+    let currentProductFilter = "All";
+    let activeStaffModalId = null;
+
+    // Navigation
+    function navigateTo(viewId) {
+      document.querySelectorAll('.view-panel').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('block');
+      });
+
+      const target = document.getElementById('view-' + viewId);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('block');
+      }
+
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.remove('bg-gradient-to-r', 'from-cyan-500/20', 'to-sky-500/10', 'text-cyan-300', 'border', 'border-cyan-400/30', 'shadow-[0_0_15px_rgba(56,189,248,0.15)]');
+        el.classList.add('text-slate-400');
+      });
+
+      const navEl = document.getElementById('nav-' + viewId);
+      if (navEl) {
+        navEl.classList.remove('text-slate-400');
+        navEl.classList.add('bg-gradient-to-r', 'from-cyan-500/20', 'to-sky-500/10', 'text-cyan-300', 'border', 'border-cyan-400/30', 'shadow-[0_0_15px_rgba(56,189,248,0.15)]');
+      }
+
+      const titles = {
+        'overview': 'Console Overview',
+        'products': 'Products & Subscription Plans',
+        'staff': 'Staff Management & RBAC',
+        'customers': 'Customer Organizations',
+        'audit': 'Audit Ledger',
+        'security': 'Security Governance'
+      };
+      const title = titles[viewId] || 'Console Overview';
+      const breadcrumbEl = document.getElementById('header-breadcrumb');
+      if (breadcrumbEl) breadcrumbEl.textContent = title;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('mobile-backdrop');
+      if (sidebar && !sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+        toggleSidebar();
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('mobile-backdrop');
+      if (!sidebar || !backdrop) return;
+      sidebar.classList.toggle('-translate-x-full');
+      backdrop.classList.toggle('hidden');
+    }
+
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('hidden');
+    }
+
+    function showToast(msg, icon = 'check_circle') {
+      const t = document.getElementById('toast');
+      const txt = document.getElementById('toast-msg');
+      const ic = document.getElementById('toast-icon');
+      if (!t || !txt) return;
+      txt.textContent = msg;
+      if (ic) ic.textContent = icon;
+      t.classList.remove('translate-y-24', 'opacity-0');
+      t.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        t.classList.remove('translate-y-0', 'opacity-100');
+        t.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // ================= PRODUCT & PLAN MANAGEMENT (USER REQUEST) =================
+
+    function openAddProductModal() {
+      const form = document.getElementById('add-product-form');
+      if (form) form.reset();
+      openModal('modal-add-product');
+    }
+
+    function handleCreateProduct() {
+      const name = document.getElementById('prod-input-name').value.trim();
+      const category = document.getElementById('prod-input-category').value;
+      const startingPrice = document.getElementById('prod-input-price').value.trim();
+      const icon = document.getElementById('prod-input-icon').value;
+      const shortDesc = document.getElementById('prod-input-short').value.trim();
+      const fullDesc = document.getElementById('prod-input-full').value.trim() || shortDesc;
+      const offer = document.getElementById('prod-input-offer').value.trim() || null;
+      const rawFeatures = document.getElementById('prod-input-features').value.trim();
+      
+      const planName = document.getElementById('prod-plan-name').value.trim() || 'Standard Plan';
+      const planMonthly = parseInt(document.getElementById('prod-plan-monthly').value) || 799;
+      const planAnnual = parseInt(document.getElementById('prod-plan-annual').value) || 639;
+
+      if (!name || !shortDesc) {
+        showToast('Please provide a product name and description.', 'warning');
+        return;
+      }
+
+      const features = rawFeatures 
+        ? rawFeatures.split('\n').map(f => f.trim()).filter(Boolean)
+        : ["24/7 high availability infrastructure", "Automated recurring billing and GST export", "Dedicated self-service access"];
+
+      const newProduct = {
+        id: "prod-" + name.toLowerCase().replace(/[^a-z0-9]/g, '-').substring(0, 15) + '-' + Math.floor(100 + Math.random() * 900),
+        name: name,
+        category: category,
+        shortDesc: shortDesc,
+        fullDesc: fullDesc,
+        icon: icon,
+        startingPrice: startingPrice,
+        offer: offer,
+        features: features,
+        plans: [
+          {
+            name: planName,
+            monthlyPrice: planMonthly,
+            annualPrice: planAnnual,
+            popular: true,
+            desc: "Default commercial subscription tier for " + name + ".",
+            highlights: features.slice(0, 3)
+          }
+        ]
+      };
+
+      const products = getStoredProducts();
+      products.unshift(newProduct);
+      saveStoredProducts(products);
+
+      addAuditEntry(`Added new product to catalogue: ${name} (${category})`, `Product / ${newProduct.id}`, "SUCCESS");
+
+      closeModal('modal-add-product');
+      showToast(`Product "${name}" added and published to catalogue!`, 'add_box');
+
+      updateProductCounts();
+      renderAdminProducts();
+      renderAllPlansMatrix();
+      renderOverviewProductsPreview();
+    }
+
+    function deleteProduct(prodId) {
+      const products = getStoredProducts();
+      const p = products.find(item => item.id === prodId);
+      if (!p) return;
+
+      if (!confirm(`Are you sure you want to delete product "${p.name}"? This will remove it from the customer catalogue.`)) {
+        return;
+      }
+
+      const updated = products.filter(item => item.id !== prodId);
+      saveStoredProducts(updated);
+
+      addAuditEntry(`Deleted product: ${p.name}`, `Product / ${prodId}`, "WARNING");
+      showToast(`Product "${p.name}" removed from catalogue.`, 'delete');
+
+      updateProductCounts();
+      renderAdminProducts();
+      renderAllPlansMatrix();
+      renderOverviewProductsPreview();
+    }
+
+    // Set Subscription Plan
+    function openSetPlanModal(targetProductId = null) {
+      const select = document.getElementById('plan-input-prod');
+      if (select) {
+        const products = getStoredProducts();
+        select.innerHTML = products.map(p => `
+          <option value="${p.id}" ${targetProductId === p.id ? 'selected' : ''}>${p.name} (${p.category})</option>
+        `).join('');
+      }
+
+      const form = document.getElementById('set-plan-form');
+      if (form && !targetProductId) form.reset();
+      openModal('modal-set-plan');
+    }
+
+    function handleSetSubscriptionPlan() {
+      const prodId = document.getElementById('plan-input-prod').value;
+      const planName = document.getElementById('plan-input-name').value.trim();
+      const monthly = parseInt(document.getElementById('plan-input-monthly').value);
+      const annual = parseInt(document.getElementById('plan-input-annual').value);
+      const desc = document.getElementById('plan-input-desc').value.trim() || 'Commercial subscription package.';
+      const rawHighlights = document.getElementById('plan-input-highlights').value.trim();
+      const popular = document.getElementById('plan-input-popular').checked;
+
+      if (!prodId || !planName || isNaN(monthly) || isNaN(annual)) {
+        showToast('Please fill out plan name and valid pricing.', 'warning');
+        return;
+      }
+
+      const highlights = rawHighlights 
+        ? rawHighlights.split('\n').map(h => h.trim()).filter(Boolean)
+        : ["Full platform feature set", "24/7 SLA uptime guarantee", "Automated GST invoicing"];
+
+      const products = getStoredProducts();
+      const targetProd = products.find(p => p.id === prodId);
+      if (!targetProd) {
+        showToast('Selected product could not be found.', 'error');
+        return;
+      }
+
+      if (!targetProd.plans) targetProd.plans = [];
+
+      const existingIndex = targetProd.plans.findIndex(pl => pl.name.toLowerCase() === planName.toLowerCase());
+      const newPlanObj = {
+        name: planName,
+        monthlyPrice: monthly,
+        annualPrice: annual,
+        desc: desc,
+        highlights: highlights,
+        popular: popular
+      };
+
+      if (existingIndex >= 0) {
+        targetProd.plans[existingIndex] = newPlanObj;
+        addAuditEntry(`Updated subscription plan "${planName}" for ${targetProd.name}`, `Plans / ${prodId}`, "SUCCESS");
+        showToast(`Updated subscription plan "${planName}"!`, 'tune');
+      } else {
+        targetProd.plans.push(newPlanObj);
+        addAuditEntry(`Set new subscription plan "${planName}" for ${targetProd.name}`, `Plans / ${prodId}`, "SUCCESS");
+        showToast(`Set new subscription plan "${planName}" for ${targetProd.name}!`, 'check_circle');
+      }
+
+      saveStoredProducts(products);
+      closeModal('modal-set-plan');
+
+      renderAdminProducts();
+      renderAllPlansMatrix();
+      renderOverviewProductsPreview();
+    }
+
+    function renderAdminProducts() {
+      const container = document.getElementById('admin-products-grid');
+      if (!container) return;
+
+      const products = getStoredProducts();
+      const query = (document.getElementById('product-search-input')?.value || '').toLowerCase().trim();
+
+      const filtered = products.filter(p => {
+        const matchesCat = currentProductFilter === "All" || p.category === currentProductFilter;
+        const matchesQuery = !query || 
+          p.name.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query) ||
+          p.shortDesc.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      const countBadge = document.getElementById('products-grid-count');
+      if (countBadge) countBadge.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full rounded-2xl bg-[#0c1226]/60 border border-cyan-500/20 p-8 text-center text-slate-400 text-xs">
+            No products match the selected category filter or search query.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const plansList = p.plans || [];
+        return `
+          <div class="rounded-xl bg-[#0c1226]/85 border border-cyan-500/20 p-6 flex flex-col justify-between hover:border-cyan-400/40 transition-all shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center text-cyan-300 shrink-0">
+                    <span class="material-symbols-outlined text-[24px]">${p.icon || 'inventory_2'}</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-card text-headline-card text-white font-bold">${p.name}</h3>
+                    <span class="text-xs text-cyan-300 font-semibold">${p.category}</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] text-slate-400 block">Starting:</span>
+                  <span class="text-sm font-bold text-white font-mono">${p.startingPrice}</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 mb-3 leading-relaxed">${p.shortDesc}</p>
+
+              ${p.offer ? `
+                <div class="mb-3 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-cyan-400">local_offer</span>
+                  <span class="truncate">${p.offer}</span>
+                </div>
+              ` : ''}
+
+              <div class="bg-[#070b18] p-3 rounded-lg border border-cyan-500/10 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Active Subscription Tiers (${plansList.length})</span>
+                  <button onclick="openSetPlanModal('${p.id}')" class="text-[11px] text-cyan-400 hover:underline font-semibold flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-[14px]">add</span>
+                    <span>Set Tier</span>
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  ${plansList.map(pl => `
+                    <span class="px-2.5 py-1 rounded bg-[#101732] border border-cyan-500/20 text-xs text-slate-200 flex items-center gap-1.5">
+                      <span class="font-medium text-white">${pl.name}</span>
+                      <span class="text-cyan-300 font-mono text-[11px]">₹${pl.monthlyPrice}/mo</span>
+                      ${pl.popular ? '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>' : ''}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-cyan-500/10 flex items-center justify-between">
+              <span class="text-[11px] text-slate-500 font-mono">${p.id}</span>
+              <div class="flex items-center gap-2">
+                <button onclick="openSetPlanModal('${p.id}')" class="px-3 py-1.5 rounded-lg bg-[#141e42] hover:bg-[#1b2756] text-cyan-300 text-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span class="material-symbols-outlined text-[16px]">tune</span>
+                  <span>Set / Add Plan</span>
+                </button>
+                <button onclick="deleteProduct('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors" title="Delete Product">
+                  <span class="material-symbols-outlined text-[16px]">delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderAllPlansMatrix() {
+      const container = document.getElementById('admin-all-plans-grid');
+      if (!container) return;
+
+      const products = getStoredProducts();
+      let allPlans = [];
+
+      products.forEach(p => {
+        (p.plans || []).forEach(pl => {
+          allPlans.push({
+            productId: p.id,
+            productName: p.name,
+            productCategory: p.category,
+            ...pl
+          });
+        });
+      });
+
+      if (allPlans.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-slate-400 text-xs text-center py-6">No subscription plans configured yet. Click "+ Set Subscription Plan" to begin.</div>';
+        return;
+      }
+
+      container.innerHTML = allPlans.map(pl => `
+        <div class="rounded-xl bg-[#0c1226]/85 border ${pl.popular ? 'border-cyan-400/50 shadow-[0_0_20px_rgba(56,189,248,0.2)]' : 'border-cyan-500/20'} p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#141e42] text-cyan-300 border border-cyan-500/20 truncate max-w-[160px]">
+                ${pl.productName}
+              </span>
+              ${pl.popular ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-400 text-slate-950">POPULAR</span>' : ''}
+            </div>
+
+            <h3 class="font-headline-card text-headline-card text-white font-bold mb-1">${pl.name}</h3>
+            <p class="text-xs text-slate-400 mb-4">${pl.desc || 'Standard commercial tier'}</p>
+
+            <div class="mb-4">
+              <div class="text-2xl font-bold text-white font-mono">₹${pl.monthlyPrice} <span class="text-xs font-normal text-slate-400">/ mo</span></div>
+              <div class="text-xs text-cyan-300">₹${pl.annualPrice} / mo billed annually <span class="font-bold text-emerald-400">(Save 20%)</span></div>
+            </div>
+
+            <ul class="flex flex-col gap-2 text-xs text-slate-300 mb-4">
+              ${(pl.highlights || []).map(h => `
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-cyan-400 text-[15px]">check_circle</span>
+                  <span>${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <button onclick="openSetPlanModal('${pl.productId}')" class="w-full py-2 rounded-lg bg-[#141e42] hover:bg-[#1b2756] border border-cyan-500/20 text-cyan-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">tune</span>
+            <span>Configure Plan</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderOverviewProductsPreview() {
+      const container = document.getElementById('overview-products-preview');
+      if (!container) return;
+
+      const products = getStoredProducts().slice(0, 4);
+
+      container.innerHTML = products.map(p => `
+        <div class="p-3.5 rounded-lg bg-[#070b18] border border-cyan-500/10 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 shrink-0">
+            <span class="material-symbols-outlined text-[20px]">${p.icon || 'inventory_2'}</span>
+          </div>
+          <div class="min-w-0">
+            <h4 class="text-xs font-bold text-white truncate">${p.name}</h4>
+            <span class="text-[11px] text-cyan-300 block font-mono">${p.startingPrice}</span>
+            <span class="text-[10px] text-slate-400">${(p.plans || []).length} active tiers</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setProductFilter(cat) {
+      currentProductFilter = cat;
+      document.querySelectorAll('.prod-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = "prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 transition-all";
+        } else {
+          btn.className = "prod-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all";
+        }
+      });
+      renderAdminProducts();
+    }
+
+    function filterProductList() {
+      renderAdminProducts();
+    }
+
+    function updateProductCounts() {
+      const products = getStoredProducts();
+      const overviewProd = document.getElementById('overview-total-products');
+      const badgeProd = document.getElementById('badge-products-count');
+      const allProdCount = document.getElementById('count-prod-all');
+
+      if (overviewProd) overviewProd.textContent = products.length;
+      if (badgeProd) badgeProd.textContent = products.length;
+      if (allProdCount) allProdCount.textContent = products.length;
+    }
+
+    // ================= STAFF MANAGEMENT LOGIC =================
+
+    function openAddStaffModal() {
+      generateRandomKey();
+      const form = document.getElementById('add-staff-form');
+      if (form) form.reset();
+      generateRandomKey();
+      openModal('modal-add-staff');
+    }
+
+    function generateRandomKey() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$";
+      let key = "BL-KEY-";
+      for (let i = 0; i < 8; i++) {
+        key += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      const keyInput = document.getElementById('staff-input-key');
+      if (keyInput) keyInput.value = key;
+    }
+
+    function copyTemporaryKey() {
+      const keyInput = document.getElementById('staff-input-key');
+      if (keyInput) {
+        navigator.clipboard.writeText(keyInput.value).then(() => {
+          showToast('Temporary key copied to clipboard!', 'content_copy');
+        }).catch(() => {
+          showToast('Key: ' + keyInput.value, 'key');
+        });
+      }
+    }
+
+    function handleCreateStaff() {
+      const name = document.getElementById('staff-input-name').value.trim();
+      let email = document.getElementById('staff-input-email').value.trim().toLowerCase();
+      const dept = document.getElementById('staff-input-dept').value;
+      const role = document.getElementById('staff-input-role').value.trim();
+      const perm = document.getElementById('staff-input-perm').value;
+      const shift = document.getElementById('staff-input-shift').value;
+
+      if (!name || !email || !role) {
+        showToast('Please fill out all required fields.', 'warning');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        email += '@brightloop.io';
+      }
+
+      const staffList = getStoredStaff();
+
+      const existing = staffList.find(s => s.email.toLowerCase() === email.toLowerCase());
+      if (existing) {
+        showToast('A staff member with this email already exists.', 'error');
+        return;
+      }
+
+      const parts = name.split(' ');
+      const initials = parts.length > 1 ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase() : name.substring(0, 2).toUpperCase();
+
+      const newStaff = {
+        id: "STF-" + Math.floor(100 + Math.random() * 900),
+        name: name,
+        email: email,
+        role: role,
+        department: dept,
+        permission: perm,
+        status: "Active",
+        shift: shift,
+        joined: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        lastActive: "Active now",
+        initials: initials
+      };
+
+      staffList.unshift(newStaff);
+      saveStoredStaff(staffList);
+
+      addAuditEntry(`Provisioned staff account: ${name} (${role})`, `Staff / ${dept}`, "SUCCESS");
+
+      closeModal('modal-add-staff');
+      showToast(`Staff member "${name}" provisioned successfully!`, 'person_add');
+
+      renderStaffList();
+      updateStaffCounts();
+      renderDepartmentDistribution();
+    }
+
+    function renderStaffList() {
+      const container = document.getElementById('staff-cards-grid');
+      const emptyState = document.getElementById('staff-empty-state');
+      if (!container) return;
+
+      const staff = getStoredStaff();
+      const query = (document.getElementById('staff-search-input')?.value || '').toLowerCase().trim();
+
+      const filtered = staff.filter(s => {
+        const matchesDept = currentDeptFilter === "All" || s.department === currentDeptFilter;
+        const matchesQuery = !query || 
+          s.name.toLowerCase().includes(query) ||
+          s.email.toLowerCase().includes(query) ||
+          s.role.toLowerCase().includes(query) ||
+          s.department.toLowerCase().includes(query);
+        return matchesDept && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+
+      container.innerHTML = filtered.map(s => {
+        const isActive = s.status === "Active";
+        const statusBadge = isActive 
+          ? `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/20 flex items-center gap-1">
+               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+               Active
+             </span>`
+          : `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-400/20 flex items-center gap-1">
+               <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+               Suspended
+             </span>`;
+
+        return `
+          <div class="rounded-xl bg-[#0c1226]/85 backdrop-blur-xl border border-cyan-500/20 p-5 shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-cyan-400/40 transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500/80 to-blue-600 flex items-center justify-center text-slate-950 font-bold text-sm shadow-[0_0_12px_rgba(56,189,248,0.35)] shrink-0">
+                    ${s.initials}
+                  </div>
+                  <div class="min-w-0">
+                    <h3 class="font-headline-card text-headline-card text-white font-semibold truncate group-hover:text-cyan-300 transition-colors">${s.name}</h3>
+                    <p class="text-xs text-slate-400 truncate">${s.role}</p>
+                  </div>
+                </div>
+                ${statusBadge}
+              </div>
+
+              <div class="bg-[#070b18]/80 rounded-lg p-3 border border-cyan-500/10 mb-4 flex flex-col gap-1.5 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Email:</span>
+                  <span class="font-mono text-cyan-300 truncate max-w-[180px]">${s.email}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Dept:</span>
+                  <span class="text-white font-medium">${s.department}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Tier:</span>
+                  <span class="text-slate-300 truncate max-w-[180px]">${s.permission.split(' - ')[0]}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-cyan-500/10 flex items-center justify-between gap-2">
+              <button onclick="viewStaffDetails('${s.id}')" class="px-3 py-1.5 rounded-lg bg-[#141e42] hover:bg-[#1a2754] text-cyan-300 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">visibility</span>
+                <span>Permissions</span>
+              </button>
+
+              <div class="flex items-center gap-1.5">
+                <button onclick="toggleStaffStatus('${s.id}')" class="px-2.5 py-1.5 rounded-lg ${isActive ? 'hover:bg-rose-500/15 text-slate-400 hover:text-rose-300' : 'bg-emerald-500/15 text-emerald-300'} text-xs font-semibold transition-colors" title="${isActive ? 'Suspend account' : 'Reactivate account'}">
+                  <span class="material-symbols-outlined text-[16px]">${isActive ? 'block' : 'check'}</span>
+                </button>
+                <button onclick="deleteStaff('${s.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors" title="Delete staff record">
+                  <span class="material-symbols-outlined text-[16px]">delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setStaffFilter(dept) {
+      currentDeptFilter = dept;
+      document.querySelectorAll('.staff-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-dept') === dept) {
+          btn.className = "staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 transition-all";
+        } else {
+          btn.className = "staff-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#131b34] transition-all";
+        }
+      });
+      renderStaffList();
+    }
+
+    function filterStaffList() {
+      renderStaffList();
+    }
+
+    function resetStaffFilters() {
+      const search = document.getElementById('staff-search-input');
+      if (search) search.value = '';
+      setStaffFilter('All');
+    }
+
+    function updateStaffCounts() {
+      const staff = getStoredStaff();
+      const countEl = document.getElementById('badge-staff-count');
+      const overviewCount = document.getElementById('overview-total-staff');
+      const deptAllCount = document.getElementById('count-dept-all');
+      
+      if (countEl) countEl.textContent = staff.length;
+      if (overviewCount) overviewCount.textContent = staff.length;
+      if (deptAllCount) deptAllCount.textContent = staff.length;
+    }
+
+    function toggleStaffStatus(id) {
+      const staff = getStoredStaff();
+      const target = staff.find(s => s.id === id);
+      if (!target) return;
+
+      const willBeActive = target.status !== "Active";
+      target.status = willBeActive ? "Active" : "Suspended";
+      target.lastActive = willBeActive ? "Active just now" : `Suspended on ${new Date().toLocaleDateString()}`;
+
+      saveStoredStaff(staff);
+      addAuditEntry(`Changed account status for ${target.name} to ${target.status}`, `Staff / ${id}`, willBeActive ? "INFO" : "WARNING");
+      showToast(`${target.name} is now marked as ${target.status}.`, willBeActive ? 'check_circle' : 'block');
+      
+      renderStaffList();
+      updateStaffCounts();
+      renderDepartmentDistribution();
+
+      if (activeStaffModalId === id) {
+        viewStaffDetails(id);
+      }
+    }
+
+    function deleteStaff(id) {
+      const staff = getStoredStaff();
+      const target = staff.find(s => s.id === id);
+      if (!target) return;
+
+      if (!confirm(`Are you sure you want to remove staff member "${target.name}" (${target.email})?`)) {
+        return;
+      }
+
+      const updated = staff.filter(s => s.id !== id);
+      saveStoredStaff(updated);
+      addAuditEntry(`Removed staff member: ${target.name}`, `Staff / ${id}`, "WARNING");
+      showToast(`Staff member "${target.name}" removed from platform.`, 'delete');
+
+      closeModal('modal-staff-details');
+      renderStaffList();
+      updateStaffCounts();
+      renderDepartmentDistribution();
+    }
+
+    function viewStaffDetails(id) {
+      activeStaffModalId = id;
+      const staff = getStoredStaff();
+      const s = staff.find(item => item.id === id);
+      if (!s) return;
+
+      document.getElementById('modal-dt-name').textContent = s.name;
+      document.getElementById('modal-dt-email').textContent = s.email;
+      document.getElementById('modal-dt-role').textContent = s.role;
+      document.getElementById('modal-dt-dept').textContent = s.department;
+      document.getElementById('modal-dt-perm').textContent = s.permission;
+      document.getElementById('modal-dt-shift').textContent = s.shift;
+      document.getElementById('modal-dt-id').textContent = s.id;
+      document.getElementById('modal-dt-joined').textContent = s.joined;
+      document.getElementById('modal-dt-lastactive').textContent = s.lastActive;
+      document.getElementById('modal-dt-avatar').textContent = s.initials;
+
+      const isActive = s.status === "Active";
+      const statusPill = document.getElementById('modal-dt-status-pill');
+      statusPill.textContent = s.status;
+      statusPill.className = isActive 
+        ? "px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-400/20"
+        : "px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-400/20";
+
+      const toggleBtn = document.getElementById('modal-dt-btn-toggle');
+      toggleBtn.textContent = isActive ? "Suspend Account" : "Reactivate Account";
+      toggleBtn.className = isActive 
+        ? "px-4 py-2 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 text-xs font-semibold transition-colors"
+        : "px-4 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-xs font-semibold transition-colors";
+
+      openModal('modal-staff-details');
+    }
+
+    function toggleCurrentStaffStatus() {
+      if (activeStaffModalId) {
+        toggleStaffStatus(activeStaffModalId);
+      }
+    }
+
+    function deleteCurrentStaff() {
+      if (activeStaffModalId) {
+        deleteStaff(activeStaffModalId);
+      }
+    }
+
+    // ================= DEPARTMENT DISTRIBUTION =================
+    function renderDepartmentDistribution() {
+      const container = document.getElementById('department-distribution-list');
+      if (!container) return;
+
+      const staff = getStoredStaff();
+      const counts = {};
+      staff.forEach(s => {
+        counts[s.department] = (counts[s.department] || 0) + 1;
+      });
+
+      const depts = [
+        { name: "Operations", icon: "settings", color: "cyan" },
+        { name: "Customer Support", icon: "support_agent", color: "sky" },
+        { name: "Billing & Finance", icon: "payments", color: "emerald" },
+        { name: "Platform Engineering", icon: "terminal", color: "purple" },
+        { name: "Security & Compliance", icon: "verified_user", color: "rose" }
+      ];
+
+      container.innerHTML = depts.map(d => {
+        const count = counts[d.name] || 0;
+        const pct = Math.round((count / staff.length) * 100) || 0;
+        return `
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-slate-300 font-medium flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px] text-${d.color}-400">${d.icon}</span>
+                ${d.name}
+              </span>
+              <span class="text-slate-400 font-semibold">${count} staff <span class="text-slate-500 font-normal">(${pct}%)</span></span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-[#070b18]">
+              <div class="h-1.5 rounded-full bg-${d.color}-400" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ================= CUSTOMER ORGS =================
+    function updateCustomerCounts() {
+      const registered = JSON.parse(localStorage.getItem('brightloop_registered_customers') || '[]');
+      const totalCount = 1420 + registered.length;
+      const overviewCust = document.getElementById('overview-total-customers');
+      const badgeCust = document.getElementById('badge-customers-count');
+      if (overviewCust) overviewCust.textContent = totalCount.toLocaleString();
+      if (badgeCust) badgeCust.textContent = totalCount.toLocaleString();
+    }
+
+    function renderCustomerOrgs() {
+      const container = document.getElementById('customer-cards-grid');
+      if (!container) return;
+
+      const registered = JSON.parse(localStorage.getItem('brightloop_registered_customers') || '[]');
+      const dynamicOrgs = registered.map(r => ({
+        id: r.id || ("ORG-" + Math.floor(100 + Math.random() * 900)),
+        name: r.company || "Registered Client",
+        contact: r.name ? `${r.name} (Primary Contact)` : "Account Owner",
+        email: r.email,
+        plan: r.plan || "Standard Plan",
+        amount: "₹999 / mo",
+        cycle: "Monthly",
+        subscribers: "10 seats",
+        status: "Active",
+        health: "Active Tenant (On-time)"
+      }));
+
+      const allOrgs = [...dynamicOrgs, ...CUSTOMER_ORGS];
+
+      container.innerHTML = allOrgs.map(c => `
+        <div class="rounded-xl bg-[#0c1226]/85 border border-cyan-500/20 p-6 flex flex-col justify-between hover:border-cyan-400/40 transition-all">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-4">
+              <div>
+                <h3 class="font-headline-card text-headline-card text-white font-semibold">${c.name}</h3>
+                <p class="text-xs text-slate-400">${c.contact} • <span class="font-mono text-cyan-300">${c.email}</span></p>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${c.status === 'Active' ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-400/20' : 'bg-rose-500/15 text-rose-300 border border-rose-400/20'}">
+                ${c.status}
+              </span>
+            </div>
+
+            <div class="bg-[#070b18] p-3.5 rounded-xl border border-cyan-500/10 mb-4 flex flex-col gap-2 text-xs">
+              <div class="flex justify-between"><span class="text-slate-400">Subscription Plan:</span><strong class="text-white">${c.plan}</strong></div>
+              <div class="flex justify-between"><span class="text-slate-400">Recurring Rate:</span><span class="font-mono text-cyan-300">${c.amount} (${c.cycle})</span></div>
+              <div class="flex justify-between"><span class="text-slate-400">Enrolled Seats:</span><span class="text-slate-200">${c.subscribers}</span></div>
+              <div class="flex justify-between"><span class="text-slate-400">Standing:</span><span class="text-emerald-400 font-medium">${c.health}</span></div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-cyan-500/10 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500 font-mono">${c.id}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="showToast('Tenant profile inspected for ${c.name}', 'domain')" class="px-3 py-1.5 rounded-lg bg-[#141e42] hover:bg-[#1b2756] text-cyan-300 text-xs font-semibold">
+                Inspect Tenant
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ================= AUDIT LOGS =================
+    function renderAuditLogs() {
+      const container = document.getElementById('audit-log-container');
+      if (!container) return;
+
+      const audits = getStoredAudits();
+
+      container.innerHTML = audits.map(a => {
+        let levelColor = "cyan";
+        if (a.level === "WARNING") levelColor = "rose";
+        if (a.level === "SECURITY") levelColor = "purple";
+        if (a.level === "SUCCESS") levelColor = "emerald";
+
+        return `
+          <div class="rounded-xl bg-[#0c1226]/80 border border-cyan-500/15 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-cyan-400/30 transition-all">
+            <div class="flex items-start sm:items-center gap-3">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono uppercase bg-${levelColor}-500/15 text-${levelColor}-300 border border-${levelColor}-400/20 shrink-0">
+                ${a.level}
+              </span>
+              <div>
+                <p class="text-xs text-white font-medium">${a.action}</p>
+                <div class="flex items-center gap-2 text-[11px] text-slate-400 mt-0.5">
+                  <span class="text-cyan-300">${a.actor}</span>
+                  <span>•</span>
+                  <span>Target: <code class="text-slate-300">${a.target}</code></span>
+                  <span>•</span>
+                  <span class="font-mono">${a.ip}</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-500 sm:text-right shrink-0">
+              <div>${a.time}</div>
+              <div class="font-mono">${a.id}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderOverviewEvents() {
+      const container = document.getElementById('overview-recent-events');
+      if (!container) return;
+
+      const audits = getStoredAudits().slice(0, 4);
+
+      container.innerHTML = audits.map(a => `
+        <div class="flex items-center justify-between p-3 rounded-lg bg-[#070b18] border border-cyan-500/10 text-xs">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-cyan-400 text-[18px]">verified</span>
+            <div>
+              <span class="text-white font-medium">${a.action}</span>
+              <span class="text-slate-500 text-[11px] ml-2">by ${a.actor}</span>
+            </div>
+          </div>
+          <span class="text-slate-400 text-[11px] font-mono">${a.time}</span>
+        </div>
+      `).join('');
+    }
+
+    function clearAuditLogs() {
+      if (confirm('Clear local audit cache? (Cryptographic ledger remains secure on central server).')) {
+        localStorage.removeItem('brightloop_audit_logs');
+        renderAuditLogs();
+        renderOverviewEvents();
+        showToast('Audit cache refreshed.', 'refresh');
+      }
+    }
+
+    // ================= LOGOUT =================
+    function handleAdminLogout() {
+      if (confirm('Confirm sign-out from Brightloop Admin Console?')) {
+        showToast('Terminating privileged root session...', 'lock');
+        setTimeout(() => {
+          window.location.href = 'admin_login.html';
+        }, 600);
+      }
+    }
+
+    // Window Init
+    window.addEventListener('DOMContentLoaded', () => {
+      updateProductCounts();
+      updateStaffCounts();
+      updateCustomerCounts();
+      renderAdminProducts();
+      renderAllPlansMatrix();
+      renderOverviewProductsPreview();
+      renderStaffList();
+      renderDepartmentDistribution();
+      renderCustomerOrgs();
+      renderAuditLogs();
+      renderOverviewEvents();
+    });
+  </script>
+</body>
+</html>
